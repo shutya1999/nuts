@@ -120,7 +120,7 @@ class Cart extends Model
         }
 
         $qtyMinus = 0;
-        $priceMinus = 0;
+        $priceMinus = 1;
 
         foreach ($_SESSION['cart'][$id] as $key => $item) {
             if (isset($item['qty']) && $key == $volume) {
