@@ -10,7 +10,7 @@ if (filterCat.length !== 0){
         topPriceHidden = document.querySelector("#sortform-top_price");
 
     lowerPrice.addEventListener("input", function () {
-        console.log(lowerPrice.value);
+        //console.log(lowerPrice.value);
         lowerPriceHidden.value = lowerPrice.value;
     });
     topPrice.addEventListener("input", function () {
@@ -53,27 +53,32 @@ if (filterCat.length !== 0){
         })
     }
 
-
     function reloadCatalog(data) {
+        // console.log(data.keys());
         let catalogBlock = document.querySelector('.catalog-goods');
         catalogBlock.innerHTML = "";
         data.forEach(item => {
+            let options = JSON.parse(item.option);
+
             let product = document.createElement("div");
             product.className = 'product-cart';
             let productPhoto = `
-        <div class="product-cart__photo">
-            <img src="/img/product/${item.img}" alt="${item.title}">
-        </div>`;
+                <a href="/product/${item.url}" class="product-cart__photo">
+                    <img src="/img/product/${item.img}" alt="${item.title}">
+                </a>`;
 
-            let title = `<h3 class="product-cart__name">Макадамія в шкаралупі</h3>`;
+            let title = `<h3 class="product-cart__name">
+                <a href="/product/${item.url}">${item.title}</a>
+            </h3>`;
 
             let info = document.createElement("div");
-            info.className = 'product-cart__info dg';
+            info.className = 'product-cart__info dg form-price';
 
             let rating = `
-        <div class="product-cart__rating">
-            <span class="star-fill" style="width: calc((${item.rating} * 100 / 5) * 1%)"></span>
-        </div>`;
+                <div class="product-cart__rating">
+                    <span class="star-fill" style="width: calc((${item.rating} * 100 / 5) * 1%)"></span>
+                </div>`;
+
             let price;
             if (item.old_price !== 0){
                 price = `
@@ -85,16 +90,30 @@ if (filterCat.length !== 0){
             }else {
                 price = `<div class="product-cart__price"><p>${item.price}₴</p></div>`;
             }
+            let url = encodeURI("/cart/add?id=1&volume=200&qty=1");
             let buy = `
-            <div class="btn btn-orange product-cart__buy">
+            <a href="${url}" onclick="addToCart(this)" data-id="${item.id}" class="btn btn-orange product-cart__buy add-to-cart">
                 <p>Купити</p>
-            </div>`;
+            </a>`;
 
+            // let buy = document.createElement("a");
+            // buy.className = "btn btn-orange product-cart__buy add-to-cart";
+            // buy.href = `http://nuts-city-yii2/cart/add?id=1&volume%5Bquantity%5D=200&volume%5Bprice%5D=150&qty=1`;
+            // buy.innerHTML = '<p>Купити</p>';
+            // buy.setAttribute("onclick", "addToCart(this)");
+
+            // btnBuy.href = `/cart/add?id=${data.id}&volume=${data.volume}&volume-type=${data.volumeType}&qty=${data.qty}`;
+
+
+            // let buy = `
+            // <a href="/cart/add?id=${item.id}&qty=1&volume=200" onclick="addToCart(this)" data-id="${item.id}" class="btn btn-orange product-cart__buy add-to-cart">
+            //     <p>Купити</p>
+            // </a>`;
 
 
             info.insertAdjacentHTML('beforeend', rating);
             info.insertAdjacentHTML('beforeend', price);
-            info.insertAdjacentElement('beforeend', generateOption(JSON.parse(item.option)));
+            info.insertAdjacentElement('beforeend', generateOption(options));
             info.insertAdjacentHTML('beforeend', buy);
 
             product.insertAdjacentHTML('beforeend', productPhoto);
@@ -105,7 +124,6 @@ if (filterCat.length !== 0){
             catalogBlock.insertAdjacentElement('beforeend', product);
 
             function generateOption(optionData){
-
 
                 let optionBlock = document.createElement("div");
                 optionBlock.className = "product-cart__count";
@@ -121,23 +139,22 @@ if (filterCat.length !== 0){
                 let selectContent = document.createElement("div");
                 selectContent.className = "__select__content";
 
+                selectTitle.innerHTML = `${Object.keys(optionData)[0]}: ${optionData[Object.keys(optionData)[0]][0].quantity}` ;
+
                 for (let key in optionData) {
-                    if (key === 'grams'){
-                        selectTitle.innerHTML = 'Грам';
-                    } else if (key === 'kilogram'){
-                        selectTitle.innerHTML = 'Кілограм';
-                    } else if (key === 'amount'){
-                        selectTitle.innerHTML = 'Штук';
-                    }else if (key === 'liter') {
-                        selectTitle.innerHTML = 'Літер';
-                    }
-                    optionData[key].forEach(item => {
-                        let input = `<input id="singleSelect_${item}" class="__select__input" type="radio" name="singleSelect" value="${item}">`
-                        let label = `<label for="singleSelect_${item}" class="__select__label">${item}</label>`;
+                    let i = 0;
+                    optionData[key].forEach(val => {
+                        let input;
+                        if (i === 0){
+                            input = `<input id="singleSelect_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}" checked>`
+                        }else {
+                            input = `<input id="singleSelect_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}">`
+                        }
+                        let label = `<label for="singleSelect_${item.id}" class="__select__label">${Object.keys(optionData)[0]}: ${val.quantity}</label>`;
 
                         selectContent.insertAdjacentHTML('beforeend', input);
                         selectContent.insertAdjacentHTML('beforeend', label);
-                        console.log(item);
+                        i ++;
                     })
                 }
                 select.insertAdjacentElement('beforeend', selectTitle);
@@ -146,20 +163,12 @@ if (filterCat.length !== 0){
                 optionBlock.insertAdjacentElement('beforeend', select);
 
                 return optionBlock;
-
-                // optionData.forEach(item => {
-                //     console.log(item);
-                // })
-                // select.dataset.state
             }
-
         })
 
         pizda();
     }
 }
-
-
 
 const burger = document.querySelector(".burger");
 burger.addEventListener("click", ()=>{
@@ -560,7 +569,7 @@ filterTabs.forEach(tab => {
     tab.addEventListener("click", function () {
         if (tab.closest("._main")){
             const mainTab = document.querySelector(".filter-mob-content");
-            console.log(mainTab.clientHeight);
+            //console.log(mainTab.clientHeight);
             mainTab.classList.toggle("active");
         }
         tab.classList.toggle("active");
@@ -588,9 +597,8 @@ const cartHeader = document.querySelector(".header-cart");
 
 cartHeader.addEventListener("click", showCart);
 function showCart(e) {
-    // getCart();
     let cartContent = document.querySelector(".header-cart__content");
-    // console.log(this);
+    // console.log(e.target);
     if (e.target == this || e.target.closest(".header-cart__close")){
         cartContent.classList.toggle("active");
     }
@@ -614,13 +622,26 @@ getCart();
 
 
 // добавление товара в корзину
-$('.add-to-cart').on('click', function (e) {
-    e.preventDefault();
-    let id = $(this).data('id');
-
-    let qty = document.querySelector('#count').value;
-    let volumeInput = this.closest("#form-price").querySelectorAll(".__select__input");
+// function testFunc(tg, event) {
+//     event.preventDefault();
+//     console.log(tg);
+// }
+let btnBuy = document.querySelectorAll(".add-to-cart");
+function addToCart(btn){
+    event.preventDefault();
+    // e.preventDefault();
+    let id = btn.dataset.id;
+    let qty = 1;
     let volume;
+
+    if (document.querySelector('#count') != null){
+        qty = +document.querySelector('#count').value;
+    }
+
+    let volumeInput = btn.closest(".form-price").querySelectorAll(".__select__input");
+    // console.log(btn.closest(".form-price"));
+
+    // console.log(this.closest(".form-price").querySelectorAll(".__select__input"));
 
     volumeInput.forEach(input => {
         if (input.checked){
@@ -644,13 +665,21 @@ $('.add-to-cart').on('click', function (e) {
             console.log("Error");
         }
     })
-    // return false;
-});
+}
 
 function modalCart(res) {
     let cartContent = document.querySelector(".header-cart");
-    cartContent.innerHTML = res;
-    console.log(cartContent.querySelectorAll('.header-cart__item'));
+
+    // console.log(cartContent.querySelector(".active"));
+
+    if (cartContent.querySelector(".active")){
+        cartContent.innerHTML = res;
+        cartContent.querySelector(".header-cart__content").classList.add("active");
+    }else {
+        cartContent.innerHTML = res;
+    }
+
+
     if (cartContent.querySelectorAll('.header-cart__item').length > 4){
         cartContent.classList.add('_scroll');
     }else {
@@ -661,37 +690,59 @@ function modalCart(res) {
 // CART
 
 // PRICE PRODUCT
-function priceProduct(data) {
-    let price = document.querySelector('.goods-price');
-    let btnBuy = document.querySelector(".add-to-cart");
+function priceProduct(data, form) {
+    let price = form.querySelector('.goods-price');
+    let btnBuy = form.querySelector(".add-to-cart");
 
     price.innerHTML = `${data.price} ₴`;
-    // console.log(btnBuy.href);
     btnBuy.href = `/cart/add?id=${data.id}&volume=${data.volume}&volume-type=${data.volumeType}&qty=${data.qty}`;
-    // console.log(data);
 }
 
-let selectProductVolumeBtn = document.querySelectorAll(".__select__input");
+let selectProductVolumeBtn = document.querySelectorAll(".__select__label");
 selectProductVolumeBtn.forEach(item => {
-    item.addEventListener("input", ajaxPriceProduct);
+    item.addEventListener("click", ajaxPriceProduct);
 })
 
 // ОБНОВЛЕНИЕ ЦЕНЫ ТОВАРА ПРИ КЛИКЕ
-function ajaxPriceProduct() {
-    let form = $('#form-price');
-    let data = form.serialize();
+function ajaxPriceProduct(tg) {
+    let parent;
+    let volume;
+    if (tg.target){
+        parent = tg.target.closest('.form-price');
+        volume = tg.target.previousElementSibling.value;
+    } else {
+        parent = tg.closest('.form-price');
+
+        parent.querySelectorAll(".__select__input").forEach(item => {
+            if (item.checked){
+                volume = item.value;
+            }
+        })
+    }
+
+    let qty = 1;
+    let id = parent.dataset.id;
+
+    if (parent.querySelector(".count") !== null){
+        qty = +parent.querySelector(".count").value;
+    }
+
     $.ajax({
-        url: form.attr('action'),
-        type: 'POST',
-        data: data,
+        url: '/price/get-price',
+        type: 'GET',
+        data: {
+            id: id,
+            qty: qty,
+            volume: volume
+        },
         success: function(res){
-            priceProduct(res);
+            // console.log(res);
+            priceProduct(res, parent);
         },
         error: function(){
             alert('Error!');
         }
     });
-    return false;
 }
 
 // УДАЛЕНИЕ ТОВАРА С КОРЗИНЫ
@@ -716,7 +767,6 @@ function delProdInCart(id, volume) {
 }
 
 function changeCart(input, id, volume) {
-    // console.log(input.value);
     $.ajax({
         url: "/cart/change-cart",
         data: {
@@ -726,8 +776,6 @@ function changeCart(input, id, volume) {
         },
         type: "GET",
         success: function (res) {
-            // console.log(res);
-            // modalCart(res);
             location = '/cart/checkout';
         },
         error: function () {

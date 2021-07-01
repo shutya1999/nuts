@@ -26,145 +26,88 @@
 <div class="index-category indent">
     <div class="container">
         <div class="index-category__content dg">
-            <div class="index-category__item df">
-                <h2 class="cat-title">Подарункові набори</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat1.svg" alt="Nuts City Подарункові набори">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">Сертифікати</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat2.png" alt="Nuts City Сертифікати">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">ГорІшки</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat3.svg" alt="Nuts City ГорІшки">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">Сухофрукти</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat4.svg" alt="Nuts City Сухофрукти">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">Шоколад, пастила, халва, гранола</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat5.png" alt="Nuts City Шоколад, пастила, халва, гранола">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">Кава, напоЇ та Інше</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat6.png" alt="Nuts City Кава, напоЇ та Інше">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">Мед, крем-мед та бджолопродукти</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat7.png" alt="Nuts City Мед, крем-мед та бджолопродукти">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-            <div class="index-category__item df">
-                <h2 class="cat-title">НасІння, крупи та бобовІ</h2>
-                <div class="index-category__img">
-                    <img src="/img/index/cat8.png" alt="Nuts City НасІння, крупи та бобовІ">
-                </div>
-                <a href="" class="index-category__link df">
-                    <p>Переглянути</p>
-                    <div class="arrow"></div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<?php if (!empty($offers)) :?>
-
-<div class="hit-products">
-    <div class="container">
-        <h2 class="title">хіт-продукція</h2>
-        <div class="hit-products__wrap">
-
-            <div class="hit-products__pagin hit-products__prev"></div>
-            <div class="hit-products__pagin hit-products__next"></div>
-
-            <div class="hit-products__content swiper-container">
-                <div class="swiper-wrapper">
-                    <?php foreach ($offers as $offer) :?>
-                        <div class="swiper-slide product-cart">
-                        <div class="product-cart__photo">
-                            <?= \yii\helpers\Html::img("@web/img/product/{$offer->img}", ["alt" => $offer->title]) ?>
-                        </div>
-                        <h3 class="product-cart__name"><?= $offer->title ?></h3>
-                        <div class="product-cart__info dg">
-                            <div class="product-cart__rating">
-                                <span class="star-fill" style="width: calc((<?= $offer->rating ?> * 100 / 5) * 1%)"></span>
-                            </div>
-                            <div class="product-cart__price">
-                                <p>
-                                    <?= $offer->price ?>₴
-                                    <?php if ($offer->old_price) :?>
-                                        <span class="old-price"><?= $offer->old_price ?>₴</span>
-                                    <?php endif; ?>
-                                </p>
-                            </div>
-                            <form class="product-cart__count">
-                                <div class="__select" data-state="">
-                                    <?php $options =  json_decode($offer->option);?>
-                                    <div class="__select__title" data-default="Option 0"><?= key($options) ?>: <?= current($options)[0]->quantity ?></div>
-                                    <div class="__select__content">
-                                        <?php foreach (current($options) as $key => $option) :?>
-                                            <input id="singleSelect<?= $key ?>" class="__select__input" type="radio" name="singleSelect" value="<?= $option->quantity ?>" <?if ($key === 0) echo "checked"?> />
-                                            <label for="singleSelect<?= $key ?>" class="__select__label"><?= $option->quantity ?></label>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="btn btn-orange product-cart__buy">
-                                <p>Купити</p>
-                            </div>
-                        </div>
+            <?php foreach ($categories as $category) : ?>
+                <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category['id']]) ?>"
+                   class="index-category__item df">
+                    <h2 class="cat-title"><?= $category->name ?></h2>
+                    <div class="index-category__img">
+                        <?= \yii\helpers\Html::img("/img/index/{$category->img}", ["alt" => "Nuts City {$category->name}"]) ?>
                     </div>
-                    <?php endforeach; ?>
+                    <div class="index-category__link df">
+                        <p>Переглянути</p>
+                        <div class="arrow"></div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<?php if (!empty($offers)) : ?>
+    <div class="hit-products">
+        <div class="container">
+            <h2 class="title">хіт-продукція</h2>
+            <div class="hit-products__wrap">
+
+                <div class="hit-products__pagin hit-products__prev"></div>
+                <div class="hit-products__pagin hit-products__next"></div>
+
+                <div class="hit-products__content swiper-container">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($offers as $offer) : ?>
+                            <div class="swiper-slide product-cart">
+                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offer->url]) ?>"
+                                   class="product-cart__photo">
+                                    <?= \yii\helpers\Html::img("@web/img/product/{$offer->img}", ["alt" => $offer->title]) ?>
+                                </a>
+                                <h3 class="product-cart__name">
+                                    <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offer->url]) ?>"><?= $offer->title ?></a>
+                                </h3>
+                                <div class="product-cart__info dg form-price" data-id="<?= $offer->id ?>">
+                                    <div class="product-cart__rating">
+                                        <span class="star-fill"
+                                              style="width: calc((<?= $offer->rating ?> * 100 / 5) * 1%)"></span>
+                                    </div>
+                                    <div class="product-cart__price">
+                                        <p class="goods-price">
+                                            <?= $offer->price ?>₴
+                                            <?php if ($offer->old_price) : ?>
+                                                <span class="old-price"><?= $offer->old_price ?>₴</span>
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                    <div class="product-cart__count">
+                                        <div class="__select" data-state="">
+                                            <?php $options = json_decode($offer->option); ?>
+                                            <div class="__select__title" data-default="Option 0">
+                                                <?= key($options) ?>: <?= current($options)[0]->quantity ?>
+                                            </div>
+                                            <div class="__select__content">
+                                                <?php foreach (current($options) as $key => $option) : ?>
+                                                    <input id="singleSelect<?= $key ?>_<?= $offer->id ?>"
+                                                           class="__select__input" type="radio"
+                                                           name="volume_<?= $offer->id ?>"
+                                                           value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
+                                                    <label for="singleSelect<?= $key ?>_<?= $offer->id ?>"
+                                                           class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offer->id, 'volume' => current($options)[0], 'qty' => 1]) ?>"
+                                       data-id="<?= $offer->id ?>" onclick="addToCart(this)" class="btn btn-orange product-cart__buy add-to-cart">
+                                        <p>Купити</p>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
-<section class="about indent" id="about" >
+<section class="about indent" id="about">
     <div class="container">
         <div class="about-content">
             <h2 class="title">трІШКИ про <span class="_brown">NUTS CITY</span></h2>
@@ -340,7 +283,8 @@
                 <div class="user-review">
                     <p class="user-review__text">
                         В полном восторге! Очень презентабельный подарок 🎁 🤩 Орешки очень вкусные 🌰👍 Спасибо
-                        Вам огромное! И отдельно, за быструю коммуникацию , даже в позднее время суток , и оперативную отправку !
+                        Вам огромное! И отдельно, за быструю коммуникацию , даже в позднее время суток , и оперативную
+                        отправку !
                         Теперь только к Вам 🐿
                     </p>
                     <div class="user-review__photos df">
@@ -358,8 +302,8 @@
                 </div>
                 <div class="user-review">
                     <p class="user-review__text">
-                        Заказал впервые на подарок учителям на 8 марта  подарочный набор "Казка" .
-                        Очень красивое и презентабельное оформление  не говоря о том что содержимое
+                        Заказал впервые на подарок учителям на 8 марта подарочный набор "Казка" .
+                        Очень красивое и презентабельное оформление не говоря о том что содержимое
                         коробочки очень красивое, вкусное и полезное. Всё в восторге. Спасибо.
                     </p>
                 </div>

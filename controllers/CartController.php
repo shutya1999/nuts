@@ -30,7 +30,6 @@ class CartController extends AppController
         if (\Yii::$app->request->isAjax){
             return $this->renderPartial('cart-modal', compact('session'));
         }
-//        unset($_SESSION);
 
         return $this->redirect(\Yii::$app->request->referrer);
     }
@@ -75,6 +74,10 @@ class CartController extends AppController
         $session->open();
 
         return $this->render('checkout', compact('session'));
+    }
+
+    public function actionOrdering(){
+        return $this->render("ordering");
     }
 
 }

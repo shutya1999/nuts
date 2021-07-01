@@ -43,8 +43,6 @@ class Cart extends Model
 {
     public function addToCart($product, $volume, $qty){
 
-        $qty = ($qty == '-1') ? -1 : 1;
-
         $options = json_decode($product->option);
         foreach (current($options) as $key => $option){
             if ($option->quantity == $volume){

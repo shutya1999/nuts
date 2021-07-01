@@ -11,13 +11,16 @@ namespace app\models;
 
 use yii\base\Model;
 
-class EntryForm extends Model
+class PriceForm extends Model
 {
     public $qty;
     public $volume;
+    public $test;
 
     public function rules()
     {
-        return [[['qty','volume'], 'trim']];
+        return [
+            [['qty','volume', 'test'], 'required']
+        ];
     }
 }

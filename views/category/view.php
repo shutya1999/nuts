@@ -118,53 +118,53 @@ use yii\widgets\Pjax;
                 <?= $form->field($model, 'top_price', ['template' => "{input}",])->hiddenInput() ?>
 
                 <button class="my-btn">Send</button>
-<!--                --><?php //$this->registerJsFile('@web/js/general.js'); ?>
                 <?php ActiveForm::end() ?>
 
                 <div class="catalog-goods dg" id="reload-container">
                     <?php foreach ($products as $product) : ?>
                         <div class="product-cart">
-                            <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $product->url]) ?>" class="product-cart__photo">
-                                <?php $images = \yii\helpers\FileHelper::findFiles("img/product/{$product->url}"); ?>
-                                <?= \yii\helpers\Html::img("@web/$images[0]", ["alt" => $product->title]) ?>
-                                <?//= \yii\helpers\Html::img("@web/img/product/{$product->url}/", ["alt" => $product->title]) ?>
+                            <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $product->url]) ?>"
+                               class="product-cart__photo">
+                                <?= \yii\helpers\Html::img("@web/img/product/{$product->img}", ["alt" => $product->title]) ?>
                             </a>
-                            <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $product->url]) ?>" class="product-cart__name"><?= $product->title ?></a>
-                            <div class="product-cart__info dg">
+                            <h3 class="product-cart__name">
+                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $product->url]) ?>"><?= $product->title ?></a>
+                            </h3>
+                            <div class="product-cart__info dg form-price" data-id="<?= $product->id ?>">
                                 <div class="product-cart__rating">
-                                    <span class="star-fill"
-                                          style="width: calc((<?= $product->rating ?> * 100 / 5) * 1%)"></span>
+                                            <span class="star-fill"
+                                                  style="width: calc((<?= $product->rating ?> * 100 / 5) * 1%)"></span>
                                 </div>
                                 <div class="product-cart__price">
-                                    <p>
+                                    <p class="goods-price">
                                         <?= $product->price ?>₴
                                         <?php if ($product->old_price) : ?>
                                             <span class="old-price"><?= $product->old_price ?>₴</span>
                                         <?php endif; ?>
                                     </p>
                                 </div>
-                                <form class="product-cart__count">
+                                <div class="product-cart__count">
                                     <div class="__select" data-state="">
-                                        <?php
-                                        $options = json_decode($product->option);
-//                                        reset($options);
-                                        ?>
-                                        <div class="__select__title" data-default="Option 0"><?= key($options) ?>: <?= current($options)[0]->quantity ?></div>
-
+                                        <?php $options = json_decode($product->option); ?>
+                                        <div class="__select__title" data-default="Option 0">
+                                            <?= key($options) ?>: <?= current($options)[0]->quantity ?>
+                                        </div>
                                         <div class="__select__content">
                                             <?php foreach (current($options) as $key => $option) : ?>
-                                                <input id="singleSelect<?= $key ?>" class="__select__input" type="radio"
-                                                       name="singleSelect"
+                                                <input id="singleSelect<?= $key ?>_<?= $product->id ?>"
+                                                       class="__select__input" type="radio"
+                                                       name="volume_<?= $product->id ?>"
                                                        value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
-                                                <label for="singleSelect<?= $key ?>"
-                                                       class="__select__label"><?= $option->quantity ?></label>
+                                                <label for="singleSelect<?= $key ?>_<?= $product->id ?>"
+                                                       class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
-                                </form>
-                                <div class="btn btn-orange product-cart__buy">
-                                    <p>Купити</p>
                                 </div>
+                                <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id, 'volume' => current($options)[0], 'qty' => 1]) ?>"
+                                   data-id="<?= $product->id ?>" onclick="addToCart(this)" class="btn btn-orange product-cart__buy add-to-cart">
+                                    <p>Купити</p>
+                                </a>
                             </div>
                         </div>
                     <?php endforeach; ?>

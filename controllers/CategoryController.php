@@ -23,18 +23,12 @@ class CategoryController extends AppController
 
         $this->setMeta("{$category->name} - " . \Yii::$app->name, $category->keywords, $category->description);
 
-//        для пагинации
-//        $query = Product::find()->where(['category_id' => $id]);
-//        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
-//        $products = $query->offset($pages->offset)->limit($pages->limit)->all();
-
         $model = new SortForm();
 
         $model->load(\Yii::$app->request->post());
         if (\Yii::$app->request->isAjax){
             \Yii::$app->response->format = Response::FORMAT_JSON;
 
-//            if (\Yii::$app->request->isAjax) {
                 $lower_price = 0;
                 $top_price = 99999;
 
@@ -64,7 +58,6 @@ class CategoryController extends AppController
                     ->orderBy($this->sortType($model->sort))
                     ->all();
                     return $products;
-//            }
         }else{
             $products = Product::find()->where(['category_id' => $id])->all();
         }

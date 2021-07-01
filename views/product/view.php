@@ -42,65 +42,58 @@ $total_review = count($product->reviews);
         </div>
         <div class="goods-info">
             <h2 class="goods-name"><?= $product->title ?></h2>
-
-            <?php $form = \yii\widgets\ActiveForm::begin([
-                'options' => [
-                    'id' => "form-price",
-                ],
-            ]) ?>
-            <div class="goods-filters df">
-                <div class="goods-star">
-                    <div class="product-cart__rating">
-                        <span class="star-fill" style="width: calc((<?= $product->rating ?> * 100 / 5) * 1%)"></span>
+            <div class="form-price" data-id="<?= $product->id ?>">
+                <div class="goods-filters df">
+                    <div class="goods-star">
+                        <div class="product-cart__rating">
+                            <span class="star-fill" style="width: calc((<?= $product->rating ?> * 100 / 5) * 1%)"></span>
+                        </div>
+                        <p class="review-number">
+                            <?= count($product->reviews) ?>
+                            <?php if ($total_review == 1 || $total_review == 21 || $total_review == 31) {?>
+                                відкук
+                            <?php }elseif ($total_review == 2 || $total_review == 3 || $total_review == 4 || $total_review >= 22 && $total_review <= 24) {?>
+                                відгуки
+                            <?php }elseif ($total_review == 0 || $total_review >= 5 && $total_review <= 20 || $total_review >= 25 && $total_review <= 30) {?>
+                                відгуків
+                            <?php } else{?>
+                                відкуки
+                            <?php } ?>
+                        </p>
                     </div>
-                    <p class="review-number">
-                        <?= count($product->reviews) ?>
-                        <?php if ($total_review == 1 || $total_review == 21 || $total_review == 31) {?>
-                            відкук
-                        <?php }elseif ($total_review == 2 || $total_review == 3 || $total_review == 4 || $total_review >= 22 && $total_review <= 24) {?>
-                            відгуки
-                        <?php }elseif ($total_review == 0 || $total_review >= 5 && $total_review <= 20 || $total_review >= 25 && $total_review <= 30) {?>
-                            відгуків
-                        <?php } else{?>
-                            відкуки
-                        <?php } ?>
-                    </p>
-                </div>
-                <div class="goods-select product-cart__count">
-                    <div class="__select" data-state="">
-                        <?php
-                        $options = json_decode($product->option);
-                        ?>
-                        <div class="__select__title" data-default="Option 0"><?= key($price) ?>: <?= current($price)->quantity ?></div>
-                        <div class="__select__content">
-                            <?php foreach (current($options) as $key => $option) : ?>
-                                <input id="singleSelect<?= $key ?>" class="__select__input" type="radio"
-                                       name="EntryForm[volume]"
-                                       value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
-                                <label for="singleSelect<?= $key ?>"
-                                       class="__select__label"><?= $option->quantity ?></label>
-                            <?php endforeach; ?>
+                    <div class="goods-select product-cart__count">
+                        <div class="__select" data-state="">
+                            <?php
+                            $options = json_decode($product->option);
+                            ?>
+                            <div class="__select__title" data-default="Option 0"><?= key($price) ?>: <?= current($price)->quantity ?></div>
+                            <div class="__select__content">
+                                <?php foreach (current($options) as $key => $option) : ?>
+                                    <input id="singleSelect<?= $key ?>" class="__select__input" type="radio"
+                                           name="volume"
+                                           value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
+                                    <label for="singleSelect<?= $key ?>"
+                                           class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
+                    <p class="goods-price"><?= current($price)->price ?> ₴</p>
                 </div>
-                <p class="goods-price"><?= current($price)->price ?> ₴</p>
-            </div>
-            <div class="goods-filters df">
-                <div class="goods-counter">
-                    <?= $form->field($model, 'qty', ['template' => "{label} \n {input}"])
-                        ->textInput(['placeholder' => "1", 'type' => 'number', 'value' => '1', 'id' => 'count', "class" => 'count'])
-                        ->label('Кількість:'); ?>
-                    <span class="btn-counter _plus" onclick="increaseNumber(count); ajaxPriceProduct();"></span>
-                    <span class="btn-counter _minus" onclick="reduceNumber(count); ajaxPriceProduct();"></span>
+                <div class="goods-filters df">
+                    <div class="goods-counter">
+                        <label for="count">Кількість:</label>
+                        <input type="number" class="count" id="count" placeholder="1" value="1">
+                        <span class="btn-counter _plus" onclick="increaseNumber(count); ajaxPriceProduct(this);"></span>
+                        <span class="btn-counter _minus" onclick="reduceNumber(count); ajaxPriceProduct(this);"></span>
+                    </div>
+                    <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id, 'volume' => current($options)[0], 'qty' => 1])?>" onclick="addToCart(this)" data-id="<?= $product->id ?>" class="btn btn-orange btn-goods add-to-cart">
+                        <p>Купити</p>
+                    </a>
                 </div>
-                <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id, 'volume' => current($options)[0], 'qty' => 1])?>" data-id="<?= $product->id ?>" data-volume="2" data-qty="1" data-volume-type="<?= key($options) ?>" class="btn btn-orange btn-goods add-to-cart">
-                    <p>Купити</p>
-                </a>
             </div>
 
-
-<!--            <button>Send</button>-->
-            <?php \yii\widgets\ActiveForm::end() ?>
+<!--            --><?php //\yii\widgets\ActiveForm::end() ?>
 
             <p class="text-goods">
                 Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
