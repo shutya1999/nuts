@@ -549,17 +549,64 @@ pizda();
 
 //DELIVERY RADIO
 let radioDelivery = document.querySelectorAll(".type-delivery__radio"),
-    deliveryBlock = document.querySelectorAll(".type-delivery__block");
+    deliveryBlock = document.querySelector(".type-delivery__block_wrap");
 
 if (radioDelivery !== null){
+    let np = `
+        <div class="type-delivery__block novaposhta-wrap active" data-delivery="Нова Пошта">
+            <div class="search-city">
+                <input type="text" class="form-fields city-name" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
+                <ul class="delivery-list city-list hide"></ul>
+            </div>
+            <div class="search-department">
+                <input type="text" class="form-fields department-input" name="Order[department_np]" placeholder="Введіть номер відділення*" >
+                <ul class="delivery-list department-list hide"></ul>
+            </div>
+        </div>
+    `;
+    let ukr = `
+        <div class="type-delivery__block ukrposhta-wrap" data-delivery="Укрпошта">
+            <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
+            <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >
+            <input type="number" class="form-fields" name="Order[index_ukr]" placeholder="Поштовий індекс*" >
+        </div>
+    `;
+    let courier = `
+        <div class="type-delivery__block courier-wrap" data-delivery="Кур’єрська доставка">
+            <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
+            <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >
+            <input type="number" class="form-fields" name="Order[house_number]" placeholder="Будинок*" >
+            <input type="number" class="form-fields" name="Order[apartment_number]" placeholder="Квартира*" >
+        </div>
+    `;
+
     radioDelivery.forEach(radio => {
         radio.addEventListener("input", function () {
-            deliveryBlock.forEach(block => {
-                block.classList.remove("active");
-                if (radio.value === block.dataset.delivery){
-                    block.classList.add("active");
-                }
-            })
+            // console.log(radio.dataset.delivery);
+            switch (radio.dataset.delivery){
+                case "novaposhta":
+                    deliveryBlock.innerHTML = np;
+                    break;
+                case "ukrposhta":
+                    deliveryBlock.innerHTML = ukr;
+                    break;
+                case "courier":
+                    deliveryBlock.innerHTML = courier;
+                    break;
+                default:
+                    deliveryBlock.innerHTML = "";
+                    break;
+            }
+
+            // if (radio.dataset.delivery == )
+            // deliveryBlock.forEach(block => {
+                // conso
+                // block.classList.remove("active");
+                // block.remove();
+                // if (radio.value === block.dataset.delivery){
+                //     block.classList.add("active");
+                // }
+            // })
         })
     })
 }

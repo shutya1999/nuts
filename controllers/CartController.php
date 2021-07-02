@@ -10,6 +10,8 @@ namespace app\controllers;
 
 
 use app\models\Cart;
+use app\models\Order;
+use app\models\OrderProduct;
 use app\models\Product;
 
 class CartController extends AppController
@@ -77,7 +79,36 @@ class CartController extends AppController
     }
 
     public function actionOrdering(){
-        return $this->render("ordering");
+        $this->setMeta("Оформлення замовлення");
+        $session = \Yii::$app->session;
+
+        $order = new Order();
+        $order_product = new OrderProduct();
+
+        if ($order->load(\Yii::$app->request->post())){
+
+//            debug($order);
+            $order->qty = $session['cart.qty'];
+            $order->total = $session['cart.sum'];
+
+            $transaction = \Yii::$app->getDb()->beginTransaction();
+
+            if (!$order->save() || !$order_product->saveOrderProducts($session['cart'], $order->id)){
+                \Yii::$app->session->setFlash("error", "Помилка оформлення заовлення");
+                $transaction->rollBack();
+            }
+            else{
+                $transaction->commit();
+                \Yii::$app->session->setFlash("success", "Ваше замовлення прийнято");
+                $session->remove('cart');
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+
+                return $this->refresh();
+            }
+        }
+
+        return $this->render("ordering", compact('session', 'order'));
     }
 
 }

@@ -40,7 +40,7 @@
                     <p>до сплати:</p>
                     <span><?= $_SESSION['cart.sum'] ?? '0'?> грн</span>
                 </div>
-                <a href="" class="btn btn-orange btn-to-order">Оформити замовлення</a>
+                <a href="/cart/ordering" class="btn btn-orange btn-to-order">Оформити замовлення</a>
                 <a href="/cart/checkout" class="view-cart">Переглянути кошик</a>
             </div>
         </div>

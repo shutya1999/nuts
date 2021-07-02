@@ -2026,7 +2026,6 @@ a {
 }
 
 .form-fields:-webkit-autofill {
-  background: red;
   -webkit-box-shadow: 0 0 0 30px #FEF8F4 inset !important;
 }
 
@@ -3411,6 +3410,7 @@ a {
 .mo-content {
   padding: 40px 30px 80px 30px;
   background: white;
+  grid-gap: 20px 0;
 }
 
 .mo-item__title {
@@ -3434,6 +3434,7 @@ a {
 
 .mo-item .form-fields {
   max-width: 240px;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 .mo-item._contact-details ._form {
@@ -3527,6 +3528,35 @@ a {
   width: 100%;
 }
 
+.mo-item__wrap .form-group.has-error input {
+  border-color: red;
+}
+
+.mo-item__wrap .form-group.has-error input::-webkit-input-placeholder {
+  color: red;
+}
+
+.mo-item__wrap .form-group.has-error input::-moz-placeholder {
+  color: red;
+}
+
+.mo-item__wrap .form-group.has-error input:-ms-input-placeholder {
+  color: red;
+}
+
+.mo-item__wrap .form-group.has-error input::-ms-input-placeholder {
+  color: red;
+}
+
+.mo-item__wrap .form-group.has-error input::placeholder {
+  color: red;
+}
+
+.mo-item__wrap .form-group.has-error .help-block {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
 .mo-line {
   width: 100%;
   height: 1px;
@@ -3563,14 +3593,6 @@ a {
 .courier-wrap .form-fields:last-child {
   grid-row: 3;
   grid-column: 2 / 3;
-}
-
-.type-delivery__block {
-  display: none;
-}
-
-.type-delivery__block.active {
-  display: grid;
 }
 
 @media screen and (max-width: 1200px) {
