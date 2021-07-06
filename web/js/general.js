@@ -597,8 +597,8 @@ if (deliveryBlock !== null){
         <div class="type-delivery__block courier-wrap" data-delivery="Кур’єрська доставка">
             <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
             <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >
-            <input type="number" class="form-fields" name="Order[house_number]" placeholder="Будинок*" >
-            <input type="number" class="form-fields" name="Order[apartment_number]" placeholder="Квартира*" >
+            <input type="text" class="form-fields" name="Order[house_number]" placeholder="Будинок*" >
+            <input type="text" class="form-fields" name="Order[apartment_number]" placeholder="Квартира*" >
         </div>
     `;
 

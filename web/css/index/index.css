@@ -915,7 +915,7 @@ a {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 2;
+  z-index: 4;
 }
 
 .goods-in-cart span {
@@ -950,7 +950,7 @@ a {
   cursor: auto;
   overflow: visible;
   max-height: 450px;
-  z-index: 1;
+  z-index: 3;
   padding: 10px;
 }
 
@@ -1590,6 +1590,11 @@ a {
 
 .home:hover {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='20' height='17' viewBox='0 0 20 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 17V11H12V17H17V9H20L10 0L0 9H3V17H8Z' fill='%23FFC76C'/%3E%3C/svg%3E");
+}
+
+.sorting-select {
+  position: relative;
+  z-index: 3;
 }
 
 .goods-counter {

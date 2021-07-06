@@ -98,8 +98,33 @@ class CartController extends AppController
                 $transaction->rollBack();
             }
             else{
+//                debug($order->name);
                 $transaction->commit();
                 \Yii::$app->session->setFlash("success", "Ваше замовлення прийнято");
+
+                if ($order->payment_type === "Оплата при отриманні"){
+                    try{
+                        \Yii::$app->mailer->compose('order-admin', [
+                            'session' => $session,
+                            'order'   => $order])
+                            ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName']])
+                            ->setTo(\Yii::$app->params['adminEmail'])
+                            ->setSubject("Замовлення #{$order->id}")
+                            ->send();
+
+                        \Yii::$app->mailer->compose('order-user', ['session' => $session])
+                            ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName']])
+                            ->setTo($order->email)
+                            ->setSubject('Замовлення на сайті Nuts City')
+                            ->send();
+                    }catch (\Swift_TransportException $e){
+                        //var_dump($e); die;
+                    }
+                }else{
+
+                }
+
+
                 $session->remove('cart');
                 $session->remove('cart.qty');
                 $session->remove('cart.sum');

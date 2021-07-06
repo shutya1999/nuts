@@ -180,9 +180,3 @@ use yii\widgets\ActiveForm;
 $this->registerJsVar('products', $products);//Передаем продукцию в js
 ?>
 
-<?php
-$this->registerJsFile(
-    '@web/js/pagination.js',
-    ['depends' => [\yii\web\JqueryAsset::class]]
-);
-?>
