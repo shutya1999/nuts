@@ -26,19 +26,19 @@
 <div class="index-category indent">
     <div class="container">
         <div class="index-category__content dg">
-            <?php foreach ($categories as $category) : ?>
-                <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category['id']]) ?>"
-                   class="index-category__item df">
-                    <h2 class="cat-title"><?= $category->name ?></h2>
+            <?php for ($i = 0; $i < count($categories); $i++) : ?>
+                <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $categories[$i]['id']]) ?>"
+                   class="index-category__item df" data-aos="zoom-in" data-aos-delay="<?= $i * 100 ?>" data-aos-once="true">
+                    <h2 class="cat-title"><?= $categories[$i]->name ?></h2>
                     <div class="index-category__img">
-                        <?= \yii\helpers\Html::img("/img/index/{$category->img}", ["alt" => "Nuts City {$category->name}"]) ?>
+                        <?= \yii\helpers\Html::img("/img/index/{$categories[$i]->img}", ["alt" => "Nuts City {$categories[$i]->name}"]) ?>
                     </div>
                     <div class="index-category__link df">
                         <p>Переглянути</p>
                         <div class="arrow"></div>
                     </div>
                 </a>
-            <?php endforeach; ?>
+            <?php endfor; ?>
         </div>
     </div>
 </div>
@@ -53,53 +53,53 @@
 
                 <div class="hit-products__content swiper-container">
                     <div class="swiper-wrapper">
-                        <?php foreach ($offers as $offer) : ?>
-                            <div class="swiper-slide product-cart">
-                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offer->url]) ?>"
+                        <?php for($i = 0; $i < count($offers); $i++) : ?>
+                            <div class="swiper-slide product-cart" data-aos="fade-up" data-aos-delay="<?= $i * 100 ?>" data-aos-once="true">
+                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>"
                                    class="product-cart__photo">
-                                    <?= \yii\helpers\Html::img("@web/img/product/{$offer->img}", ["alt" => $offer->title]) ?>
+                                    <?= \yii\helpers\Html::img("@web/img/product/{$offers[$i]->img}", ["alt" => $offers[$i]->title]) ?>
                                 </a>
                                 <h3 class="product-cart__name">
-                                    <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offer->url]) ?>"><?= $offer->title ?></a>
+                                    <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>"><?= $offers[$i]->title ?></a>
                                 </h3>
-                                <div class="product-cart__info dg form-price" data-id="<?= $offer->id ?>">
+                                <div class="product-cart__info dg form-price" data-id="<?= $offers[$i]->id ?>">
                                     <div class="product-cart__rating">
                                         <span class="star-fill"
-                                              style="width: calc((<?= $offer->rating ?> * 100 / 5) * 1%)"></span>
+                                              style="width: calc((<?= $offers[$i]->rating ?> * 100 / 5) * 1%)"></span>
                                     </div>
                                     <div class="product-cart__price">
                                         <p class="goods-price">
-                                            <?= $offer->price ?>₴
-                                            <?php if ($offer->old_price) : ?>
-                                                <span class="old-price"><?= $offer->old_price ?>₴</span>
+                                            <?= $offers[$i]->price ?>₴
+                                            <?php if ($offers[$i]->old_price) : ?>
+                                                <span class="old-price"><?= $offers[$i]->old_price ?>₴</span>
                                             <?php endif; ?>
                                         </p>
                                     </div>
                                     <div class="product-cart__count">
                                         <div class="__select" data-state="">
-                                            <?php $options = json_decode($offer->option); ?>
-                                            <div class="__select__title" data-default="Option 0">
+                                            <?php $options = json_decode($offers[$i]->option); ?>
+                                            <div class="__select__title" data-default="Option 0" onclick="showSelect(this);">
                                                 <?= key($options) ?>: <?= current($options)[0]->quantity ?>
                                             </div>
                                             <div class="__select__content">
                                                 <?php foreach (current($options) as $key => $option) : ?>
-                                                    <input id="singleSelect<?= $key ?>_<?= $offer->id ?>"
+                                                    <input id="singleSelect<?= $key ?>_<?= $offers[$i]->id ?>"
                                                            class="__select__input" type="radio"
-                                                           name="volume_<?= $offer->id ?>"
+                                                           name="volume_<?= $offers[$i]->id ?>"
                                                            value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
-                                                    <label for="singleSelect<?= $key ?>_<?= $offer->id ?>"
+                                                    <label for="singleSelect<?= $key ?>_<?= $offers[$i]->id ?>"
                                                            class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offer->id, 'volume' => current($options)[0], 'qty' => 1]) ?>"
-                                       data-id="<?= $offer->id ?>" onclick="addToCart(this)" class="btn btn-orange product-cart__buy add-to-cart">
+                                    <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offers[$i]->id, 'volume' => current($options)[0], 'qty' => 1]) ?>"
+                                       data-id="<?= $offers[$i]->id ?>" onclick="addToCart(this)" class="btn btn-orange product-cart__buy add-to-cart">
                                         <p>Купити</p>
                                     </a>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endfor; ?>
                     </div>
                 </div>
             </div>

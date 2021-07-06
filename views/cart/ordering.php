@@ -9,13 +9,14 @@ use yii\base\Widget;
         <h2 class="title mo-title">Оформлення замовлення</h2>
         <?php $form = \yii\widgets\ActiveForm::begin([
             'options' => [
-                'class' => 'mo-content dg'
+                'class' => 'mo-content dg',
+                'onsubmit' => 'return false;',
             ]
         ])?>
         <div class="mo-item _contact-details">
             <p class="mo-item__title">Контактні данні</p>
             <div class="mo-item__wrap _form">
-                <?= $form->field($order, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Ваше ім’я*'])->label("Jopa") ?>
+                <?= $form->field($order, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Ваше ім’я*'])?>
                 <?= $form->field($order, 'last_name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Ваше прізвище*']) ?>
                 <?= $form->field($order, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '38(___) ___ __ __*']) ?>
                 <?= $form->field($order, 'email', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваш email*']) ?>
@@ -51,25 +52,14 @@ use yii\base\Widget;
             <div class="mo-item__wrap type-delivery__block_wrap">
                 <div class="type-delivery__block novaposhta-wrap active" data-delivery="Нова Пошта">
                     <div class="search-city">
-                        <input type="text" class="form-fields city-name" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
+                        <input type="text" class="form-fields city-name" name="Order[city]" data-ref="" placeholder="Введіть місто*" autocomplete="no">
                         <ul class="delivery-list city-list hide"></ul>
                     </div>
                     <div class="search-department">
-                        <input type="text" class="form-fields department-input" name="Order[department_np]" placeholder="Введіть номер відділення*" >
+                        <input type="text" class="form-fields department-input" name="Order[department_np]" placeholder="Введіть номер відділення*" autocomplete="no">
                         <ul class="delivery-list department-list hide"></ul>
                     </div>
                 </div>
-<!--                <div class="type-delivery__block ukrposhta-wrap" data-delivery="Укрпошта">-->
-<!--                    <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >-->
-<!--                    <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >-->
-<!--                    <input type="number" class="form-fields" name="Order[index_ukr]" placeholder="Поштовий індекс*" >-->
-<!--                </div>-->
-<!--                <div class="type-delivery__block courier-wrap" data-delivery="Кур’єрська доставка">-->
-<!--                    <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >-->
-<!--                    <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >-->
-<!--                    <input type="number" class="form-fields" name="Order[house_number]" placeholder="Будинок*" >-->
-<!--                    <input type="number" class="form-fields" name="Order[apartment_number]" placeholder="Квартира*" >-->
-<!--                </div>-->
             </div>
         </div>
         <div class="mo-item _payment">

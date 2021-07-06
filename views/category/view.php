@@ -1,13 +1,7 @@
 <?php
 $this->registerCssFile('@web/css/catalog/catalog.css');
-
 use yii\widgets\ActiveForm;
-use yii\helpers\BaseHtml;
-use yii\helpers\Html;
-use yii\widgets\Pjax;
-
 ?>
-
 
 <div class="catalog indent">
     <div class="container">
@@ -90,7 +84,7 @@ use yii\widgets\Pjax;
                     </div>
                     <form class="sorting-select">
                         <div class="__select" data-state="">
-                            <div class="__select__title" data-default="Option 0">Популярні</div>
+                            <div class="__select__title" data-default="Option 0" onclick="showSelect(this);">Популярні</div>
                             <div class="__select__content">
                                 <input id="popular" class="__select__input" type="radio" name="sorting-select" value="popular"  checked />
                                 <label for="popular" class="__select__label">Популярні</label>
@@ -122,7 +116,7 @@ use yii\widgets\Pjax;
 
                 <div class="catalog-goods dg" id="reload-container">
                     <?php foreach ($products as $product) : ?>
-                        <div class="product-cart">
+                        <div class="product-cart" data-aos="zoom-in">
                             <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $product->url]) ?>"
                                class="product-cart__photo">
                                 <?= \yii\helpers\Html::img("@web/img/product/{$product->img}", ["alt" => $product->title]) ?>
@@ -146,7 +140,7 @@ use yii\widgets\Pjax;
                                 <div class="product-cart__count">
                                     <div class="__select" data-state="">
                                         <?php $options = json_decode($product->option); ?>
-                                        <div class="__select__title" data-default="Option 0">
+                                        <div class="__select__title" data-default="Option 0" onclick="showSelect(this);">
                                             <?= key($options) ?>: <?= current($options)[0]->quantity ?>
                                         </div>
                                         <div class="__select__content">
@@ -169,32 +163,26 @@ use yii\widgets\Pjax;
                         </div>
                     <?php endforeach; ?>
                 </div>
+
+                <ul class="pagination">
+                    <li class="pagin-arrow pagin-prev"><span></span></li>
+
+                    <div class="pagin-page__wrap df"></div>
+
+                    <li class="pagin-arrow pagin-next"><span></span></li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
 <?php
-$js = <<<JS
-var form = $('#form-filter');
-form.on('beforeSubmit', function(){
-    var data = form.serialize();
-    $.ajax({
-        url: form.attr('action'),
-        type: 'POST',
-        data: data,
-        success: function(res){
-            reloadCatalog(res)
-            // form[0].reset();
-        },
-        error: function(){
-            alert('Error!');
-        }
-    });
-    return false;
-});
-JS;
+$this->registerJsVar('products', $products);//Передаем продукцию в js
+?>
 
-$this->registerJs($js);
-
+<?php
+$this->registerJsFile(
+    '@web/js/pagination.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
 ?>

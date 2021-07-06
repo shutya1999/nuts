@@ -24,8 +24,6 @@ class OrderProduct extends ActiveRecord
 
     public function saveOrderProducts($products, $order_id){
 
-//        debug($order_id);
-
         foreach ($products as $id => $product) {
 
             $this->id = null;
@@ -33,7 +31,6 @@ class OrderProduct extends ActiveRecord
 
             foreach ($product as $item) {
                 if (isset($item['qty'])){
-//                    debug($item);
 
                     $this->order_id = $order_id;
                     $this->product_id = $id;

@@ -55,8 +55,6 @@ class Order extends ActiveRecord
             'email' => 'E-mail',
             'phone' => 'Телефон',
             'last_name' => 'Прізвище',
-//            'address' => 'Адрес',
-//            'note' => 'Примечание',
         ];
     }
 

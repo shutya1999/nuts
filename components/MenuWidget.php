@@ -35,16 +35,16 @@ class MenuWidget extends Widget
 
         $this->menuHtml = "
             <ul class='nav df'>
-                <li class=\"nav-list sub\">
-                    <a href=\"catalog.php\" class=\"nav-link\">Каталог товарів</a>
+                <li class='nav-list sub'>
+                    <a href='/category' class='nav-link'>Каталог товарів</a>
                     <ul class='" . $this->ul_class ."'>";
                         $this->menuHtml .= $this->getMenuHtml($this->data);
                     $this->menuHtml .= "
                     </ul>
                 </li>
-                <li class=\"nav-list\"><a href=\"#review\" class=\"nav-link\">Відгуки</a></li>
-                <li class=\"nav-list\"><a href=\"#delivery\" class=\"nav-link\">Доставка і оплата</a></li>
-                <li class=\"nav-list\"><a href=\"#contacts\" class=\"nav-link\">Контакти</a></li>
+                <li class='nav-list'><a href='/#review' class='nav-link'>Відгуки</a></li>
+                <li class='nav-list'><a href='/#delivery' class='nav-link'>Доставка і оплата</a></li>
+                <li class='nav-list'><a href='/#contacts' class='nav-link'>Контакти</a></li>
             </ul>
             ";
 

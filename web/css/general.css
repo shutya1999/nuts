@@ -2024,7 +2024,6 @@ a {
 }
 
 .form-fields:-webkit-autofill {
-  background: red;
   -webkit-box-shadow: 0 0 0 30px #FEF8F4 inset !important;
 }
 
@@ -2246,6 +2245,59 @@ a {
 .search-btn:hover {
   background: rgba(0, 0, 0, 0);
   color: #6F4027;
+}
+
+.form-group.has-error input, .form-group.has-error textarea {
+  border-color: red;
+}
+
+.form-group.has-error input::-webkit-input-placeholder, .form-group.has-error textarea::-webkit-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-moz-placeholder, .form-group.has-error textarea::-moz-placeholder {
+  color: red;
+}
+
+.form-group.has-error input:-ms-input-placeholder, .form-group.has-error textarea:-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-ms-input-placeholder, .form-group.has-error textarea::-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::placeholder, .form-group.has-error textarea::placeholder {
+  color: red;
+}
+
+.form-group.has-error .help-block {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.invalid::-webkit-input-placeholder {
+  color: red;
+}
+
+.invalid::-moz-placeholder {
+  color: red;
+}
+
+.invalid:-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::placeholder {
+  color: red;
 }
 
 @media screen and (max-width: 1200px) {

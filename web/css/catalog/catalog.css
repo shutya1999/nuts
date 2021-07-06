@@ -377,7 +377,7 @@ template {
   font-weight: 400;
 }
 
-.title, .nav-link, .header-phone a, .cart-text, .header-cart__discount p, .header-cart__discount span, .header-cart__total-price p, .header-cart__total-price span, .hidden-menu a, .hidden-menu__top a, .__select__title, .__select__input:checked + label, .__select__label, .filter-checkbox + label, .goods-counter input, .goods-counter input::placeholder, .product-cart__name, .product-cart__price p, .filter-title, .price-range p, .form-fields__price, .form-fields__price::placeholder, .filter-mob-tab p, .pagin-page a {
+.title, .nav-link, .header-phone a, .cart-text, .header-cart__discount p, .header-cart__discount span, .header-cart__total-price p, .header-cart__total-price span, .hidden-menu a, .hidden-menu__top a, .__select__title, .__select__input:checked + label, .__select__label, .filter-checkbox + label, .goods-counter input, .goods-counter input::placeholder, .product-cart__name, .product-cart__price p, .filter-title, .price-range p, .form-fields__price, .form-fields__price::placeholder, .filter-mob-tab p, .pagin-page span {
   font-family: "BebasNeue", sans-serif;
   font-style: normal;
   line-height: 100%;
@@ -2024,7 +2024,6 @@ a {
 }
 
 .form-fields:-webkit-autofill {
-  background: red;
   -webkit-box-shadow: 0 0 0 30px #FEF8F4 inset !important;
 }
 
@@ -2246,6 +2245,59 @@ a {
 .search-btn:hover {
   background: rgba(0, 0, 0, 0);
   color: #6F4027;
+}
+
+.form-group.has-error input, .form-group.has-error textarea {
+  border-color: red;
+}
+
+.form-group.has-error input::-webkit-input-placeholder, .form-group.has-error textarea::-webkit-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-moz-placeholder, .form-group.has-error textarea::-moz-placeholder {
+  color: red;
+}
+
+.form-group.has-error input:-ms-input-placeholder, .form-group.has-error textarea:-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-ms-input-placeholder, .form-group.has-error textarea::-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::placeholder, .form-group.has-error textarea::placeholder {
+  color: red;
+}
+
+.form-group.has-error .help-block {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.invalid::-webkit-input-placeholder {
+  color: red;
+}
+
+.invalid::-moz-placeholder {
+  color: red;
+}
+
+.invalid:-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::placeholder {
+  color: red;
 }
 
 @media screen and (max-width: 1200px) {
@@ -2758,6 +2810,7 @@ a {
   -o-transition: all .2s;
   transition: all .2s;
   margin: 0 5px;
+  cursor: pointer;
 }
 
 .pagin-page:first-child {
@@ -2768,7 +2821,7 @@ a {
   margin-right: 0;
 }
 
-.pagin-page a {
+.pagin-page span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2803,7 +2856,7 @@ a {
   background: #6F4027;
 }
 
-.pagin-page:hover a, .pagin-page.active a {
+.pagin-page:hover span, .pagin-page.active span {
   color: #FEF8F4;
 }
 
@@ -2853,6 +2906,10 @@ a {
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
+}
+
+.hidden-form {
+  display: none;
 }
 
 @media screen and (max-width: 1023px) {

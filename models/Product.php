@@ -13,8 +13,7 @@ use yii\db\ActiveRecord;
 
 class Product extends ActiveRecord
 {
-    public static function tableName()
-    {
+    public static function tableName(){
         return "product";
     }
 
@@ -24,4 +23,5 @@ class Product extends ActiveRecord
     public function getReviews(){
         return $this->hasMany(Reviews::class, ['product_id' => 'id']);
     }
+
 }

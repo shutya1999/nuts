@@ -2249,6 +2249,59 @@ a {
   color: #6F4027;
 }
 
+.form-group.has-error input, .form-group.has-error textarea {
+  border-color: red;
+}
+
+.form-group.has-error input::-webkit-input-placeholder, .form-group.has-error textarea::-webkit-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-moz-placeholder, .form-group.has-error textarea::-moz-placeholder {
+  color: red;
+}
+
+.form-group.has-error input:-ms-input-placeholder, .form-group.has-error textarea:-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::-ms-input-placeholder, .form-group.has-error textarea::-ms-input-placeholder {
+  color: red;
+}
+
+.form-group.has-error input::placeholder, .form-group.has-error textarea::placeholder {
+  color: red;
+}
+
+.form-group.has-error .help-block {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.invalid::-webkit-input-placeholder {
+  color: red;
+}
+
+.invalid::-moz-placeholder {
+  color: red;
+}
+
+.invalid:-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::-ms-input-placeholder {
+  color: red;
+}
+
+.invalid::placeholder {
+  color: red;
+}
+
 @media screen and (max-width: 1200px) {
   .container {
     padding: 0 25px;
@@ -3526,35 +3579,6 @@ a {
 .mo-item__wrap .form-fields {
   max-width: 100%;
   width: 100%;
-}
-
-.mo-item__wrap .form-group.has-error input {
-  border-color: red;
-}
-
-.mo-item__wrap .form-group.has-error input::-webkit-input-placeholder {
-  color: red;
-}
-
-.mo-item__wrap .form-group.has-error input::-moz-placeholder {
-  color: red;
-}
-
-.mo-item__wrap .form-group.has-error input:-ms-input-placeholder {
-  color: red;
-}
-
-.mo-item__wrap .form-group.has-error input::-ms-input-placeholder {
-  color: red;
-}
-
-.mo-item__wrap .form-group.has-error input::placeholder {
-  color: red;
-}
-
-.mo-item__wrap .form-group.has-error .help-block {
-  font-size: 12px;
-  margin-bottom: 10px;
 }
 
 .mo-line {

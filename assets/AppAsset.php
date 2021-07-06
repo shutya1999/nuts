@@ -20,13 +20,14 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'https://unpkg.com/swiper/swiper-bundle.min.css',
-//        'css/index/index.css',
+        'css/swiper.min.css',
+        'https://unpkg.com/aos@2.3.1/dist/aos.css'
     ];
     public $js = [
         'https://cdn.lordicon.com//libs/frhvbuzj/lord-icon-2.0.2.js',
-        'https://unpkg.com/swiper/swiper-bundle.min.js',
-        'js/general.js'
+        'js/swiper-bundle.min.js',
+        'https://unpkg.com/aos@2.3.1/dist/aos.js',
+        'js/general.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

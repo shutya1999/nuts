@@ -4,6 +4,8 @@ $this->registerCssFile('@web/css/goods/goods.css');
 $images = \yii\helpers\FileHelper::findFiles("img/product/{$product->url}");
 $total_review = count($product->reviews);
 
+//debug($review->name);
+
 ?>
 
 <div class="container">
@@ -66,7 +68,7 @@ $total_review = count($product->reviews);
                             <?php
                             $options = json_decode($product->option);
                             ?>
-                            <div class="__select__title" data-default="Option 0"><?= key($price) ?>: <?= current($price)->quantity ?></div>
+                            <div class="__select__title" data-default="Option 0" onclick="showSelect(this);"><?= key($price) ?>: <?= current($price)->quantity ?></div>
                             <div class="__select__content">
                                 <?php foreach (current($options) as $key => $option) : ?>
                                     <input id="singleSelect<?= $key ?>" class="__select__input" type="radio"
@@ -92,8 +94,6 @@ $total_review = count($product->reviews);
                     </a>
                 </div>
             </div>
-
-<!--            --><?php //\yii\widgets\ActiveForm::end() ?>
 
             <p class="text-goods">
                 Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
@@ -148,7 +148,7 @@ $total_review = count($product->reviews);
                                         <div class="product-cart__rating">
                                             <span class="star-fill" style="width: calc((<?= $review->rating ?> * 100 / 5) * 1%)"></span>
                                         </div>
-                                        <div class="additional-user__time bold"><?= $review->date ?></div>
+                                        <div class="additional-user__time bold"><?= $review->created_at ?></div>
                                     </div>
                                     <p class="text-goods">
                                         <?= $review->text ?>
@@ -156,9 +156,6 @@ $total_review = count($product->reviews);
                                 </div>
                             <?php endforeach; ?>
                         </div>
-<!--                        <div class="more-reviews df">-->
-<!--                            <p>Більше відгуків</p>-->
-<!--                        </div>-->
                     <?php }elseif ($total_review < 1) { ?>
                         <div class="additional-review__content">
                             <p class="bold">Нажаль відгуків поки немає</p>
@@ -172,7 +169,7 @@ $total_review = count($product->reviews);
                                         <div class="product-cart__rating">
                                             <span class="star-fill" style="width: calc((<?= $product->reviews[$i]->rating ?> * 100 / 5) * 1%)"></span>
                                         </div>
-                                        <div class="additional-user__time bold"><?= $product->reviews[$i]->date ?></div>
+                                        <div class="additional-user__time bold"><?= $product->reviews[$i]->created_at ?></div>
                                     </div>
                                     <p class="text-goods">
                                         <?= $product->reviews[$i]->text ?>
@@ -186,28 +183,41 @@ $total_review = count($product->reviews);
                     <?php } ?>
                 </div>
                 <div class="additional-reviews__form">
-                    <form action="" class="form df" method="POST">
-                        <input class="form-fields" type="text" name="user_name" placeholder="Введіть ваше ім’я">
-                        <input class="form-fields" type="text" name="user_phone" placeholder="+38 (___) ___ __ __">
-                        <textarea class="form-fields _textarea" name="user_message" rows="4"
-                                  placeholder="Напишіть ваш відгук*"></textarea>
+                    <?php if (Yii::$app->session->hasFlash('success')) : ?>
+                        <p class="success-review"><?= Yii::$app->session->getFlash("success"); ?></p>
+                    <? else :?>
+                        <?php if (Yii::$app->session->hasFlash('error')):?>
+                            <p class="error-review"><?= Yii::$app->session->getFlash("error"); ?></p>
+                        <?php endif; ?>
+
+                        <?php $formReview = \yii\widgets\ActiveForm::begin([
+                            'options' => [
+                                'id' => "form-review",
+                                'class' => 'form df',
+                            ],
+                        ]) ?>
+                        <?= $formReview->field($reviewForm, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваше ім’я*'])?>
+                        <?= $formReview->field($reviewForm, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '+38 (___) ___ __ __*'])?>
+                        <?= $formReview->field($reviewForm, 'text', ['template' => "{input}\n {error}\n {hint}"])->textarea(['class' => 'form-fields _textarea', 'placeholder' => 'Напишіть ваш відгук*', 'rows' => 4, "maxlength" => '300']) ?>
+
                         <div class="user-rating dg">
                             <p>Рейтинг*:</p>
                             <div class="rating-area df">
-                                <input type="radio" id="star-5" name="rating" value="5">
+                                <input type="radio" id="star-5" name="ReviewForm[rating]" value="5" checked>
                                 <label for="star-5" title="Оценка «5»"></label>
-                                <input type="radio" id="star-4" name="rating" value="4">
+                                <input type="radio" id="star-4" name="ReviewForm[rating]" value="4">
                                 <label for="star-4" title="Оценка «4»"></label>
-                                <input type="radio" id="star-3" name="rating" value="3">
+                                <input type="radio" id="star-3" name="ReviewForm[rating]" value="3">
                                 <label for="star-3" title="Оценка «3»"></label>
-                                <input type="radio" id="star-2" name="rating" value="2">
+                                <input type="radio" id="star-2" name="ReviewForm[rating]" value="2">
                                 <label for="star-2" title="Оценка «2»"></label>
-                                <input type="radio" id="star-1" name="rating" value="1">
+                                <input type="radio" id="star-1" name="ReviewForm[rating]" value="1">
                                 <label for="star-1" title="Оценка «1»"></label>
                             </div>
                         </div>
                         <button class="btn-form btn-green">Відправити</button>
-                    </form>
+                        <?php \yii\widgets\ActiveForm::end(); ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="additional-js additional-description">
@@ -292,27 +302,3 @@ $total_review = count($product->reviews);
     </div>
 </div>
 
-<?php
-//$js = <<<JS
-//var form = $('#form-price');
-//form.on('beforeSubmit', function(){
-//    var data = form.serialize();
-//    $.ajax({
-//        url: form.attr('action'),
-//        type: 'POST',
-//        data: data,
-//        success: function(res){
-//            // reloadCatalog(res)
-//            // console.log(res);
-//            priceProduct(res);
-//            // form[0].reset();
-//        },
-//        error: function(){
-//            alert('Error!');
-//        }
-//    });
-//    return false;
-//});
-//JS;
-//$this->registerJs($js);
-//?>
