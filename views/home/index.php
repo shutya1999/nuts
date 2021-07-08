@@ -129,12 +129,12 @@
                 <div class="benefits-list">
                     <div class="benefits-item dg">
                         <div class="circle-icon benefits-item__icon df">
-                            <lord-icon
-                                    src="https://cdn.lordicon.com//rjzlnunf.json"
-                                    trigger="loop"
-                                    colors="primary:#92ff6c,secondary:#6f4027"
-                                    style="width:90%; height:90%">
-                            </lord-icon>
+<!--                            <lord-icon-->
+<!--                                    src="https://cdn.lordicon.com//rjzlnunf.json"-->
+<!--                                    trigger="loop"-->
+<!--                                    colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                                    style="width:90%; height:90%">-->
+<!--                            </lord-icon>-->
                         </div>
                         <p class="benefits-item__title">Свіжі, корисні та смачні</p>
                         <p class="text benefits-item__text">
@@ -146,12 +146,12 @@
                     </div>
                     <div class="benefits-item dg">
                         <div class="circle-icon benefits-item__icon df">
-                            <lord-icon
-                                    src="https://cdn.lordicon.com//mdgrhyca.json"
-                                    trigger="loop"
-                                    colors="primary:#92ff6c,secondary:#6f4027"
-                                    style="width:90%;height:90%">
-                            </lord-icon>
+<!--                            <lord-icon-->
+<!--                                    src="https://cdn.lordicon.com//mdgrhyca.json"-->
+<!--                                    trigger="loop"-->
+<!--                                    colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                                    style="width:90%;height:90%">-->
+<!--                            </lord-icon>-->
                         </div>
                         <p class="benefits-item__title">500+ відкугів від клієнтів</p>
                         <p class="text benefits-item__text">
@@ -162,12 +162,12 @@
                     </div>
                     <div class="benefits-item dg">
                         <div class="circle-icon benefits-item__icon df">
-                            <lord-icon
-                                    src="https://cdn.lordicon.com//kbtmbyzy.json"
-                                    trigger="loop"
-                                    colors="primary:#92ff6c,secondary:#6f4027"
-                                    style="width:90%; height:90%">
-                            </lord-icon>
+<!--                            <lord-icon-->
+<!--                                    src="https://cdn.lordicon.com//kbtmbyzy.json"-->
+<!--                                    trigger="loop"-->
+<!--                                    colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                                    style="width:90%; height:90%">-->
+<!--                            </lord-icon>-->
                         </div>
                         <p class="benefits-item__title">4 роки на ринку горішків</p>
                         <p class="text benefits-item__text">
@@ -178,12 +178,12 @@
                     </div>
                     <div class="benefits-item dg">
                         <div class="circle-icon benefits-item__icon df">
-                            <lord-icon
-                                    src="https://cdn.lordicon.com//zzcjjxew.json"
-                                    trigger="loop"
-                                    colors="primary:#92ff6c,secondary:#6f4027"
-                                    style="width:90%; height:90%">
-                            </lord-icon>
+<!--                            <lord-icon-->
+<!--                                    src="https://cdn.lordicon.com//zzcjjxew.json"-->
+<!--                                    trigger="loop"-->
+<!--                                    colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                                    style="width:90%; height:90%">-->
+<!--                            </lord-icon>-->
                         </div>
                         <p class="benefits-item__title">Доставка по всій Україні</p>
                         <p class="text benefits-item__text">
@@ -321,12 +321,12 @@
         <div class="delivery-content df">
             <div class="delivery-item df">
                 <div class="circle-icon delivery-icon df">
-                    <lord-icon
-                            src="https://cdn.lordicon.com//slkvcfos.json"
-                            trigger="loop"
-                            colors="primary:#92ff6c,secondary:#6f4027"
-                            style="width:80%;height:80%">
-                    </lord-icon>
+<!--                    <lord-icon-->
+<!--                            src="https://cdn.lordicon.com//slkvcfos.json"-->
+<!--                            trigger="loop"-->
+<!--                            colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                            style="width:80%;height:80%">-->
+<!--                    </lord-icon>-->
                 </div>
                 <p class="text delivery-text">
                     Ви робите <br>
@@ -337,12 +337,12 @@
 
             <div class="delivery-item df">
                 <div class="circle-icon delivery-icon df">
-                    <lord-icon
-                            src="https://cdn.lordicon.com//zpxybbhl.json"
-                            trigger="loop"
-                            colors="primary:#92ff6c,secondary:#6f4027"
-                            style="width:80%;height:80%">
-                    </lord-icon>
+<!--                    <lord-icon-->
+<!--                            src="https://cdn.lordicon.com//zpxybbhl.json"-->
+<!--                            trigger="loop"-->
+<!--                            colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                            style="width:80%;height:80%">-->
+<!--                    </lord-icon>-->
                 </div>
                 <p class="text delivery-text">
                     Ми телефонуємо <br>
@@ -353,12 +353,12 @@
 
             <div class="delivery-item df">
                 <div class="circle-icon delivery-icon df">
-                    <lord-icon
-                            src="https://cdn.lordicon.com//nlzvfogq.json"
-                            trigger="loop"
-                            colors="primary:#92ff6c,secondary:#6f4027"
-                            style="width:80%;height:80%">
-                    </lord-icon>
+<!--                    <lord-icon-->
+<!--                            src="https://cdn.lordicon.com//nlzvfogq.json"-->
+<!--                            trigger="loop"-->
+<!--                            colors="primary:#92ff6c,secondary:#6f4027"-->
+<!--                            style="width:80%;height:80%">-->
+<!--                    </lord-icon>-->
                 </div>
                 <p class="text delivery-text">
                     Відправляємо замовлення <br>

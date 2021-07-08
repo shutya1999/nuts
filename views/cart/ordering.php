@@ -124,8 +124,22 @@ use yii\base\Widget;
 
     </div>
 <?php }else{?>
-    <?= \app\widgets\Alert::widget() ?>
+    <?php if (Yii::$app->session->hasFlash('success')) : ?>
+        <p class="title order-success">
+            ваше замовлення <br>
+            <span>прийнято</span>
+        </p>
+        <script>
+            setTimeout(function () {
+                document.location.href = '/'
+            }, 5000)
+        </script>
+    <? else :?>
+        <p class="error-order"><?= Yii::$app->session->getFlash("error"); ?></p>
+    <?php endif; ?>
 <?php } ?>
+
+
 
 
 

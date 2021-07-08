@@ -17,20 +17,7 @@
     overflow: visible;
     padding-bottom: 0 !important;
   }
-  .hit-products {
-    padding-left: 25px;
-  }
-  .hit-products .container {
-    max-width: 100%;
-    padding: 0;
-    overflow: visible;
-  }
-  .hit-products .swiper-wrapper {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(290px, auto));
-    grid-gap: 0 10px;
-    overflow-x: scroll;
-    overflow-y: hidden;
+  .swiper-wrapper {
     padding-bottom: 150px;
   }
   .about-info {
@@ -125,7 +112,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .cat-title {
     font-size: 20px;
   }
@@ -224,6 +211,9 @@
   }
   .user-review__photos img {
     max-width: 65px;
+  }
+  .swiper-wrapper {
+    padding-bottom: 100px;
   }
   .delivery-item {
     display: grid;

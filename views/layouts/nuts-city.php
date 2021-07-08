@@ -82,6 +82,7 @@ AppAsset::register($this);
                     <input type="text" class="search-fields" placeholder="Пошук товарів ...">
                     <button class="btn btn-brown search-btn">пошук</button>
                 </div>
+                <div class="search-res"><p style='text-align: center;'>Введіть щось</p></div>
             </div>
             <div class="header-bar dg">
                 <div class="header-search">
@@ -99,28 +100,31 @@ AppAsset::register($this);
                     <span></span>
                     <span></span>
                     <span></span>
-                    <div class="hidden-menu">
-                        <div class="hidden-menu__top df">
-                            <a href="">Головна</a>
-                            <a href="">Каталог</a>
-                            <a href="#review">Відгуки</a>
-                            <a href="#delivery">Доставка і оплата</a>
-                            <a href="#contacts">контакти</a>
-                        </div>
-                        <div class="hidden-menu__bottom df">
-                            <a href="">ПодарунковІ набори</a>
-                            <a href="">СертифІкати</a>
-                            <a href="">ГорІшки</a>
-                            <a href="">Сухофрукти</a>
-                            <a href="">Шоколад, пастила, халва, гранола</a>
-                            <a href="">Кава, напоЇ та Інше</a>
-                            <a href="">Мед, крем-мед та бджолопродукти</a>
-                            <a href="">НасІння, крупи та бобовІ</a>
-                        </div>
-
-                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="hidden-menu">
+        <div class="hidden-menu__top df">
+            <a href="">Головна</a>
+            <a href="">Каталог</a>
+            <a href="#review">Відгуки</a>
+            <a href="#delivery">Доставка і оплата</a>
+            <a href="#contacts">контакти</a>
+        </div>
+        <div class="hidden-menu__bottom df">
+            <a href="">ПодарунковІ набори</a>
+            <a href="">СертифІкати</a>
+            <a href="">ГорІшки</a>
+            <a href="">Сухофрукти</a>
+            <a href="">Шоколад, пастила, халва, гранола</a>
+            <a href="">Кава, напоЇ та Інше</a>
+            <a href="">Мед, крем-мед та бджолопродукти</a>
+            <a href="">НасІння, крупи та бобовІ</a>
+        </div>
+        <div class="hidden-phone">
+            <a href="tel:+380 68 123 73 21">+380 68 123 73 21</a>
+            <a href="tel:+380 93 123 7 321">+380 93 123 7 321</a>
         </div>
     </div>
 </header>

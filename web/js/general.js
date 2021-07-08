@@ -281,10 +281,13 @@ function createPagin(data) {
 
 }
 
-const burger = document.querySelector(".burger");
+const burger = document.querySelector(".burger"),
+    hiddenMenu = document.querySelector(".hidden-menu");
+
 burger.addEventListener("click", ()=>{
-   burger.classList.toggle("active");
-   document.body.classList.toggle("no-scroll");
+    burger.classList.toggle("active");
+    hiddenMenu.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
 });
 
 const header = document.querySelector(".header"),
@@ -304,9 +307,6 @@ window.addEventListener("scroll", function () {
     }
 });
 
-
-
-
 const slider = document.querySelector(".swiper-container");
 if (slider !== null){
     const swiper = new Swiper('.banner-slider', {
@@ -320,37 +320,34 @@ if (slider !== null){
             delay: 5000,
         },
     });
-    let swiperHit = undefined;
 
-    window.addEventListener("resize", resize);
-    function resize() {
-        let width = document.documentElement.clientWidth;
-        if(width > 1024 && swiperHit === undefined){
-            swiperHit = new Swiper('.hit-products__content', {
-                spaceBetween: 10,
-                breakpoints: {
-                    1024: {
-                        slidesPerView: 3,
-                        navigation: false
-                    },
-                    1200: {
-                        slidesPerView: 4,
-                        navigation: {
-                            nextEl: '.hit-products__next',
-                            prevEl: '.hit-products__prev',
-                        },
-                    }
-                }
-            });
-        }else if (width <= 1024 && swiperHit !== undefined){
-            swiperHit.destroy();
-            swiperHit = undefined;
+    swiperHit = new Swiper('.hit-products__content', {
+        spaceBetween: 10,
+        breakpoints: {
+            320: {
+                slidesPerView: 1.5,
+                navigation: false
+            },
+            768: {
+                slidesPerView: 2.5,
+            },
+            1200: {
+                slidesPerView: 4,
+                navigation: {
+                    nextEl: '.hit-products__next',
+                    prevEl: '.hit-products__prev',
+                },
+            }
         }
-    }
-    resize();
+    });
+    let maxHeightSlideHit = [];
+    swiperHit.slides.forEach(slide => {
+        maxHeightSlideHit.push(slide.clientHeight);
+    });
+    swiperHit.slides.forEach(slide => {
+        slide.style.height = Math.max(...maxHeightSlideHit) + "px";
+    });
 }
-
-
 
 let gallery_thumbs_slide = document.querySelectorAll(".gallery-thumbs_slide"),
     gallery_main_slider = document.querySelector(".gallery-main");
@@ -501,14 +498,54 @@ if (goodsCounterInput.length > 0){
 
 // SEARCH
 const searchIcon = document.querySelector(".search-icon"),
-      search_block = document.querySelector('.search-block_wrap'),
-      nav = document.querySelector(".nav"),
-      header_contacts = document.querySelector(".header-contacts");
+    search_block = document.querySelector('.search-block_wrap');
+
 searchIcon.addEventListener("click", function () {
-    nav.classList.toggle("hide");
-    header_contacts.classList.toggle("hide");
-    search_block.classList.toggle("show");
+    this.classList.toggle("active");
+    header.classList.toggle("show-res");
+
+    searchRes.classList.remove('show-res');
+    search_block.classList.remove('show-res');
+    document.body.classList.toggle("blur");
+    document.body.classList.toggle("no-scroll");
+
 });
+
+const searchInput = document.querySelector(".search-fields"),
+      searchRes = document.querySelector(".search-res");
+
+searchInput.addEventListener("input", search);
+searchInput.addEventListener("focus", function () {
+    searchRes.classList.add('show-res');
+    search_block.classList.add('show-res');
+});
+
+function search() {
+    let value = this.value;
+    let url = `/search/view?val=${value}`;
+
+    if (value !== ""){
+        let response = fetch(url)
+            .then(response => response.text())
+            .then(function (data) {
+                searchRes.innerHTML = data;
+                let count = searchRes.querySelector(".count-res").dataset.count;
+                // console.log(+count);
+                if (+count > 3){
+                    searchRes.classList.add("height-res");
+                }else {
+                    searchRes.classList.remove("height-res");
+                }
+            });
+    } else {
+        console.log("Pusto");
+        searchRes.innerHTML = "<p style='text-align: center;'>Введіть щось</p>"
+        searchRes.classList.remove("height-res");
+    }
+
+}
+
+
 
 // SELECT OPTION
 function showSelect(selectTitle) {
@@ -534,38 +571,7 @@ function showSelect(selectTitle) {
         });
     }
 }
-// function pizda() {
-//     const selectSingle_title = document.querySelectorAll('.__select__title');
-//     if (selectSingle_title !== null){
-//         selectSingle_title.forEach(item => {
-//             item.addEventListener("click", function () {
-//                 // console.log("Click");
-//                 let selectSingle = item.closest(".__select"),
-//                     selectSingle_labels = selectSingle.querySelectorAll('.__select__label');
-//
-//                 chooseSelect(selectSingle_labels, item, selectSingle);
-//
-//                 if ('active' === selectSingle.getAttribute('data-state')){
-//                     selectSingle.setAttribute('data-state', '');
-//                 }else {
-//                     selectSingle.setAttribute('data-state', 'active');
-//                 }
-//
-//             })
-//         });
-//
-// // Close when click to option
-//         function chooseSelect(selectSingle_labels, selectSingle_title, selectSingle){
-//             selectSingle_labels.forEach(item => {
-//                 item.addEventListener("click", function (evt) {
-//                     selectSingle_title.textContent = evt.target.textContent;
-//                     selectSingle.setAttribute('data-state', '');
-//                 })
-//             });
-//         }
-//     }
-// }
-// pizda();
+
 
 
 //DELIVERY RADIO
