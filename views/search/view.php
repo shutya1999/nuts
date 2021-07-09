@@ -1,7 +1,7 @@
 <?php if ($count != 0) : ?>
     <span class="count-res" data-count="<?= $count ?>"></span>
     <?php foreach ($product as $item) : ?>
-        <a href="" class="search-res__item df">
+        <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>" class="search-res__item df">
             <div class="search-res__photo" style='background: url("/img/product/<?= $item->img?>")'></div>
             <p class="search-res__title">
                 <?= $item->title ?>

@@ -2,6 +2,16 @@ AOS.init();
 
 let filterCat = document.querySelectorAll(".filter-category input");
 
+window.addEventListener("resize", resize);
+
+function resize() {
+    let width = document.documentElement.clientWidth;
+    if (width <= 1024){
+        filterCat = document.querySelectorAll(".filter-mob-tab__list._cat input");
+    }
+}
+resize();
+
 if (filterCat.length !== 0){
     // получение выбраных фильтров
     let hiddenForm = document.querySelector(".hidden-form"),
@@ -13,7 +23,6 @@ if (filterCat.length !== 0){
         topPriceHidden = document.querySelector("#sortform-top_price");
 
     lowerPrice.addEventListener("change", function () {
-        //console.log(lowerPrice.value);
         lowerPriceHidden.value = lowerPrice.value;
         filtered();
     });
@@ -27,7 +36,6 @@ if (filterCat.length !== 0){
             sortingHidden.value = item.value;
             filtered();
         })
-
     });
 
 
@@ -43,17 +51,20 @@ if (filterCat.length !== 0){
                 activeCat.push(filter);
             }
         })
+        console.log(activeCat);
         addFilterCat(activeCat);
     }
     function addFilterCat(activeCat) {
         let inputCat = hiddenForm.querySelectorAll("#sortform-category input");
+
+        // console.log(inputCat);
 
         inputCat.forEach(hiddenInput => {
             hiddenInput.removeAttribute("checked");
         });
         inputCat.forEach(hiddenInput => {
             activeCat.forEach(activeFilter => {
-                if (activeFilter.name === hiddenInput.value){
+                if (activeFilter.dataset.name === hiddenInput.value){
                     hiddenInput.setAttribute("checked", true);
                 }
             })
@@ -96,6 +107,7 @@ if (filterCat.length !== 0){
             product.dataset.aos = "fade-up";
             product.dataset.aosDuration = "500";
             product.dataset.aosDelay = 100 + delayCounter;
+            product.dataset.aosOnce = "true";
 
 
 
@@ -290,22 +302,22 @@ burger.addEventListener("click", ()=>{
     document.body.classList.toggle("no-scroll");
 });
 
-const header = document.querySelector(".header"),
-      headerAuxiliary = document.querySelector(".header-auxiliary");
-window.addEventListener("scroll", function () {
-
-    if (this.pageYOffset > 400){
-        header.classList.add("fixed");
-        headerAuxiliary.classList.add("active");
-    }else {
-        header.classList.add("test");
-        setTimeout(function () {
-            headerAuxiliary.classList.remove("active");
-            header.classList.remove("test");
-            header.classList.remove("fixed");
-        },200);
-    }
-});
+const header = document.querySelector(".header");
+//       headerAuxiliary = document.querySelector(".header-auxiliary");
+// window.addEventListener("scroll", function () {
+//
+//     if (this.pageYOffset > 400){
+//         header.classList.add("fixed");
+//         headerAuxiliary.classList.add("active");
+//     }else {
+//         header.classList.add("test");
+//         setTimeout(function () {
+//             headerAuxiliary.classList.remove("active");
+//             header.classList.remove("test");
+//             header.classList.remove("fixed");
+//         },200);
+//     }
+// });
 
 const slider = document.querySelector(".swiper-container");
 if (slider !== null){
@@ -538,7 +550,7 @@ function search() {
                 }
             });
     } else {
-        console.log("Pusto");
+        //console.log("Pusto");
         searchRes.innerHTML = "<p style='text-align: center;'>Введіть щось</p>"
         searchRes.classList.remove("height-res");
     }
@@ -640,7 +652,7 @@ if (deliveryBlock !== null){
 
         inputs.forEach(input => {
             if (input.value === ""){
-                console.log(input);
+                //console.log(input);
                 input.classList.add("invalid");
             }else {
                 valid ++;
@@ -773,14 +785,18 @@ if (deliveryBlock !== null){
 }
 
 let filterTabs = document.querySelectorAll(".filter-mob-tab");
+//console.log(filterTabs);
 filterTabs.forEach(tab => {
-    tab.addEventListener("click", function () {
+    tab.addEventListener("click", function (e) {
+        //console.log(e.target);
         if (tab.closest("._main")){
             const mainTab = document.querySelector(".filter-mob-content");
             //console.log(mainTab.clientHeight);
             mainTab.classList.toggle("active");
         }
-        tab.classList.toggle("active");
+        if (e.target === tab || e.target === ""){
+            tab.classList.toggle("active");
+        }
     });
 })
 

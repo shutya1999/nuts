@@ -53,12 +53,12 @@ use yii\widgets\ActiveForm;
                         <div class="filter-mob-content">
                             <div class="filter-mob-tab">
                                 <p>Категорії</p>
-                                <div class="filter-mob-tab__list">
+                                <div class="filter-mob-tab__list _cat">
                                     <?php foreach ($categories as $category) : ?>
                                         <div class="filter-item">
-                                            <input type="checkbox" class="filter-checkbox" id="<?= $category->url ?>"
-                                                   name="<?= $category->url ?>" <?= ($_GET["id"] == $category->id) ? "checked" : '' ?>>
-                                            <label for="<?= $category->url ?>"><?= $category->name ?></label>
+                                            <input type="checkbox" class="filter-checkbox" id="<?= $category->url ?>_mob"
+                                                   name="<?= $category->url ?>_mob" <?= ($_GET["id"] == $category->id) ? "checked" : '' ?> data-name="<?= $category->url ?>">
+                                            <label for="<?= $category->url ?>_mob"><?= $category->name ?></label>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>

@@ -6,6 +6,8 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 ?>
 
+
+
 <?php $this->beginPage() ?>
 <!doctype html>
 <html lang="<?= Yii::$app->language ?>">
@@ -113,14 +115,9 @@ AppAsset::register($this);
             <a href="#contacts">контакти</a>
         </div>
         <div class="hidden-menu__bottom df">
-            <a href="">ПодарунковІ набори</a>
-            <a href="">СертифІкати</a>
-            <a href="">ГорІшки</a>
-            <a href="">Сухофрукти</a>
-            <a href="">Шоколад, пастила, халва, гранола</a>
-            <a href="">Кава, напоЇ та Інше</a>
-            <a href="">Мед, крем-мед та бджолопродукти</a>
-            <a href="">НасІння, крупи та бобовІ</a>
+            <?php foreach ($this->params as $cat) : ?>
+                <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $cat->id]) ?>"><?= $cat->name ?></a>
+            <?php endforeach; ?>
         </div>
         <div class="hidden-phone">
             <a href="tel:+380 68 123 73 21">+380 68 123 73 21</a>
@@ -130,7 +127,6 @@ AppAsset::register($this);
 </header>
 <? //= Yii::$app->getSecurity()->generatePasswordHash('user'); ?>
 <?= $content ?>
-
 <footer class="footer">
     <div class="container">
         <div class="footer-content df">

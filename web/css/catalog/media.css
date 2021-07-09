@@ -1,4 +1,4 @@
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .catalog-wrap {
     display: block;
   }
@@ -16,7 +16,6 @@
 @media screen and (max-width: 767px) {
   .catalog-goods {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
   }
   .form-fields__price {
     max-width: 40px;
@@ -80,5 +79,29 @@
   .product-cart__count {
     grid-column: 1;
     grid-row: 3;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .sorting-select .__select__title {
+    min-width: auto;
+    font-size: 14px;
+    padding-right: 20px;
+  }
+  .sorting-select .__select__title:after, .sorting-select .__select__title:before {
+    right: 6px;
+    height: 1px;
+    width: 8px;
+  }
+  .sorting-select .__select__title:after {
+    -webkit-transform: translate(3px, -50%) rotate(-45deg);
+        -ms-transform: translate(3px, -50%) rotate(-45deg);
+            transform: translate(3px, -50%) rotate(-45deg);
+  }
+  .price-range p {
+    font-size: 14px;
+  }
+  .filter-mob-tab p {
+    font-size: 14px;
   }
 }

@@ -1,4 +1,11 @@
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1200px) {
+  .goods-cart {
+    grid-template-columns: minmax(auto, 500px) auto;
+    grid-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
   .goods-cart {
     display: -webkit-box;
     display: -webkit-flex;
@@ -113,5 +120,67 @@
   }
   .review-count {
     margin-bottom: 0;
+  }
+  .has-error .help-block {
+    font-size: 8px !important;
+  }
+  .bread-crumbs {
+    margin: 20px 0;
+  }
+  .bread-crumbs .bread-crumbs__text {
+    font-size: 14px;
+  }
+  .home {
+    width: 15px;
+    height: 15px;
+    background-size: contain;
+  }
+  .bread-crumbs__separator {
+    font-size: 13px;
+    margin: 0 3px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .product-cart__count {
+    min-width: 110px;
+  }
+  .product-cart__count .__select__title:before, .product-cart__count .__select__title:after {
+    right: 8px;
+  }
+  .goods-counter label {
+    font-size: 14px;
+    margin-right: 0;
+  }
+  .goods-counter input {
+    width: 40px;
+    padding: 8px 5px;
+    font-size: 14px;
+  }
+  .goods-counter input::-webkit-input-placeholder {
+    font-size: 14px;
+  }
+  .goods-counter input::-moz-placeholder {
+    font-size: 14px;
+  }
+  .goods-counter input:-ms-input-placeholder {
+    font-size: 14px;
+  }
+  .goods-counter input::-ms-input-placeholder {
+    font-size: 14px;
+  }
+  .goods-counter input::placeholder {
+    font-size: 14px;
+  }
+  .goods-counter .btn-counter {
+    width: 30px;
+    height: 15px;
+    background-size: 8px 8px !important;
+  }
+  .btn-goods {
+    padding: 12px 45px 12px 25px;
+  }
+  .btn-goods p {
+    font-size: 14px;
   }
 }

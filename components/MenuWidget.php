@@ -36,7 +36,7 @@ class MenuWidget extends Widget
         $this->menuHtml = "
             <ul class='nav df'>
                 <li class='nav-list sub'>
-                    <a href='/category' class='nav-link'>Каталог товарів</a>
+                    <p class='nav-link'>Каталог товарів</p>
                     <ul class='" . $this->ul_class ."'>";
                         $this->menuHtml .= $this->getMenuHtml($this->data);
                     $this->menuHtml .= "

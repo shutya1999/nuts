@@ -37,7 +37,7 @@
     top: 100%;
   }
   .search-res.show-res {
-    padding: 0 10px;
+    padding: 10px;
   }
   .search-res.height-res {
     height: 500px;
@@ -58,7 +58,6 @@
     display: flex;
   }
   .header.show-res .search-block_wrap {
-    z-index: 2;
     margin: 0;
   }
   .header-content {
@@ -156,8 +155,14 @@
 }
 
 @media screen and (max-width: 767px) {
+  body {
+    padding-top: 85px;
+  }
   .container {
     padding: 0 10px;
+  }
+  .header {
+    padding: 15px 0;
   }
   .header-logo {
     width: 50px;
@@ -199,7 +204,7 @@
   .search-block_wrap {
     width: 100%;
     max-width: 360px;
-    top: calc(100% - 10px);
+    top: calc(100% - -7px);
   }
   .search-res__item {
     display: grid;
