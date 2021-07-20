@@ -25,13 +25,14 @@ class PriceController extends Controller
 
             foreach (current($options) as $key => $option){
                 if ($option->quantity == $volume){
-                    $priceAJAX = $option->price * $qty;
+                    //$priceAJAX = $option->price * $qty;
                     $data = [
                         'id' => $id,
                         'volume' => $volume,
                         'volume-type' => key($options),
                         'qty' => $qty,
-                        'price' => $priceAJAX
+                        'price' => $option->price * $qty,
+                        'new_price' => $option->new_price * $qty
                     ];
                     return $data;
                 }

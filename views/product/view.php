@@ -4,7 +4,7 @@ $this->registerCssFile('@web/css/goods/goods.css');
 $images = \yii\helpers\FileHelper::findFiles("img/product/{$product->url}");
 $total_review = count($product->reviews);
 
-//debug($review->name);
+//debug($total_review);
 
 ?>
 
@@ -80,7 +80,14 @@ $total_review = count($product->reviews);
                             </div>
                         </div>
                     </div>
-                    <p class="goods-price"><?= current($price)->price ?> ₴</p>
+                    <?php if ($product->sale) : ?>
+                        <p class="goods-price">
+                            <span class="old-price"><?= $product->price ?>₴</span>
+                            <?= $product->new_price ?>₴
+                        </p>
+                    <?php else: ?>
+                        <p class="goods-price"><?= $product->price ?>₴</p>
+                    <?endif;?>
                 </div>
                 <div class="goods-filters df">
                     <div class="goods-counter">
@@ -95,19 +102,13 @@ $total_review = count($product->reviews);
                 </div>
             </div>
 
-            <p class="text-goods">
-                Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
-                Lorem Ipsum используют потому, что тот обеспечивает более или менее. <br><br>
-
-                Cтандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах,
-                которое не получается при простой дубликации.<br><br>
-
-                Получается при простой дубликации.
-            </p>
-            <p class="text-goods bold _brown" style="margin-top: 30px;">
-                При замовленні від 1500 грн. - доставка за наш рахунок! <br>
-                Спеціальні ціни для оптових покупців.
-            </p>
+            <div class="text-goods">
+                <?= $product->content_lil ?>
+                <strong class="_brown" style="margin-top: 30px;">
+                    При замовленні від 1500 грн. - доставка за наш рахунок! <br>
+                    Спеціальні ціни для оптових покупців.
+                </strong>
+            </div>
         </div>
     </div>
     <div class="additional-information indent">
@@ -117,6 +118,7 @@ $total_review = count($product->reviews);
             <span class="indication"></span>
         </div>
         <div class="additional-information__wrap df">
+<!--            --><?php //debug($review) ?>
             <div class="additional-js additional-reviews dg show">
                 <div class="additional-reviews__wrap">
                     <div class="additional-reviews__top df">
@@ -144,14 +146,14 @@ $total_review = count($product->reviews);
                             <?php foreach ($product->reviews as $review) : ?>
                                 <div class="additional-user-review">
                                     <div class="additional-user-review__top df">
-                                        <p class="additional-user__name bold"><?= $review->name ?></p>
+                                        <p class="additional-user__name bold"><?= \yii\helpers\Html::encode($review->name) ?></p>
                                         <div class="product-cart__rating">
-                                            <span class="star-fill" style="width: calc((<?= $review->rating ?> * 100 / 5) * 1%)"></span>
+                                           <span class="star-fill" style="width: calc((<?= $review->rating ?> * 100 / 5) * 1%)"></span>
                                         </div>
                                         <div class="additional-user__time bold"><?= $review->created_at ?></div>
                                     </div>
                                     <p class="text-goods">
-                                        <?= $review->text ?>
+                                        <?= \yii\helpers\Html::encode($review->text) ?>
                                     </p>
                                 </div>
                             <?php endforeach; ?>
@@ -169,7 +171,7 @@ $total_review = count($product->reviews);
                                         <div class="product-cart__rating">
                                             <span class="star-fill" style="width: calc((<?= $product->reviews[$i]->rating ?> * 100 / 5) * 1%)"></span>
                                         </div>
-                                        <div class="additional-user__time bold"><?= $product->reviews[$i]->created_at ?></div>
+                                        <div class="additional-user__time bold">*/<?//= $product->reviews[$i]->created_at ?><!--</div>-->
                                     </div>
                                     <p class="text-goods">
                                         <?= $product->reviews[$i]->text ?>
@@ -196,22 +198,22 @@ $total_review = count($product->reviews);
                                 'class' => 'form df',
                             ],
                         ]) ?>
-                        <?= $formReview->field($reviewForm, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваше ім’я*'])?>
-                        <?= $formReview->field($reviewForm, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '+38 (___) ___ __ __*'])?>
-                        <?= $formReview->field($reviewForm, 'text', ['template' => "{input}\n {error}\n {hint}"])->textarea(['class' => 'form-fields _textarea', 'placeholder' => 'Напишіть ваш відгук*', 'rows' => 4, "maxlength" => '300']) ?>
+                        <?= $formReview->field($model, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваше ім’я*'])?>
+                        <?= $formReview->field($model, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '+38 (___) ___ __ __*'])?>
+                        <?= $formReview->field($model, 'text', ['template' => "{input}\n {error}\n {hint}"])->textarea(['class' => 'form-fields _textarea', 'placeholder' => 'Напишіть ваш відгук*', 'rows' => 4, "maxlength" => '300']) ?>
 
                         <div class="user-rating dg">
                             <p>Рейтинг*:</p>
                             <div class="rating-area df">
-                                <input type="radio" id="star-5" name="ReviewForm[rating]" value="5" checked>
+                                <input type="radio" id="star-5" name="Reviews[rating]" value="5" checked>
                                 <label for="star-5" title="Оценка «5»"></label>
-                                <input type="radio" id="star-4" name="ReviewForm[rating]" value="4">
+                                <input type="radio" id="star-4" name="Reviews[rating]" value="4">
                                 <label for="star-4" title="Оценка «4»"></label>
-                                <input type="radio" id="star-3" name="ReviewForm[rating]" value="3">
+                                <input type="radio" id="star-3" name="Reviews[rating]" value="3">
                                 <label for="star-3" title="Оценка «3»"></label>
-                                <input type="radio" id="star-2" name="ReviewForm[rating]" value="2">
+                                <input type="radio" id="star-2" name="Reviews[rating]" value="2">
                                 <label for="star-2" title="Оценка «2»"></label>
-                                <input type="radio" id="star-1" name="ReviewForm[rating]" value="1">
+                                <input type="radio" id="star-1" name="Reviews[rating]" value="1">
                                 <label for="star-1" title="Оценка «1»"></label>
                             </div>
                         </div>
@@ -221,84 +223,14 @@ $total_review = count($product->reviews);
                 </div>
             </div>
             <div class="additional-js additional-description">
-                <p class="text-goods">
-                    Великі фісташки Каліфорнія користуються особливою популярністю серед гурманів.
-                    Вони виділяються неповторним смаком і приємним ароматом. До того ж ці представники
-                    класу горіхових дуже корисні. Вони містять у собі велику кількість корисних речовин,
-                    нормалізують роботу деяких органів і поліпшують самопочуття людини. <br><br>
-
-                    Купити фісташки в Україні зовсім недорого можна в нашому інтернет-магазині.
-                    Ми стежимо за якістю свого товару і за його свіжістю. Ви будете здивовані смаковими
-                    якостями цього корисного і дуже незвичайного горішка. Чистити його легко –
-                    досить потягнути частини шкаралупи в різні боки. <br><br>
-
-                    <span class="bold">Фісташки – користь для здоров’я</span> <br><br>
-
-                    У складі фісташок містяться практично всі необхідні організму вітаміни.
-                    Завдяки цьому лікарі радять вживати ядра горіхів для підвищення імунітету,
-                    а також захисту від вірусних та інфекційних захворювань. Включення фісташок
-                    у свій повсякденний раціон допомагає організму боротися з бронхітами, ангіною,
-                    астмою і запаленням легенів. <br><br>
-
-                    Сирі фісташки здатні принести багато користі для нормалізації роботи ендокринної системи.
-                    Лікарі радять включати ці ядра в раціон для профілактики гестаційного цукрового діабету.
-                    Вживання декількох плодів цього горіха в день допомагає знизити рівень цукру в крові,
-                    а також зменшити кількість холестерину. <br><br>
-
-                    Фісташки дуже корисні для людей, які страждають від зайвої ваги. До їх складу входить
-                    велика кількість ферментів, які допомагають розщеплювати компоненти продуктів харчування
-                    і засвоювати більшу частину корисних речовин. Регулярне вживання горіхів допомагає боротися
-                    з виразкою, гастритом, дуоденітом, а також усувати симптоми харчових отруєнь.
-                    Крім того, плоди запобігають утворенню і ріст ракових клітин в органах шлунково-кишкового
-                    тракту. <br><br>
-
-                    Горіхи багаті на зеаксантин і лютеїн, які цілюще впливають на здоров’я очей.
-                    Ці антиоксиданти знижують інтенсивність розвитку вікової дегенерації жовтої плями,
-                    а також захищають органи зору від захворювань на катаракту і глаукому. <br><br>
-
-                    Солоні фісташки – справжній делікатес. Саме сіль дозволяє в повній мірі розкритися
-                    смаку горішка. Але таким ласощами не варто зловживати – як відомо, сіль затримує вологу
-                    в організмі, що може викликати проблеми зі здоров’ям. Але іноді себе побалувати можна. <br><br>
-
-                    <span class="bold">Фісташки – шкода для організму</span> <br><br>
-
-                    Надмірне вживання фісташок може завдати шкоди здоров’ю. Лікарі дозволяють їсти фісташки,
-                    але лише в строго обмеженому дозуванні. Тому що згодом сіль відкладається в нирках,
-                    що може привести до утворення каменів і погіршення відтоку сечі. <br><br>
-
-                    Ядра цих горіхів не рекомендується вживати людям, які проходять процедури
-                    із застосуванням ортодонтичного апарату, необхідного для коригування зубощелепних аномалій. <br><br>
-
-                    <span class="bold">Фісташки – калорійність і харчова цінність</span> <br><br>
-
-                    Як і всі інші представники сімейства горіхових, плоди фісташок відносяться до
-                    висококалорійних продуктів. У 100 г їх ядер міститься 556 ккал. Це пов’язано з
-                    високим вмістом в плодах жирних речовин – на 100 г фісташок припадає близько 50 г жирів.
-                    Майже половина з них – це мононенасичені жири, які допомагають організму засвоювати корисні
-                    компоненти, а також виводити шлаки і токсини. <br><br>
-
-                    У складі плодів міститься велика кількість білків, які потрібні для будови м’язової маси.
-                    У 100 г плодів міститься близько 20 г цих білків. Вуглеводів в складі ядер набагато менше –
-                    близько 7 г на 100 г продукту. <br><br>
-
-                    <span class="bold">Фісташки Каліфорнія на Nuts City – довіряйте кращим!</span> <br><br>
-
-                    Хороша якість фісташок – це запорука високих смакових якостей і користі продукту
-                    для організму людини. Наш інтернет-магазин пропонує своїм клієнтам купити фісташки
-                    кращих сортів дешево і зі швидкою доставкою. <br><br>
-
-                    У нас ви зможете замовити ядра горіхів кур’єрською доставкою на будь-яку адресу в Києві.
-                    При бажанні ви можете оформити замовлення з доставкою у будь-яку інший місто в Україні.
-                    Оплатити отримані фісташки в шкаралупі ви можете на банківську карту або розрахуватися
-                    готівкою в руки кур’єру. <br><br>
-
-                    Наші фісташки – найдешевші на ринку. Ми намагаємося утримувати вартість продукції,
-                    тому ціна фісташок у нас завжди на 10-20% нижче середньоринкової по Україні.
-                    Саме тому ціна за кг фісташок в інтернет-магазині Nuts Box приємно
-                    здивує кожного нашого клієнта. <br><br>
-                </p>
+                <div class="text-goods">
+                    <?= $product->content_big ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!--<style>-->
+<!--    body{background: red;}-->
+<!--</style>-->

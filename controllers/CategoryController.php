@@ -12,17 +12,23 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use app\models\SortForm;
-use yii\data\Pagination;
 use yii\web\Response;
 
 class CategoryController extends AppController
 {
-    public $cat;
+    public $my_var;
+
     public function actionView($id){
         $category = Category::findOne($id);
         $categories = Category::find()->all();
 
-        \Yii::$app->getView()->params = $categories;//глобальная переменная
+
+
+        //debug($categories);
+
+//        \Yii::$app->getView()->params['cat'] = "test";//глобальная переменная
+
+//        \Yii::$app->params['pageTitle'] = "Test";
 
         $this->setMeta("{$category->name} - " . \Yii::$app->name, $category->keywords, $category->description);
 

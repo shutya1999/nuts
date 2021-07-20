@@ -26,35 +26,21 @@ class ProductController extends AppController
             key($options) => current($options)[0]
         ];
 
-        $review = new Reviews();
-        $reviewForm = new ReviewForm();
+        $model = new Reviews();
 
-        if ($reviewForm->load(Yii::$app->request->post()) && $reviewForm->validate()){
+//        $review->load(\Yii::$app->request->post());
 
-//            debug($reviewForm);
-
-            if ($reviewForm->rating > 0 && $reviewForm->rating < 6){
-                $review->product_id = $product->id;
-                $review->name = $reviewForm->name;
-                $review->phone = $reviewForm->phone;
-                $review->text = $reviewForm->text;
-                $review->rating = $reviewForm->rating;
-
-//                $review->save();
-
-                if ($review->save()){
-                    \Yii::$app->session->setFlash("success", "Ваш коментар додано");
-                    $product->rating = Reviews::find()->where(['product_id' => $product->id])->average('rating');
-                    $product->save();
-
-                    return $this->refresh();
-                }
-
+        if (\Yii::$app->request->post()){
+            $model->product_id = $product->id;
+            if ($model->load(\Yii::$app->request->post()) && $model->save()){
+                $product->rating = Reviews::find()->where(['product_id' => $product->id])->average('rating');
+                \Yii::$app->session->setFlash("success", "Ваш коментар додано");
+                return $this->refresh();
             }else{
                 \Yii::$app->session->setFlash("error", "Виникла помилка, спробуйте пізніше");
             }
         }
-
-        return $this->render("view", compact(['product', 'price', 'reviewForm']));
+        return $this->render("view", compact(['product', 'price', 'model']));
     }
 }
+

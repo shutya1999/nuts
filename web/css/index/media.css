@@ -277,6 +277,18 @@
   .hit-products__content .swiper-wrapper {
     padding-bottom: 100px;
   }
+  .sale-block {
+    top: 2px;
+    right: 2px;
+  }
+  .sale-block p, .sale-block span {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .sale-block span {
+    padding: 0 8px 4px 8px;
+    font-size: 16px;
+  }
   .delivery-item {
     display: grid;
     grid-template-columns: 120px auto;
@@ -351,6 +363,13 @@
             flex-direction: column-reverse;
     margin-top: 25px;
   }
+  .cart-p-name {
+    font-size: 14px;
+    line-height: 120%;
+  }
+  .cart-p-price span {
+    font-size: 16px;
+  }
   .cart-p__total-price {
     margin: 20px 0;
   }
@@ -394,9 +413,6 @@
   .cart-p-img {
     width: 117px;
     height: 95px;
-  }
-  .cart-p-name {
-    font-size: 16px;
   }
   .cart-p-item {
     grid-gap: 10px 5px;

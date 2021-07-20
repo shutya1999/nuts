@@ -14,29 +14,29 @@ use yii\widgets\ActiveForm;
                             <div class="filter-item filter-category">
                                 <input type="checkbox" class="filter-checkbox" id="<?= $category->url ?>"
                                        name="<?= $category->url ?>" <?= ($_GET["id"] == $category->id) ? "checked" : '' ?>
-                                       value="<?= $category->url ?>">
+                                       value="<?= $category->url ?>" data-name="<?= $category->url ?>">
                                 <label for="<?= $category->url ?>"><?= $category->name ?></label>
                             </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="filters-additional">
-                    <p class="filter-title">Фільтри вибору</p>
-                    <div class="filters-content">
-                        <div class="filter-item">
-                            <input type="checkbox" class="filter-checkbox" id="delicious" name="delicious" value="yes">
-                            <label for="delicious">смачні</label>
-                        </div>
-                        <div class="filter-item">
-                            <input type="checkbox" class="filter-checkbox" id="mid_delicious" name="mid_delicious" value="yes">
-                            <label for="mid_delicious">середньосмачні</label>
-                        </div>
-                        <div class="filter-item">
-                            <input type="checkbox" class="filter-checkbox" id="very_delicious" name="very_delicious" value="yes">
-                            <label for="very_delicious">Дуже смачні</label>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="filters-additional">-->
+<!--                    <p class="filter-title">Фільтри вибору</p>-->
+<!--                    <div class="filters-content">-->
+<!--                        <div class="filter-item">-->
+<!--                            <input type="checkbox" class="filter-checkbox" id="delicious" name="delicious" value="yes">-->
+<!--                            <label for="delicious">смачні</label>-->
+<!--                        </div>-->
+<!--                        <div class="filter-item">-->
+<!--                            <input type="checkbox" class="filter-checkbox" id="mid_delicious" name="mid_delicious" value="yes">-->
+<!--                            <label for="mid_delicious">середньосмачні</label>-->
+<!--                        </div>-->
+<!--                        <div class="filter-item">-->
+<!--                            <input type="checkbox" class="filter-checkbox" id="very_delicious" name="very_delicious" value="yes">-->
+<!--                            <label for="very_delicious">Дуже смачні</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <div class="catalog-content">
                 <div class="sorting df">
@@ -130,12 +130,24 @@ use yii\widgets\ActiveForm;
                                                   style="width: calc((<?= $product->rating ?> * 100 / 5) * 1%)"></span>
                                 </div>
                                 <div class="product-cart__price">
-                                    <p class="goods-price">
-                                        <?= $product->price ?>₴
-                                        <?php if ($product->old_price) : ?>
-                                            <span class="old-price"><?= $product->old_price ?>₴</span>
-                                        <?php endif; ?>
-                                    </p>
+<!--                                    <p class="goods-price">-->
+<!--                                        --><?//= $product->price ?><!--₴-->
+<!--                                        --><?php //if ($product->old_price) : ?>
+<!--                                            <span class="old-price">--><?//= $product->old_price ?><!--₴</span>-->
+<!--                                        --><?php //endif; ?>
+                                        <?php if ($product->sale) : ?>
+                                            <p class="goods-price">
+                                                <span class="old-price"><?= $product->price ?>₴</span>
+                                                <?= $product->new_price ?>₴
+                                            </p>
+                                            <div class="sale-block">
+                                                <p>Знижка</p>
+                                                <span><?= $product->sale ?> %</span>
+                                            </div>
+                                            <?php else: ?>
+                                                <p class="goods-price"><?= $product->price ?>₴</p>
+                                        <?endif;?>
+<!--                                    </p>-->
                                 </div>
                                 <div class="product-cart__count">
                                     <div class="__select" data-state="">

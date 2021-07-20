@@ -8,11 +8,12 @@
             <div class="header-cart__close"></div>
             <div class="header-cart__item-top">
                 <div class="header-cart__item_wrap">
+<!--                    --><?php //debug($_SESSION['cart']) ?>
                     <?php foreach ($_SESSION['cart'] as $id => $product) : ?>
                         <?php foreach ($product as $item) : ?>
                             <?php if (isset($item['qty'])) : ?>
                                 <div class="header-cart__item dg">
-                                    <div class="header-cart__img" style="background: url('/img/product/<?= $product['img']?>')"></div>
+                                    <div class="header-cart__img" style="background: url('/img/product/<?= $product['url']?>/<?= $product['img']?>')"></div>
                                     <p class="header-cart__title"><?= $product['title'] ?></p>
                                     <span class="header-cart__delete" onclick="delProdInCart(<?= $id?>, <?= $item['volume']?>)"></span>
                                     <div class="header-cart__info_wrap">

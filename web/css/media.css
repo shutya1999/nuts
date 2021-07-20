@@ -19,10 +19,10 @@
   .search-block_wrap {
     position: absolute;
     top: calc(100% - 25px);
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    left: 110%;
+    -webkit-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+            transform: translateX(0px);
     width: 500px;
     height: 50px;
     -webkit-animation: none;
@@ -32,6 +32,11 @@
   .search-block_wrap.show {
     z-index: 2;
     margin: 0;
+  }
+  .search-block {
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
   }
   .search-res {
     top: 100%;
@@ -59,6 +64,10 @@
   }
   .header.show-res .search-block_wrap {
     margin: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
   }
   .header-content {
     position: relative;
@@ -203,8 +212,38 @@
   }
   .search-block_wrap {
     width: 100%;
-    max-width: 360px;
-    top: calc(100% - -7px);
+    top: calc(100% - -15px);
+  }
+  .product-cart__info {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+  .product-cart__rating {
+    width: 120px;
+    height: 20px;
+    margin: 0 auto;
+  }
+  .product-cart__price {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .product-cart__name {
+    margin: 15px 0 2px 15px;
   }
   .search-res__item {
     display: grid;
@@ -232,6 +271,9 @@
         -ms-flex-pack: start;
             justify-content: flex-start;
     font-size: 18px;
+  }
+  .search-res.height-res {
+    height: 300px;
   }
   .footer {
     margin-bottom: 120px;

@@ -1,7 +1,10 @@
 <?php
+use toriphes\lazyload\LazyLoad;
+
 $this->registerCssFile('@web/css/index/index.css');
 $this->registerJsFile('@web/js/lord-icon.min.js');
 ?>
+
 
 <main class="banner">
     <div class="container">
@@ -31,7 +34,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
         <div class="index-category__content dg">
             <?php for ($i = 0; $i < count($categories); $i++) : ?>
                 <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $categories[$i]['id']]) ?>"
-                   class="index-category__item df" data-aos="zoom-in" data-aos-delay="<?= $i * 100 ?>" data-aos-once="true">
+                   class="index-category__item df" data-aos="zoom-in" data-aos-once="true" data-aos-offset="100">
                     <h2 class="cat-title"><?= $categories[$i]->name ?></h2>
                     <div class="index-category__img">
                         <?= \yii\helpers\Html::img("/img/index/{$categories[$i]->img}", ["alt" => "Nuts City {$categories[$i]->name}"]) ?>
@@ -57,11 +60,16 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 <div class="hit-products__content swiper-container">
                     <div class="swiper-wrapper">
                         <?php for($i = 0; $i < count($offers); $i++) : ?>
-                            <div class="swiper-slide product-cart" data-aos="fade-up" data-aos-delay="<?= $i * 100 ?>" data-aos-once="true">
-                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>"
-                                   class="product-cart__photo">
-                                    <?= \yii\helpers\Html::img("@web/img/product/{$offers[$i]->img}", ["alt" => $offers[$i]->title]) ?>
-                                </a>
+                            <div class="swiper-slide product-cart" data-aos="fade-up" data-aos-delay="<?= $i * 50 ?>" data-aos-once="true" data-aos-offset="50">
+                                <div class="product-cart__photo">
+                                    <img class="lazy main-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs="
+                                         data-src = "<?= "/img/product/{$offers[$i]->url}/{$offers[$i]->img}" ?>"
+                                         alt="<?= $offers[$i]->title ?>">
+
+                                    <img class="lazy sec-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs="
+                                         data-src = "<?= "/img/product/{$offers[$i]->url}/{$offers[$i]->sec_img}" ?>"
+                                         alt="<?= $offers[$i]->title ?>">
+                                </div>
                                 <h3 class="product-cart__name">
                                     <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>"><?= $offers[$i]->title ?></a>
                                 </h3>
@@ -71,12 +79,18 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                                               style="width: calc((<?= $offers[$i]->rating ?> * 100 / 5) * 1%)"></span>
                                     </div>
                                     <div class="product-cart__price">
-                                        <p class="goods-price">
-                                            <?= $offers[$i]->price ?>₴
-                                            <?php if ($offers[$i]->old_price) : ?>
-                                                <span class="old-price"><?= $offers[$i]->old_price ?>₴</span>
-                                            <?php endif; ?>
-                                        </p>
+                                            <?php if ($offers[$i]->sale) : ?>
+                                                <p class="goods-price">
+                                                    <span class="old-price"><?= $offers[$i]->price ?>₴</span>
+                                                    <?= $offers[$i]->new_price ?>₴
+                                                </p>
+                                                <div class="sale-block">
+                                                    <p>Знижка</p>
+                                                    <span><?= $offers[$i]->sale ?> %</span>
+                                                </div>
+                                            <?php else: ?>
+                                                <p class="goods-price"><?= $offers[$i]->price ?>₴</p>
+                                            <?endif;?>
                                     </div>
                                     <div class="product-cart__count">
                                         <div class="__select" data-state="">
@@ -230,7 +244,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 <p class="instagram-info__title">
                     Набір горіхів "Горішковий MIX"
                 </p>
-                <a href="" class="btn btn-orange btn-instagram">
+                <a href="https://www.instagram.com/nuts.city/" class="btn btn-orange btn-instagram" target="_blank">
                     <p>Підписатись в Instagram</p>
                 </a>
             </div>
@@ -250,7 +264,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                     <div class="review-star"><span style="width: calc((100% * 4) / 5)"></span></div>
                 </div>
             </div>
-            <a href="" class="btn btn-green review-top__link">
+            <a href="https://www.google.com/search?gs_ssp=eJzj4tVP1zc0LCwuMjIyMCk2YLRSNagwMTdOTEmxMLcwMklMSTY3tzKoSDU0MjWxTDNKs0yyMEwxSPbizCstKVZIziypBABJNhKt&q=nuts+city&rlz=1C1SQJL_enUA886UA886&oq=nuts&aqs=chrome.2.69i60j69i57j46i39i175i199j46i175i199j0j69i60l3.3588j1j1&sourceid=chrome&ie=UTF-8#lrd=0x473add87824adc77:0xe12549f2f9b81d0c,1,,," class="btn btn-green review-top__link" target="_blank">
                 <p>Подивитись в GoogleВідгуках</p>
             </a>
         </div>
@@ -407,3 +421,5 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
         </div>
     </div>
 </section>
+
+

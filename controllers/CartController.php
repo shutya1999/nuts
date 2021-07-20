@@ -118,10 +118,10 @@ class CartController extends AppController
                             ->setSubject('Замовлення на сайті Nuts City')
                             ->send();
                     }catch (\Swift_TransportException $e){
-                        //var_dump($e); die;
+//                        debug($e); die;
                     }
                 }else{
-
+//                    echo "LiqPay";
                 }
 
 

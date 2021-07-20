@@ -1,1 +1,4 @@
-<h1>Adminka</h1>
+<?php
+$this->title = "Статистика";
+$this->params['breadcrumbs'][] = $this->title;
+?>

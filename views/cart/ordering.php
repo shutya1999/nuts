@@ -22,11 +22,11 @@ use yii\base\Widget;
                 <?= $form->field($order, 'email', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваш email*']) ?>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox" id="consultation1" name="Order[consultation]" value="1">
+                <input type="radio" class="filter-checkbox" id="consultation1" name="Order[consultation]" value="0">
                 <label for="consultation1">Консультація не потрібна. Не телефонуйте мені</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox" id="consultation2" name="Order[consultation]" value="0" checked>
+                <input type="radio" class="filter-checkbox" id="consultation2" name="Order[consultation]" value="1" checked>
                 <label for="consultation2">Мені необхідна консультація. Зателефонуйте мені</label>
             </div>
         </div>
@@ -69,7 +69,7 @@ use yii\base\Widget;
                 <label for="payment1">Оплата при отриманні</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox" id="payment2" name="Order[payment_type]" value="LiqPay">
+                <input type="radio" class="filter-checkbox" id="payment2" name="Order[payment_type]" value="LiqPay" disabled>
                 <label for="payment2">Оплата картою (LiqPay)</label>
             </div>
             <div class="mo-line"></div>

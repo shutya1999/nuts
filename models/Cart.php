@@ -24,6 +24,7 @@ $arr = [
         '2' => [
             'title' => '',
             'img' => '',
+            'url' => '',
             '2000' => [
                 'volume' => '2000',
                 'price' => '1500'
@@ -63,7 +64,8 @@ class Cart extends Model
             $_SESSION['cart'][$product->id] = [
                 'title'       => $product->title,
                 'img'         => $product->img,
-                'volume-type' => key($options)
+                'url'         => $product->url,
+                'volume-type' => key($options),
             ];
             $_SESSION['cart'][$product->id][$volume] = [
                 'price'       => $price,

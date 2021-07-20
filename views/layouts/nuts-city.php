@@ -92,7 +92,7 @@ AppAsset::register($this);
                 </div>
                 <div class="header-cart"></div>
                 <div class="header-lang sub">
-                    <a href="">UA</a>
+                    <p>UA</p>
                     <div class="sub-list">
                         <a href="">RU</a>
                     </div>
@@ -106,6 +106,7 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
+
     <div class="hidden-menu">
         <div class="hidden-menu__top df">
             <a href="">Головна</a>
@@ -115,7 +116,7 @@ AppAsset::register($this);
             <a href="#contacts">контакти</a>
         </div>
         <div class="hidden-menu__bottom df">
-            <?php foreach ($this->params as $cat) : ?>
+            <?php foreach ($this->context->categories as $cat) : ?>
                 <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $cat->id]) ?>"><?= $cat->name ?></a>
             <?php endforeach; ?>
         </div>
@@ -126,6 +127,7 @@ AppAsset::register($this);
     </div>
 </header>
 <? //= Yii::$app->getSecurity()->generatePasswordHash('user'); ?>
+
 <?= $content ?>
 <footer class="footer">
     <div class="container">

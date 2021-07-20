@@ -410,7 +410,7 @@ template {
   line-height: 100%;
 }
 
-.text, .btn p, .goods-in-cart span, .header-cart-price, .btn-to-order, .view-cart, .goods-counter label, .more-reviews p, .footer-form-text, .form-fields, .form-fields::placeholder, .btn-form, .search-fields, .search-fields::placeholder, .goods-price, .review-number, .btn-goods p, .text-goods {
+.text, .btn p, .goods-in-cart span, .header-cart-price, .btn-to-order, .view-cart, .goods-counter label, .more-reviews p, .footer-form-text, .form-fields, .form-fields::placeholder, .btn-form, .search-fields, .search-fields::placeholder, .goods-price, .review-number, .btn-goods p, .text-goods p {
   font-family: "OpenSans", sans-serif;
   font-style: normal;
   line-height: 100%;
@@ -455,6 +455,12 @@ ul {
 a {
   text-decoration: none;
   color: black;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .container {
@@ -1375,6 +1381,7 @@ a {
 .__select[data-state="active"] .__select__content {
   opacity: 1;
   z-index: 2;
+  display: block;
 }
 
 .__select[data-state="active"] .__select__label + .__select__input + .__select__label {
@@ -1459,6 +1466,7 @@ a {
 }
 
 .__select__content {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0px;
@@ -1478,9 +1486,12 @@ a {
   opacity: 0;
   z-index: -1;
   padding-bottom: 10px;
-  display: block;
   max-height: 110px;
   overflow-y: scroll;
+}
+
+.__select__content::-webkit-scrollbar {
+  width: 0;
 }
 
 .__select__input {
@@ -1765,6 +1776,28 @@ a {
           transform: translate(-50%, -50%);
 }
 
+.product-cart__photo .main-photo {
+  opacity: 1;
+  -webkit-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+
+.product-cart__photo .sec-photo {
+  opacity: 0;
+  -webkit-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+
+.product-cart__photo:hover .sec-photo {
+  opacity: 1;
+}
+
+.product-cart__photo:hover .main-photo {
+  opacity: 0;
+}
+
 .product-cart__info {
   grid-template-columns: minmax(auto, 120px) 1fr;
   grid-gap: 10px;
@@ -1822,8 +1855,10 @@ a {
 }
 
 .product-cart__price span {
-  color: #EBEBEB;
-  margin-left: 5px;
+  -webkit-text-decoration-line: line-through;
+          text-decoration-line: line-through;
+  color: #A3A3A3;
+  margin-right: 5px;
 }
 
 .more-reviews {
@@ -2438,10 +2473,10 @@ a {
   .search-block_wrap {
     position: absolute;
     top: calc(100% - 25px);
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    left: 110%;
+    -webkit-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+            transform: translateX(0px);
     width: 500px;
     height: 50px;
     -webkit-animation: none;
@@ -2451,6 +2486,11 @@ a {
   .search-block_wrap.show {
     z-index: 2;
     margin: 0;
+  }
+  .search-block {
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
   }
   .search-res {
     top: 100%;
@@ -2478,6 +2518,10 @@ a {
   }
   .header.show-res .search-block_wrap {
     margin: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
   }
   .header-content {
     position: relative;
@@ -2622,8 +2666,38 @@ a {
   }
   .search-block_wrap {
     width: 100%;
-    max-width: 360px;
-    top: calc(100% - -7px);
+    top: calc(100% - -15px);
+  }
+  .product-cart__info {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+  .product-cart__rating {
+    width: 120px;
+    height: 20px;
+    margin: 0 auto;
+  }
+  .product-cart__price {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .product-cart__name {
+    margin: 15px 0 2px 15px;
   }
   .search-res__item {
     display: grid;
@@ -2651,6 +2725,9 @@ a {
         -ms-flex-pack: start;
             justify-content: flex-start;
     font-size: 18px;
+  }
+  .search-res.height-res {
+    height: 300px;
   }
   .footer {
     margin-bottom: 120px;
@@ -2871,6 +2948,13 @@ a {
   color: #3A3A3A;
 }
 
+.goods-price .old-price {
+  -webkit-text-decoration-line: line-through;
+          text-decoration-line: line-through;
+  color: #A3A3A3;
+  margin-right: 10px;
+}
+
 .goods-name {
   font-weight: normal;
   font-size: 40px;
@@ -2920,11 +3004,16 @@ a {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.30262 11C3.572 11 2.98085 11.6 2.98085 12.3333C2.98085 13.0666 3.572 13.6666 4.30262 13.6666C5.03325 13.6666 5.63104 13.0666 5.63104 12.3333C5.63104 11.6 5.03325 11 4.30262 11ZM0.317383 0.333313V1.66665H1.6458L4.03694 6.72665L3.14026 8.35998C3.03399 8.54665 2.97421 8.76665 2.97421 8.99998C2.97421 9.73331 3.572 10.3333 4.30262 10.3333H12.2731V8.99998H4.58159C4.4886 8.99998 4.41554 8.92665 4.41554 8.83331L4.43546 8.75331L5.03325 7.66665H9.98159C10.4797 7.66665 10.9181 7.39331 11.1439 6.97998L13.5218 2.65331C13.5749 2.55998 13.6015 2.44665 13.6015 2.33331C13.6015 1.96665 13.3026 1.66665 12.9373 1.66665H3.11369L2.48934 0.333313H0.317383ZM10.9447 11C10.2141 11 9.62292 11.6 9.62292 12.3333C9.62292 13.0666 10.2141 13.6666 10.9447 13.6666C11.6753 13.6666 12.2731 13.0666 12.2731 12.3333C12.2731 11.6 11.6753 11 10.9447 11Z' fill='%23FFC76C'/%3E%3C/svg%3E");
 }
 
-.text-goods {
+.text-goods p {
   font-weight: 300;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.005em;
+  margin-bottom: 20px;
+}
+
+strong {
+  font-weight: bold;
 }
 
 .bold {

@@ -12,7 +12,7 @@
                 <?php foreach ($product as $item) : ?>
                     <?php if (isset($item['qty'])) : ?>
                         <div class="cart-p-item df">
-                            <div class="cart-p-img" style="background: url('/img/product/<?= $product['img']?>')"></div>
+                            <div class="cart-p-img" style="background: url('/img/product/<?= $product['url']?>/<?= $product['img']?>')"></div>
                             <p class="cart-p-name"><?= $product['title'] ?> (<?= $product['volume-type']?>: <?= $item['volume'] ?>)</p>
                             <div class="cart-p-price ">
                                 <span class="new-price"><?= $item['qty'] * $item['price'] ?> ₴</span>

@@ -1,4 +1,7 @@
 AOS.init();
+let lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+});
 
 let filterCat = document.querySelectorAll(".filter-category input");
 
@@ -21,6 +24,10 @@ if (filterCat.length !== 0){
         lowerPriceHidden = document.querySelector("#sortform-lower_price"),
         topPrice = document.querySelector(".form-fields__price._top"),
         topPriceHidden = document.querySelector("#sortform-top_price");
+
+    // console.log(hiddenForm);
+
+    // console.log(document.querySelector(".catalog-content"));
 
     lowerPrice.addEventListener("change", function () {
         lowerPriceHidden.value = lowerPrice.value;
@@ -55,7 +62,9 @@ if (filterCat.length !== 0){
         addFilterCat(activeCat);
     }
     function addFilterCat(activeCat) {
-        let inputCat = hiddenForm.querySelectorAll("#sortform-category input");
+        let inputCat = document.querySelectorAll("#sortform-category input");
+
+        console.log(inputCat);
 
         // console.log(inputCat);
 
@@ -106,15 +115,21 @@ if (filterCat.length !== 0){
             product.className = 'product-cart';
             product.dataset.aos = "fade-up";
             product.dataset.aosDuration = "500";
-            product.dataset.aosDelay = 100 + delayCounter;
+            product.dataset.aosOffset = "10";
+
+            //product.dataset.aosDelay = 100 + delayCounter;
             product.dataset.aosOnce = "true";
 
 
 
             let productPhoto = `
-                <a href="/product/${item.url}" class="product-cart__photo">
-                    <img src="/img/product/${item.img}" alt="${item.title}">
-                </a>`;
+                <div class="product-cart__photo">
+                    <img class="main-photo" src="/img/product/${item.url}/${item.img}" alt="${item.title}">
+                    <img class="sec-photo" src="/img/product/${item.url}/${item.sec_img}" alt="${item.title}">
+                </div>`;
+
+        // <img class="lazy main-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=" data-src="/img/product/${item.url}/${item.img}" alt="${item.title}">
+        // <img class="lazy sec-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=" data-src="/img/product/${item.url}/${item.sec_img}" alt="${item.title}">
 
             let title = `<h3 class="product-cart__name">
                 <a href="/product/${item.url}">${item.title}</a>
@@ -130,17 +145,20 @@ if (filterCat.length !== 0){
                 </div>`;
 
             let price;
-            if (item.old_price !== 0){
+
+            if (item.new_price){
                 price = `
                 <div class="product-cart__price">
-                    <p class="goods-price">${item.price}₴
-                        <span class="old-price">${item.old_price}₴</span>
+                    <p class="goods-price">
+                        <span class="old-price">${item.new_price}₴</span>
+                        ${item.price}₴
                     </p>
                 </div>
             `;
             }else {
                 price = `<div class="product-cart__price"><p class="goods-price">${item.price}₴</p></div>`;
             }
+
             let url = encodeURI("/cart/add?id=1&volume=200&qty=1");
             let buy = `
             <a href="${url}" onclick="addToCart(this)" data-id="${item.id}" class="btn btn-orange product-cart__buy add-to-cart">
@@ -214,7 +232,7 @@ function createPagin(data) {
           paginNext = document.querySelector(".pagin-next span"),
           paginPrev = document.querySelector(".pagin-prev span");
 
-    const notesOnPage = 3;
+    const notesOnPage = 12;
 
     let totalPage = Math.ceil(data.length  / notesOnPage);
 
@@ -335,6 +353,7 @@ if (slider !== null){
 
     swiperHit = new Swiper('.hit-products__content', {
         spaceBetween: 10,
+        allowTouchMove: true,
         breakpoints: {
             320: {
                 slidesPerView: 1.5,
@@ -344,6 +363,7 @@ if (slider !== null){
                 slidesPerView: 2.5,
             },
             1200: {
+                allowTouchMove: false,
                 slidesPerView: 4,
                 navigation: {
                     nextEl: '.hit-products__next',
@@ -915,10 +935,14 @@ function priceProduct(data, form) {
     let price = form.querySelector('.goods-price');
     let btnBuy = form.querySelector(".add-to-cart");
 
-
-
-    price.innerHTML = `${data.price} ₴`;
+    // price.innerHTML = `${data.price} ₴`;
     btnBuy.href = `/cart/add?id=${data.id}&volume=${data.volume}&volume-type=${data.volumeType}&qty=${data.qty}`;
+    
+    if (data.new_price){
+        price.innerHTML = `<p class="goods-price"><span class="old-price">${data.new_price}₴</span>${data.price}₴</p>`
+    }else {
+        price.innerHTML = `${data.price} ₴`;
+    }
 }
 
 let selectProductVolumeBtn = document.querySelectorAll(".__select__label");
@@ -961,7 +985,7 @@ function ajaxPriceProduct(tg) {
             volume: volume
         },
         success: function(res){
-            // console.log(res);
+            console.log(res);
             priceProduct(res, parent);
         },
         error: function(){
