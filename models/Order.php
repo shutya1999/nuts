@@ -40,7 +40,7 @@ class Order extends ActiveRecord
         return [
             [['name', 'last_name', 'phone', 'email', 'delivery_type'], 'required'],
             ['note', 'trim'],
-            [['city', 'department_np', 'street', 'index_ukr', 'house_number', 'apartment_number', 'payment_type'], 'trim'],
+            [['city', 'department_np', 'street', 'index_ukr', 'house_number', 'apartment_number', 'payment_type', 'patronymic'], 'trim'],
             ['email', 'email'],
             [['created_at', 'update_at'], 'safe'],
             [['qty', 'total'], 'integer'],

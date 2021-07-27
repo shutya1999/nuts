@@ -10,20 +10,17 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
     <div class="container">
         <div class="swiper-container banner-slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="/img/index/banner.png" alt="Banner 1">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/img/index/banner.png" alt="Banner 1">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/img/index/banner.png" alt="Banner 1">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/img/index/banner.png" alt="Banner 1">
-                </div>
+                <?php foreach ($banner as $slide) : ?>
+                    <div class="swiper-slide">
+                        <img class="lazy _desktop" src="data:image/gif;base64,R0lGODlhAwABAIAAAP///wAAACH5BAEAAAEALAAAAAADAAEAAAICjAsAOw=="
+                             data-src="/img/banner-main/<?= $slide->desktop ?>" >
+                        <img class="lazy _tablet" src="data:image/gif;base64,R0lGODlhCQAFAIAAAP///wAAACH5BAEAAAEALAAAAAAJAAUAAAIFjI+py10AOw=="
+                             data-src="/img/banner-main/<?= $slide->tablet ?>" >
+                        <img class="lazy _mob" src="data:image/gif;base64,R0lGODlhSQBQAIAAAP///wAAACH5BAEAAAEALAAAAABJAFAAAAJUjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7LSwAADs="
+                             data-src="/img/banner-main/<?= $slide->mobile ?>" >
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <!-- If we need pagination -->
             <div class="swiper-pagination"></div>
         </div>
     </div>
@@ -60,9 +57,9 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 <div class="hit-products__content swiper-container">
                     <div class="swiper-wrapper">
                         <?php for($i = 0; $i < count($offers); $i++) : ?>
-                            <div class="swiper-slide product-cart" data-aos="fade-up" data-aos-delay="<?= $i * 50 ?>" data-aos-once="true" data-aos-offset="50">
-                                <div class="product-cart__photo">
-                                    <img class="lazy main-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs="
+                            <div class="swiper-slide product-cart">
+                                <div class="product-cart__photo" data-aos="zoom-in" data-aos-once="true" data-aos-offset="50">
+                                    <img class="lazy main-photo" src="/img/load.gif"
                                          data-src = "<?= "/img/product/{$offers[$i]->url}/{$offers[$i]->img}" ?>"
                                          alt="<?= $offers[$i]->title ?>">
 
@@ -92,11 +89,30 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                                                 <p class="goods-price"><?= $offers[$i]->price ?>₴</p>
                                             <?endif;?>
                                     </div>
+                                    <?php $options = json_decode($offers[$i]->option); ?>
+                                    <?php if(key($options) != 'Box') : ?>
+                                        <div class="product-cart__count">
+                                            <div class="__select" data-state="">
+                                                <div class="__select__title" data-default="Option 0" onclick="showSelect(this);">
+                                                    <?= key($options) ?>: <?= current($options)[0]->quantity ?>
+                                                </div>
+                                                <div class="__select__content">
+                                                    <?php foreach (current($options) as $key => $option) : ?>
+                                                        <input id="singleSelect<?= $key ?>_<?= $offers[$i]->id ?>"
+                                                               class="__select__input" type="radio"
+                                                               name="volume_<?= $offers[$i]->id ?>"
+                                                               value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
+                                                        <label for="singleSelect<?= $key ?>_<?= $offers[$i]->id ?>"
+                                                               class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
                                     <div class="product-cart__count">
                                         <div class="__select" data-state="">
-                                            <?php $options = json_decode($offers[$i]->option); ?>
                                             <div class="__select__title" data-default="Option 0" onclick="showSelect(this);">
-                                                <?= key($options) ?>: <?= current($options)[0]->quantity ?>
+                                                <?= current($options)[0]->title ?>
                                             </div>
                                             <div class="__select__content">
                                                 <?php foreach (current($options) as $key => $option) : ?>
@@ -105,11 +121,13 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                                                            name="volume_<?= $offers[$i]->id ?>"
                                                            value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
                                                     <label for="singleSelect<?= $key ?>_<?= $offers[$i]->id ?>"
-                                                           class="__select__label"><?= key($options) . ": " . $option->quantity ?></label>
+                                                           class="__select__label"><?= $option->title ?></label>
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php endif; ?>
+
                                     <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offers[$i]->id, 'volume' => current($options)[0], 'qty' => 1]) ?>"
                                        data-id="<?= $offers[$i]->id ?>" onclick="addToCart(this)" class="btn btn-orange product-cart__buy add-to-cart">
                                         <p>Купити</p>
@@ -216,41 +234,38 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
     </div>
 </section>
 
-<section class="instagram indent">
-    <div class="container">
-        <h2 class="title">Ми в <span class="_brown">INSTAGRAM</span></h2>
-        <div class="instagram-content df">
-            <div class="instagram-photo dg">
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo1.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo2.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo3.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo4.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo5.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo6.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo7.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo8.jpg')"></div>
-                <div class="instagram-photo--item" style="background-image: url('/img/index/insta/photo9.jpg')"></div>
-            </div>
-            <div class="instagram-info">
-                <p class="text instagram-text">
-                    Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
-                    Lorem Ipsum используют потому, что тот обеспечивает более или менее. <br><br>
+<?php if (isset($instaFeed) && !empty($instaFeed)) : ?>
+    <section class="instagram indent">
+        <div class="container">
+            <h2 class="title">Ми в <span class="_brown">INSTAGRAM</span></h2>
+            <div class="instagram-content df">
+                <div class="instagram-photo dg">
+                    <?php foreach ($instaFeed as $post) : ?>
+                        <a href="<?= $post['link'] ?>" class="instagram-photo--item" style="background-image: url('<?= $post['img'] ?>')" target="_blank"></a>
+                    <?php endforeach; ?>
+                </div>
+                <div class="instagram-info">
+                    <p class="text instagram-text">
+                        Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
+                        Lorem Ipsum используют потому, что тот обеспечивает более или менее. <br><br>
 
-                    Cтандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах,
-                    которое не получается при простой дубликации.<br><br>
+                        Cтандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах,
+                        которое не получается при простой дубликации.<br><br>
 
-                    Получается при простой дубликации.
-                </p>
-                <p class="instagram-info__title">
-                    Набір горіхів "Горішковий MIX"
-                </p>
-                <a href="https://www.instagram.com/nuts.city/" class="btn btn-orange btn-instagram" target="_blank">
-                    <p>Підписатись в Instagram</p>
-                </a>
+                        Получается при простой дубликации.
+                    </p>
+                    <p class="instagram-info__title">
+                        Набір горіхів "Горішковий MIX"
+                    </p>
+                    <a href="https://www.instagram.com/nuts.city/" class="btn btn-orange btn-instagram" target="_blank">
+                        <p>Підписатись в Instagram</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+<?php endif; ?>
 
 <section class="review indent" id="review">
     <div class="container">
@@ -261,7 +276,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 <p class="review__company-address">Орлика, 1, Солонка, Львівська область</p>
                 <div class="review__company-rating df">
                     <p>5,0</p>
-                    <div class="review-star"><span style="width: calc((100% * 4) / 5)"></span></div>
+                    <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
                 </div>
             </div>
             <a href="https://www.google.com/search?gs_ssp=eJzj4tVP1zc0LCwuMjIyMCk2YLRSNagwMTdOTEmxMLcwMklMSTY3tzKoSDU0MjWxTDNKs0yyMEwxSPbizCstKVZIziypBABJNhKt&q=nuts+city&rlz=1C1SQJL_enUA886UA886&oq=nuts&aqs=chrome.2.69i60j69i57j46i39i175i199j46i175i199j0j69i60l3.3588j1j1&sourceid=chrome&ie=UTF-8#lrd=0x473add87824adc77:0xe12549f2f9b81d0c,1,,," class="btn btn-green review-top__link" target="_blank">
@@ -271,9 +286,10 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
         <div class="review-content">
             <div class="review-item df">
                 <div class="review__user-info dg">
-                    <img src="/img/index/review/user-photo1.png" alt="" class="review__user-avatar">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                            data-src="/img/index/review/user-photo1.png" alt="" class="lazy review__user-avatar">
                     <p class="review__user-name">Вячеслав Трембач</p>
-                    <div class="review-star"><span style="width: calc((100% * 4) / 5)"></span></div>
+                    <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
                     <span class="review__user-time">місяць назад</span>
                 </div>
                 <div class="user-review">
@@ -284,15 +300,18 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                         Спасибо @nuts.city
                     </p>
                     <div class="user-review__photos df">
-                        <img src="/img/index/review/user-review-photo1.png" alt="">
-                        <img src="/img/index/review/user-review-photo2.png" alt="">
+                        <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                                data-src="/img/index/review/user-review-photo1.png" alt="">
+                        <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                                data-src="/img/index/review/user-review-photo2.png" alt="">
                     </div>
                 </div>
             </div>
 
             <div class="review-item df">
                 <div class="review__user-info dg">
-                    <img src="/img/index/review/user-photo2.png" alt="" class="review__user-avatar">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                            data-src="/img/index/review/user-photo2.png" alt="" class="lazy review__user-avatar">
                     <p class="review__user-name">Вероника Бондарец</p>
                     <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
                     <span class="review__user-time">2 місяця назад</span>
@@ -305,14 +324,16 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                         Теперь только к Вам 🐿
                     </p>
                     <div class="user-review__photos df">
-                        <img src="/img/index/review/user-review-photo2.png" alt="">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                                data-src="/img/index/review/user-review-photo2.png" alt="" class="lazy">
                     </div>
                 </div>
             </div>
 
             <div class="review-item df">
                 <div class="review__user-info dg">
-                    <img src="/img/index/review/user-photo3.png" alt="" class="review__user-avatar">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                            data-src="/img/index/review/user-photo3.png" alt="" class="lazy review__user-avatar">
                     <p class="review__user-name">Андрей Резников</p>
                     <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
                     <span class="review__user-time">2 місяця назад</span>
@@ -325,7 +346,56 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                     </p>
                 </div>
             </div>
-            <div class="more-reviews df">
+
+            <div class="review-item hidden-review df">
+                <div class="review__user-info dg">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                         data-src="/img/index/review/user-photo4.png" alt="" class="lazy review__user-avatar">
+                    <p class="review__user-name">Yaroslav Malyk</p>
+                    <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
+                    <span class="review__user-time">5 місяців тому</span>
+                </div>
+                <div class="user-review">
+                    <p class="user-review__text">
+                        Чудова знахідка)) Горішки і сухофрукти постійно свіжі та великі і дужееее смачні. Значний вибір горішок і сухофруктів також є інші товари як соки, крупи, кава ... Дуже гарні подарункові комплекти з приємними сюрпризами - завжди цілі та цікаві - дуже гарно получається на подарунок - не однарозово ними користувався.
+
+                        Дякую NutsCity за позитив в роботі та настрій який ви даруєте людям Ви завжди орієнтовані на клієнта!!!!!
+                    </p>
+                </div>
+            </div>
+
+            <div class="review-item hidden-review df">
+                <div class="review__user-info dg">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                         data-src="/img/index/review/user-photo5.png" alt="" class="lazy review__user-avatar">
+                    <p class="review__user-name">Алёна Репях</p>
+                    <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
+                    <span class="review__user-time">4 місяці тому</span>
+                </div>
+                <div class="user-review">
+                    <p class="user-review__text">
+                        Дуже дякуємо за смачні горішки😍😍😍😍😍 і подаруночок-смаколик😋😋😋, дуже приємно!!!! Молодці, якість товару та обслуговування на найвищому рівні👍🏻👍🏻👍🏻 замовляла вперше і тепер буду постійно😋😋😋😋
+                    </p>
+                </div>
+            </div>
+
+            <div class="review-item hidden-review df">
+                <div class="review__user-info dg">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                         data-src="/img/index/review/user-photo6.png" alt="" class="lazy review__user-avatar">
+                    <p class="review__user-name">Ярослав Бойчук</p>
+                    <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
+                    <span class="review__user-time">5 місяців тому</span>
+                </div>
+                <div class="user-review">
+                    <p class="user-review__text">
+                        Рекомендую всім купувати горішки саме тут!!! Сам вже більше року купую як горішки так і різні сушені ласощі і жодного разу не було чогось щоб мені не сподобалося! Завжди свіже, завжди смачно!!! І дуже люблю коли є якісь промо коди на знижки 😜 А ще був вражений подарунковою коробкою 😎 Це супер корисний подарунок і не шкодить здоров’ю як цукерки і дуууже смачно!!!
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="more-reviews df" onclick="showReview()">
                 <p>Більше відгуків</p>
             </div>
         </div>
@@ -385,7 +455,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
             </div>
         </div>
         <div class="more-delivery df">
-            <a href="">Більш детальна інформація</a>
+            <a href="<?= \yii\helpers\Url::to(['home/privacy-policy']) ?>">Більш детальна інформація</a>
         </div>
     </div>
 </section>
@@ -401,25 +471,23 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
             </div>
             <div class="contacts-column">
                 <p class="contacts-column__title">Телефони:</p>
-                <a href="tel:+380 68 123 73 21" class="contacts-text _hover-orange"> +380 68 123 73 21</a>
-                <a href="tel:+380 68 123 73 21" class="contacts-text _hover-orange"> +380 68 123 73 21</a>
+                <a href="tel:<?= $this->context->information['phone1']?>" class="contacts-text _hover-orange"><?= $this->context->information['phone1']?></a>
+                <a href="tel:<?= $this->context->information['phone2']?>" class="contacts-text _hover-orange"><?= $this->context->information['phone2']?></a>
             </div>
             <div class="contacts-column">
                 <p class="contacts-column__title">Email:</p>
-                <a href="mailto:nutscity@ukr.net" class="contacts-text _hover-orange">nutscity@ukr.net</a>
+                <a href="mailto:<?= $this->context->information['email'] ?>" class="contacts-text _hover-orange"><?= $this->context->information['email'] ?></a>
                 <div class="contacts-mesh">
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
-                    <a href=""></a>
+                    <a href="<?= $this->context->information['instagram'] ?>"></a>
+                    <a href="<?= $this->context->information['facebook'] ?>"></a>
+                    <a href="<?= $this->context->information['viber'] ?>"></a>
+                    <a href="<?= $this->context->information['telegram'] ?>"></a>
                 </div>
             </div>
             <div class="contacts-column">
                 <p class="contacts-column__title">Адреса:</p>
-                <p class="contacts-text">вул. Орлика, 1, с. Солонка, <br> 81131</p>
+                <p class="contacts-text"><?= $this->context->information['address'] ?></p>
             </div>
         </div>
     </div>
 </section>
-
-

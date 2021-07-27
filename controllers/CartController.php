@@ -13,6 +13,8 @@ use app\models\Cart;
 use app\models\Order;
 use app\models\OrderProduct;
 use app\models\Product;
+use app\models\User;
+use Yii;
 
 class CartController extends AppController
 {
@@ -24,6 +26,8 @@ class CartController extends AppController
         }
         $session = \Yii::$app->session;
         $session->open();
+//        $session->destroy();
+//        $session->de(['cart']);
 
         $cart = new Cart();
 
@@ -81,13 +85,60 @@ class CartController extends AppController
     public function actionOrdering(){
         $this->setMeta("Оформлення замовлення");
         $session = \Yii::$app->session;
+        $deliverySettings = [];
+        if (!Yii::$app->user->isGuest) {
+            $user = User::findByUsername(Yii::$app->user->identity->username);
+            $order = new Order();
 
-        $order = new Order();
+            $order->user_id = $user->id;
+            $order->name = $user->name;
+            $order->last_name = $user->surname;
+            $order->phone = $user->phone;
+            $order->email = $user->username;
+            $order->delivery_type = $user->delivery_type;
+            $deliverySettings['delivery_type'] = $user->delivery_type;
+            switch ($user->delivery_type){
+                case "Нова Пошта":
+                    $order->city = $user->city;
+                    $order->department_np = $user->department_np;
+
+                    $deliverySettings['city'] = $user->city;
+                    $deliverySettings['department_np'] = $user->department_np;
+                    break;
+                case "Укрпошта":
+                    $order->city = $user->city;
+                    $order->patronymic = $user->patronymic;
+                    $order->street = $user->street;
+                    $order->index_ukr = $user->index_ukr;
+
+                    $deliverySettings['city'] = $user->city;
+                    $deliverySettings['patronymic'] = $user->patronymic;
+                    $deliverySettings['street'] = $user->street;
+                    $deliverySettings['index_ukr'] = $user->index_ukr;
+
+                    break;
+                case "Кур’єрська доставка":
+                    $order->city = $user->city;
+                    $order->street = $user->street;
+                    $order->house_number = $user->house_number;
+                    $order->apartment_number = $user->apartment_number;
+
+                    $deliverySettings['city'] = $user->city;
+                    $deliverySettings['street'] = $user->street;
+                    $deliverySettings['house_number'] = $user->house_number;
+                    $deliverySettings['apartment_number'] = $user->apartment_number;
+                    break;
+                case "Самовивіз":
+                    break;
+            }
+        }else{
+            $order = new Order();
+        }
+
         $order_product = new OrderProduct();
 
         if ($order->load(\Yii::$app->request->post())){
 
-//            debug($order);
             $order->qty = $session['cart.qty'];
             $order->total = $session['cart.sum'];
 
@@ -98,7 +149,6 @@ class CartController extends AppController
                 $transaction->rollBack();
             }
             else{
-//                debug($order->name);
                 $transaction->commit();
                 \Yii::$app->session->setFlash("success", "Ваше замовлення прийнято");
 
@@ -133,7 +183,7 @@ class CartController extends AppController
             }
         }
 
-        return $this->render("ordering", compact('session', 'order'));
+        return $this->render("ordering", compact(['session', 'order', 'deliverySettings']));
     }
 
 }

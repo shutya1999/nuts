@@ -1,9 +1,7 @@
 <?php $this->registerCssFile('@web/css/index/index.css'); ?>
-<?php
-use yii\base\Widget;
-?>
-<?php //debug($order) ?>
 
+<?php //debug($deliverySettings) ?>
+<?php $this->registerJsVar('deliverySettings', $deliverySettings) ?>
 <?php if (!empty($session['cart'])) { ?>
     <div class="container indent">
         <h2 class="title mo-title">Оформлення замовлення</h2>
@@ -32,20 +30,21 @@ use yii\base\Widget;
         </div>
         <div class="mo-item _delivery">
             <p class="mo-item__title">Доставка</p>
+
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery1" name="Order[delivery_type]" data-delivery="novaposhta" value="Нова Пошта" checked>
+                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery1" name="Order[delivery_type]" data-delivery="novaposhta" value="Нова Пошта" <?= ($order->delivery_type == "Нова Пошта" || $order->delivery_type == '') ? 'checked' : '' ?>>
                 <label for="delivery1">Нова Пошта</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery2" name="Order[delivery_type]" data-delivery="ukrposhta" value="Укрпошта">
+                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery2" name="Order[delivery_type]" data-delivery="ukrposhta" value="Укрпошта" <?= ($order->delivery_type == "Укрпошта") ? 'checked' : '' ?>>
                 <label for="delivery2">Укрпошта</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery3" name="Order[delivery_type]" data-delivery="courier" value="Кур’єрська доставка">
+                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery3" name="Order[delivery_type]" data-delivery="courier" value="Кур’єрська доставка" <?= ($order->delivery_type == "Кур’єрська доставка") ? 'checked' : '' ?>>
                 <label for="delivery3">Кур’єрська доставка</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery4" name="Order[delivery_type]" data-delivery="" value="Самовивіз">
+                <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery4" name="Order[delivery_type]" data-delivery="" value="Самовивіз" <?= ($order->delivery_type == "Самовивіз") ? 'checked' : '' ?>>
                 <label for="delivery4">Самовивіз (с.Солонка, вул.Орлика 1)</label>
             </div>
             <div class="mo-line"></div>
@@ -84,13 +83,23 @@ use yii\base\Widget;
                         <?php foreach ($product as $item) : ?>
                             <?php if (isset($item['qty'])) : ?>
                                 <div class="header-cart__item dg">
-                                    <div class="header-cart__img" style="background: url('/img/product/<?= $product['img']?>')"></div>
+                                    <div class="header-cart__img" style="background: url('/img/product/<?= $product['url']?>/<?= $product['img']?>')"></div>
                                     <p class="header-cart__title"><?= $product['title'] ?></p>
                                     <span class="header-cart__delete" onclick="delProdInCart(<?= $id?>, <?= $item['volume']?>)"></span>
                                     <div class="header-cart__info_wrap">
                                         <div class="header-cart__info header-cart__count df">
-                                            <p class="cart-text header-cart__count_title"><?= $product['volume-type'] ?>: </p>
-                                            <span class="cart-text header-cart__count_value"><?= $item['volume'] ?></span>
+                                            <p class="cart-text header-cart__count_title"><?= ($product['volume-type'] != "Box") ? $product['volume-type'] . ":" : '' ?></p>
+                                            <span class="cart-text header-cart__count_value">
+                                            <?php if ($product['volume-type'] != "Box") { ?>
+                                                <?= $item['volume'] ?>
+                                            <?php }else{ ?>
+                                                <?php if ($item['volume'] == 1) { ?>
+                                                    Стандарт (Картонна)
+                                                <?php }else{ ?>
+                                                    Преміум (Дерев'яна)
+                                                <?php } ?>
+                                            <?php } ?>
+                                            </span>
                                         </div>
                                         <div class="header-cart__info header-cart__price df">
                                             <span class="cart-text header-cart__price_value"> <?= $item['qty'] ?>x </span>
@@ -138,6 +147,13 @@ use yii\base\Widget;
         <p class="error-order"><?= Yii::$app->session->getFlash("error"); ?></p>
     <?php endif; ?>
 <?php } ?>
+
+<script>
+    function delProdInCart(t,f) {
+        console.log('rELOAD');
+        window.location.reload();
+    }
+</script>
 
 
 

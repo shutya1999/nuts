@@ -50,7 +50,10 @@ class OrderProduct extends ActiveRecord
         }
 
         return true;
+    }
 
+    public function getProduct(){
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
 }

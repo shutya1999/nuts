@@ -1,9 +1,5 @@
 <?php $this->registerCssFile('@web/css/index/index.css'); ?>
 
-<?php
-//debug($_SESSION['cart']);
-?>
-
 <div class="container indent">
     <div class="title cart-p-title">кошик</div>
     <?php if (!empty($session['cart'])) { ?>
@@ -13,7 +9,13 @@
                     <?php if (isset($item['qty'])) : ?>
                         <div class="cart-p-item df">
                             <div class="cart-p-img" style="background: url('/img/product/<?= $product['url']?>/<?= $product['img']?>')"></div>
-                            <p class="cart-p-name"><?= $product['title'] ?> (<?= $product['volume-type']?>: <?= $item['volume'] ?>)</p>
+                            <p class="cart-p-name">
+                                <?php if ($product['volume-type'] == "Box") : ?>
+                                    <?= $product['title'] ?> (<?= ($item['volume'] == 1) ? "Стандарт (Картонна)" : "Преміум (Дерев'яна))" ?>
+                                <?php else: ?>
+                                    <?= $product['title'] ?> (<?= $product['volume-type']?>: <?= $item['volume'] ?>)
+                                <?php endif; ?>
+                            </p>
                             <div class="cart-p-price ">
                                 <span class="new-price"><?= $item['qty'] * $item['price'] ?> ₴</span>
                             </div>
@@ -30,7 +32,7 @@
             <?php endforeach; ?>
         </div>
         <div class="cart-p-info df">
-            <a href="" class="cart-p-back">← Повернутись до магазину</a>
+            <a href="/" class="cart-p-back">← Повернутись до магазину</a>
             <div class="cart-p__total-price df">
                 <p>до сплати:</p>
                 <span><?= $_SESSION['cart.sum'] ?> грн</span>
@@ -39,7 +41,7 @@
         </div>
     <?php }else { ?>
         <div class="cart-p-content _empty">
-            <p>В корзині пусто (</p>
+            <p>Ваш кошик порожній</p>
             <a href="/" style="">Почати покупки</a>
         </div>
     <?php } ?>

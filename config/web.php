@@ -16,11 +16,18 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        'auth' => [
-            'class' => 'app\modules\auth\Module',
-            'defaultRoute' => 'main/index'
+        'account' => [
+            'class' => 'app\modules\account\Module',
+            'layout' => 'account',
+            'defaultRoute' => 'personal-office/index'
         ],
     ],
+//    'modules' => [
+//        'account' => [
+//            'class' => 'app\modules\account\Module',
+//            'defaultRoute' => 'main/index'
+//        ],
+//    ],
 //    'modules' => [
 //        'admin' => [
 //            'class' => 'app\modules\admin\Module',
@@ -40,10 +47,10 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => '/auth/authorization/login',
+            'loginUrl' => '/account/auth/login',
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'home/myerror',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

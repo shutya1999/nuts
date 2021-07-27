@@ -19,15 +19,9 @@
                 <?php else: ?>
                     <p class="goods-price"><?= $item->price ?>₴</p>
                 <?endif;?>
-
-<!--                <p>--><?//= $item->price ?><!-- ₴-->
-<!--                    --><?php //if($item->old_price != 0) : ?>
-<!--                        <span class="old-price">200 ₴</span>-->
-<!--                    --><?php //endif; ?>
-<!--                </p>-->
             </div>
         </a>
     <?php endforeach; ?>
 <?php else: ?>
-    <p style="text-align: center">Нічого не знайдено</p>
+    <p style="text-align: center" class="empty-search">Нічого не знайдено</p>
 <?php endif; ?>

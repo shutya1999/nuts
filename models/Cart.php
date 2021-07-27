@@ -11,33 +11,25 @@ namespace app\models;
 
 use yii\base\Model;
 
-/*
-
-[
-
-]
-
-*/
-
-$arr = [
-    'cart' => [
-        '2' => [
-            'title' => '',
-            'img' => '',
-            'url' => '',
-            '2000' => [
-                'volume' => '2000',
-                'price' => '1500'
-            ],
-            '500' => [
-                'volume' => '500',
-                'price' => '200'
-            ]
-        ]
-    ],
-    'cart.qty' => '',
-    'cart.sum' => ''
-];
+//$arr = [
+//    'cart' => [
+//        '2' => [
+//            'title' => '',
+//            'img' => '',
+//            'url' => '',
+//            '2000' => [
+//                'volume' => '2000',
+//                'price' => '1500'
+//            ],
+//            '500' => [
+//                'volume' => '500',
+//                'price' => '200'
+//            ]
+//        ]
+//    ],
+//    'cart.qty' => '',
+//    'cart.sum' => ''
+//];
 
 
 class Cart extends Model
@@ -47,9 +39,14 @@ class Cart extends Model
         $options = json_decode($product->option);
         foreach (current($options) as $key => $option){
             if ($option->quantity == $volume){
-                $price = $option->price * $qty;
+                if ($product->sale){
+                    $price = $option->new_price * $qty;
+                }else{
+                    $price = $option->price * $qty;
+                }
             }
         }
+
         if (isset($_SESSION['cart'][$product->id])){
             if (isset($_SESSION['cart'][$product->id][$volume])){
                 $_SESSION['cart'][$product->id][$volume]['qty'] += $qty;
@@ -93,8 +90,6 @@ class Cart extends Model
 
     public function changeCart($id, $volume, $qty){
         $_SESSION['cart'][$id][$volume]['qty'] = $qty;
-//        $_SESSION['cart'][$id][$volume]['price'] = $qty;
-
 
         $totalPrice = 0;
         $totalQty = 0;
@@ -134,7 +129,7 @@ class Cart extends Model
 
         unset($_SESSION['cart'][$id][$volume]);
 
-        if (count($_SESSION['cart'][$id])< 4){
+        if (count($_SESSION['cart'][$id])< 5){
             unset($_SESSION['cart'][$id]);
         }
     }

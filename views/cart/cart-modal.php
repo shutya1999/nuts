@@ -18,8 +18,18 @@
                                     <span class="header-cart__delete" onclick="delProdInCart(<?= $id?>, <?= $item['volume']?>)"></span>
                                     <div class="header-cart__info_wrap">
                                         <div class="header-cart__info header-cart__count df">
-                                            <p class="cart-text header-cart__count_title"><?= $product['volume-type'] ?>: </p>
-                                            <span class="cart-text header-cart__count_value"><?= $item['volume'] ?></span>
+                                            <p class="cart-text header-cart__count_title"><?= ($product['volume-type'] != "Box") ? $product['volume-type'] . ":" : '' ?></p>
+                                            <span class="cart-text header-cart__count_value">
+                                                <?php if ($product['volume-type'] != "Box") { ?>
+                                                    <?= $item['volume'] ?>
+                                                <?php }else{ ?>
+                                                    <?php if ($item['volume'] == 1) { ?>
+                                                        Стандарт (Картонна)
+                                                    <?php }else{ ?>
+                                                        Преміум (Дерев'яна)
+                                                    <?php } ?>
+                                                <?php } ?>
+                                            </span>
                                         </div>
                                         <div class="header-cart__info header-cart__price df">
                                             <span class="cart-text header-cart__price_value"> <?= $item['qty'] ?>x </span>
@@ -51,7 +61,7 @@
         <div class="header-cart__close"></div>
         <div class="header-cart__item-top">
             <div class="header-cart__item_wrap">
-                <p>В корзині пусто</p>
+                <p>Ваш кошик порожній</p>
             </div>
         </div>
     </div>

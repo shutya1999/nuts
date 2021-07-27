@@ -58,13 +58,13 @@ if (filterCat.length !== 0){
                 activeCat.push(filter);
             }
         })
-        console.log(activeCat);
+        //console.log(activeCat);
         addFilterCat(activeCat);
     }
     function addFilterCat(activeCat) {
         let inputCat = document.querySelectorAll("#sortform-category input");
 
-        console.log(inputCat);
+        //console.log(inputCat);
 
         // console.log(inputCat);
 
@@ -109,27 +109,33 @@ if (filterCat.length !== 0){
         let catalogBlock = document.querySelector('.catalog-goods');
         catalogBlock.innerHTML = "";
         data.forEach(item => {
+            let lazyLoadInstance = new LazyLoad({
+                elements_selector: ".lazy"
+            });
+            findSelect();
             let options = JSON.parse(item.option);
 
             let product = document.createElement("div");
             product.className = 'product-cart';
-            product.dataset.aos = "fade-up";
-            product.dataset.aosDuration = "500";
-            product.dataset.aosOffset = "10";
 
-            //product.dataset.aosDelay = 100 + delayCounter;
-            product.dataset.aosOnce = "true";
+            let productPhoto = document.createElement("a");
+            productPhoto.className = "product-cart__photo";
+            productPhoto.href = `/product/${item.url}`;
 
+            let mainImg = document.createElement("img");
+            mainImg.src = "/img/load.gif";
+            mainImg.dataset.src = `/img/product/${item.url}/${item.img}`;
+            mainImg.alt = item.title;
+            mainImg.className = 'lazy main-photo';
 
+            let secImg = document.createElement("img");
+            secImg.src = "data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=";
+            secImg.dataset.src = `/img/product/${item.url}/${item.sec_img}`;
+            secImg.alt = item.title;
+            secImg.className = 'lazy sec-photo';
 
-            let productPhoto = `
-                <div class="product-cart__photo">
-                    <img class="main-photo" src="/img/product/${item.url}/${item.img}" alt="${item.title}">
-                    <img class="sec-photo" src="/img/product/${item.url}/${item.sec_img}" alt="${item.title}">
-                </div>`;
-
-        // <img class="lazy main-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=" data-src="/img/product/${item.url}/${item.img}" alt="${item.title}">
-        // <img class="lazy sec-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=" data-src="/img/product/${item.url}/${item.sec_img}" alt="${item.title}">
+            productPhoto.insertAdjacentElement("beforeend", mainImg);
+            productPhoto.insertAdjacentElement("beforeend", secImg);
 
             let title = `<h3 class="product-cart__name">
                 <a href="/product/${item.url}">${item.title}</a>
@@ -150,9 +156,13 @@ if (filterCat.length !== 0){
                 price = `
                 <div class="product-cart__price">
                     <p class="goods-price">
-                        <span class="old-price">${item.new_price}₴</span>
-                        ${item.price}₴
+                        <span class="old-price">${item.price}₴</span>
+                        ${item.new_price}₴
                     </p>
+                </div>
+                <div class="sale-block">
+                    <p>Знижка</p>
+                    <span>${item.sale} %</span>
                 </div>
             `;
             }else {
@@ -170,7 +180,7 @@ if (filterCat.length !== 0){
             info.insertAdjacentElement('beforeend', generateOption(options));
             info.insertAdjacentHTML('beforeend', buy);
 
-            product.insertAdjacentHTML('beforeend', productPhoto);
+            product.insertAdjacentElement('beforeend', productPhoto);
             product.insertAdjacentHTML('beforeend', title);
             product.insertAdjacentElement('beforeend', info);
 
@@ -194,28 +204,54 @@ if (filterCat.length !== 0){
                 let selectContent = document.createElement("div");
                 selectContent.className = "__select__content";
 
-                selectTitle.innerHTML = `${Object.keys(optionData)[0]}: ${optionData[Object.keys(optionData)[0]][0].quantity}` ;
+                if (Object.keys(optionData)[0] === 'Box'){
+                    selectTitle.innerHTML = `${optionData[Object.keys(optionData)[0]][0].title}` ;
 
-                for (let key in optionData) {
-                    let i = 0;
-                    optionData[key].forEach(val => {
-                        let input;
-                        if (i === 0){
-                            input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}" checked>`
-                        }else {
-                            input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}">`
-                        }
-                        let label = `<label for="singleSelect${i}_${item.id}" class="__select__label">${Object.keys(optionData)[0]}: ${val.quantity}</label>`;
+                    for (let key in optionData) {
+                        let i = 0;
+                        optionData[key].forEach(val => {
+                            let input;
+                            if (i === 0){
+                                input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}" checked>`
+                            }else {
+                                input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}">`
+                            }
+                            let label = `<label for="singleSelect${i}_${item.id}" class="__select__label">${val.title}</label>`;
 
-                        selectContent.insertAdjacentHTML('beforeend', input);
-                        selectContent.insertAdjacentHTML('beforeend', label);
-                        i ++;
-                    })
+                            selectContent.insertAdjacentHTML('beforeend', input);
+                            selectContent.insertAdjacentHTML('beforeend', label);
+                            i ++;
+                        })
+                    }
+                    select.insertAdjacentElement('beforeend', selectTitle);
+                    select.insertAdjacentElement('beforeend', selectContent);
+
+                    optionBlock.insertAdjacentElement('beforeend', select);
+                } else {
+                    selectTitle.innerHTML = `${Object.keys(optionData)[0]}: ${optionData[Object.keys(optionData)[0]][0].quantity}` ;
+
+                    for (let key in optionData) {
+                        let i = 0;
+                        optionData[key].forEach(val => {
+                            let input;
+                            if (i === 0){
+                                input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}" checked>`
+                            }else {
+                                input = `<input id="singleSelect${i}_${item.id}" class="__select__input" type="radio" name="volume_${item.id}" value="${val.quantity}">`
+                            }
+                            let label = `<label for="singleSelect${i}_${item.id}" class="__select__label">${Object.keys(optionData)[0]}: ${val.quantity}</label>`;
+
+                            selectContent.insertAdjacentHTML('beforeend', input);
+                            selectContent.insertAdjacentHTML('beforeend', label);
+                            i ++;
+                        })
+                    }
+                    select.insertAdjacentElement('beforeend', selectTitle);
+                    select.insertAdjacentElement('beforeend', selectContent);
+
+                    optionBlock.insertAdjacentElement('beforeend', select);
                 }
-                select.insertAdjacentElement('beforeend', selectTitle);
-                select.insertAdjacentElement('beforeend', selectContent);
 
-                optionBlock.insertAdjacentElement('beforeend', select);
 
                 return optionBlock;
             }
@@ -571,7 +607,7 @@ function search() {
             });
     } else {
         //console.log("Pusto");
-        searchRes.innerHTML = "<p style='text-align: center;'>Введіть щось</p>"
+        searchRes.innerHTML = "<p class='empty-search'>Введіть щось</p>";
         searchRes.classList.remove("height-res");
     }
 
@@ -626,6 +662,7 @@ if (deliveryBlock !== null){
     `;
     let ukr = `
         <div class="type-delivery__block ukrposhta-wrap" data-delivery="Укрпошта">
+            <input type="text" class="form-fields" name="Order[patronymic]" data-ref="" placeholder="Ім'я по батькові*">
             <input type="text" class="form-fields" name="Order[city]" data-ref="" placeholder="Введіть місто*" >
             <input type="text" class="form-fields" name="Order[street]" placeholder="Введіть вулицю*" >
             <input type="number" class="form-fields" name="Order[index_ukr]" placeholder="Поштовий індекс*" >
@@ -640,29 +677,39 @@ if (deliveryBlock !== null){
         </div>
     `;
 
+    let checkedDeliveryType = document.querySelector('input[name="Order[delivery_type]"]:checked');
+
+    // console.log(checkedDeliveryType);
+    changeDeliveryBlock(checkedDeliveryType);
+
+    function changeDeliveryBlock(type){
+        switch (type.dataset.delivery){
+            case "novaposhta":
+                deliveryBlock.innerHTML = np;
+                getDataNP();
+                break;
+            case "ukrposhta":
+                deliveryBlock.innerHTML = ukr;
+                document.querySelector('input[name="Order[delivery_type]"]:checked')
+                break;
+            case "courier":
+                deliveryBlock.innerHTML = courier;
+                break;
+            default:
+                deliveryBlock.innerHTML = "";
+                break;
+        }
+    }
+    function generateValueDelivery(data){
+        for (let key in data) {
+            document.querySelector(`input[name="Order[${key}]"]`).value = data[key];
+        }
+        return true;
+    }
+    generateValueDelivery(deliverySettings);
+
     radioDelivery.forEach(radio => {
-        radio.addEventListener("input", function () {
-
-            switch (radio.dataset.delivery){
-                case "novaposhta":
-                    deliveryBlock.innerHTML = np;
-
-                    getDataNP();
-
-                    break;
-                case "ukrposhta":
-                    deliveryBlock.innerHTML = ukr;
-                    break;
-                case "courier":
-                    deliveryBlock.innerHTML = courier;
-                    break;
-                default:
-                    deliveryBlock.innerHTML = "";
-                    break;
-            }
-        })
-    })
-
+        radio.addEventListener("input", () => changeDeliveryBlock(radio))});
 
     form.addEventListener("submit", function (e) {
 
@@ -842,8 +889,8 @@ const cartHeader = document.querySelector(".header-cart");
 cartHeader.addEventListener("click", showCart);
 function showCart(e) {
     let cartContent = document.querySelector(".header-cart__content");
-    // console.log(e.target);
-    if (e.target == this || e.target.closest(".header-cart__close")){
+
+    if (!e.target.closest('.header-cart__content') || e.target.closest(".header-cart__close")) {
         cartContent.classList.toggle("active");
     }
 }
@@ -901,6 +948,11 @@ function addToCart(btn){
         success: function (res) {
             // console.log(res);
             modalCart(res);
+            btn.classList.add('active');
+            btn.querySelector("p").innerHTML = "В кошику";
+            // setTimeout(function () {
+            //     btn.classList.remove('active');
+            // }, 2000)
         },
         error: function () {
             console.log("Error");
@@ -932,6 +984,7 @@ function modalCart(res) {
 
 // PRICE PRODUCT
 function priceProduct(data, form) {
+    console.log("Price");
     let price = form.querySelector('.goods-price');
     let btnBuy = form.querySelector(".add-to-cart");
 
@@ -939,20 +992,24 @@ function priceProduct(data, form) {
     btnBuy.href = `/cart/add?id=${data.id}&volume=${data.volume}&volume-type=${data.volumeType}&qty=${data.qty}`;
     
     if (data.new_price){
-        price.innerHTML = `<p class="goods-price"><span class="old-price">${data.new_price}₴</span>${data.price}₴</p>`
+        price.innerHTML = `<p class="goods-price"><span class="old-price">${data.price}₴</span>${data.new_price}₴</p>`
     }else {
         price.innerHTML = `${data.price} ₴`;
     }
 }
 
-let selectProductVolumeBtn = document.querySelectorAll(".__select__label");
-selectProductVolumeBtn.forEach(item => {
-    item.addEventListener("click", ajaxPriceProduct);
-})
+function findSelect() {
+    let selectProductVolumeBtn = document.querySelectorAll(".__select__label");
+    selectProductVolumeBtn.forEach(item => {
+        item.addEventListener("click", ajaxPriceProduct);
+    })
+}
+findSelect();
 
 
 // ОБНОВЛЕНИЕ ЦЕНЫ ТОВАРА ПРИ КЛИКЕ
 function ajaxPriceProduct(tg) {
+    //console.log(tg.target);
 
     let parent;
     let volume;
@@ -985,7 +1042,7 @@ function ajaxPriceProduct(tg) {
             volume: volume
         },
         success: function(res){
-            console.log(res);
+            //console.log(res);
             priceProduct(res, parent);
         },
         error: function(){
@@ -996,6 +1053,7 @@ function ajaxPriceProduct(tg) {
 
 // УДАЛЕНИЕ ТОВАРА С КОРЗИНЫ
 function delProdInCart(id, volume) {
+    console.log(volume);
     $.ajax({
         url: "/cart/del-item",
         data: {
@@ -1004,8 +1062,9 @@ function delProdInCart(id, volume) {
         },
         type: "GET",
         success: function (res) {
-            if (document.location.pathname === "/cart/checkout"){
-                location = '/cart/checkout';
+            if (document.location.pathname === "/cart/checkout" || document.location.pathname === "/cart/ordering"){
+                window.location.reload();
+                // location = '/cart/checkout';
             }
             modalCart(res);
         },
@@ -1031,4 +1090,12 @@ function changeCart(input, id, volume) {
             console.log("Error");
         }
     })
+}
+
+function showReview() {
+    let hiddenReview = document.querySelectorAll(".hidden-review")
+    hiddenReview.forEach(item => {
+        item.classList.remove("hidden-review");
+    })
+    document.querySelector(".more-reviews").style.display = "none";
 }

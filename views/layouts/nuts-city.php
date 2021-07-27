@@ -68,15 +68,15 @@ AppAsset::register($this);
             ]) ?>
             <div class="header-contacts df">
                 <div class="header-phone sub">
-                    <a href="tel:+380 68 123 73 21">+380 68 123 73 21</a>
+                    <a href="tel:<?= $this->context->information['phone1'] ?>"><?= $this->context->information['phone1'] ?></a>
                     <div class="sub-list">
-                        <a class="_mob" href="tel:+380 93 123 73 21">+380 68 123 73 21</a>
-                        <a href="tel:+380 93 123 73 21">+380 93 123 73 21</a>
+                        <a class="_mob" href="tel:<?= $this->context->information['phone1'] ?>"><?= $this->context->information['phone1'] ?></a>
+                        <a href="tel:<?= $this->context->information['phone2'] ?>"><?= $this->context->information['phone2'] ?></a>
                     </div>
                 </div>
                 <div class="header-messenger df">
-                    <a href="" class="header-messenger__item _viber"></a>
-                    <a href="" class="header-messenger__item _telegram"></a>
+                    <a href="<?= $this->context->information['viber'] ?>" class="header-messenger__item _viber"></a>
+                    <a href="<?= $this->context->information['telegram'] ?>" class="header-messenger__item _telegram"></a>
                 </div>
             </div>
             <div class="search-block_wrap">
@@ -84,7 +84,7 @@ AppAsset::register($this);
                     <input type="text" class="search-fields" placeholder="Пошук товарів ...">
                     <button class="btn btn-brown search-btn">пошук</button>
                 </div>
-                <div class="search-res"><p style='text-align: center;'>Введіть щось</p></div>
+                <div class="search-res"><p class="empty-search" >Введіть щось</p></div>
             </div>
             <div class="header-bar dg">
                 <div class="header-search">
@@ -97,7 +97,7 @@ AppAsset::register($this);
                         <a href="">RU</a>
                     </div>
                 </div>
-                <a href="/auth/personal-office" class="header-profile _login"></a>
+                <a href="/account/personal-office" class="header-profile _login"></a>
                 <div class="burger">
                     <span></span>
                     <span></span>
@@ -121,12 +121,11 @@ AppAsset::register($this);
             <?php endforeach; ?>
         </div>
         <div class="hidden-phone">
-            <a href="tel:+380 68 123 73 21">+380 68 123 73 21</a>
-            <a href="tel:+380 93 123 7 321">+380 93 123 7 321</a>
+            <a href="tel:<?= $this->context->information['phone1'] ?>"><?= $this->context->information['phone1'] ?></a>
+            <a href="tel:<?= $this->context->information['phone2'] ?>"><?= $this->context->information['phone2'] ?></a>
         </div>
     </div>
 </header>
-<? //= Yii::$app->getSecurity()->generatePasswordHash('user'); ?>
 
 <?= $content ?>
 <footer class="footer">
@@ -143,15 +142,15 @@ AppAsset::register($this);
                 <a href="" class="text footer-text _hover-orange">Насіння, крупи <br> та бобові</a>
             </div>
             <div class="footer-column df">
-                <a href="" class="text footer-text _hover-orange">Відгуки</a>
-                <a href="" class="text footer-text _hover-orange">Доставка і оплата</a>
-                <a href="" class="text footer-text _hover-orange">Контакти</a>
+                <a href="/#review" class="text footer-text _hover-orange">Відгуки</a>
+                <a href="/#delivery" class="text footer-text _hover-orange">Доставка і оплата</a>
+                <a href="/#contacts" class="text footer-text _hover-orange">Контакти</a>
                 <a href="" class="text footer-text _hover-orange">Особистий кабінет</a>
             </div>
             <div class="footer-column df">
-                <a href="" class="text footer-text _hover-orange">Політика конфінденційності</a>
-                <a href="" class="text footer-text _hover-orange">Умови повернення</a>
-                <a href="" class="text footer-text _hover-orange">Договір оферти</a>
+                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy'])?>" class="text footer-text _hover-orange">Політика конфінденційності</a>
+                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy', '#' => 'return'])?>" class="text footer-text _hover-orange">Умови повернення</a>
+                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy', '#' => 'contract'])?>" class="text footer-text _hover-orange">Договір оферти</a>
                 <div class="footer-payment"><img src="/img/payment.png" alt="LiqPay"></div>
             </div>
             <div class="footer-column">

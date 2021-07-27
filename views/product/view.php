@@ -63,11 +63,12 @@ $total_review = count($product->reviews);
                             <?php } ?>
                         </p>
                     </div>
+                    <?php
+                    $options = json_decode($product->option);
+                    ?>
+                    <?php if(key($options) != 'Box') : ?>
                     <div class="goods-select product-cart__count">
                         <div class="__select" data-state="">
-                            <?php
-                            $options = json_decode($product->option);
-                            ?>
                             <div class="__select__title" data-default="Option 0" onclick="showSelect(this);"><?= key($price) ?>: <?= current($price)->quantity ?></div>
                             <div class="__select__content">
                                 <?php foreach (current($options) as $key => $option) : ?>
@@ -80,6 +81,23 @@ $total_review = count($product->reviews);
                             </div>
                         </div>
                     </div>
+                    <?php else: ?>
+                    <div class="goods-select product-cart__count _box">
+                        <div class="__select" data-state="">
+                            <div class="__select__title" data-default="Option 0" onclick="showSelect(this);"><?= current($price)->title ?></div>
+                            <div class="__select__content">
+                                <?php foreach (current($options) as $key => $option) : ?>
+                                    <input id="singleSelect<?= $key ?>" class="__select__input" type="radio"
+                                           name="volume"
+                                           value="<?= $option->quantity ?>" <? if ($key === 0) echo "checked" ?> />
+                                    <label for="singleSelect<?= $key ?>"
+                                           class="__select__label"><?= $option->title ?></label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                     <?php if ($product->sale) : ?>
                         <p class="goods-price">
                             <span class="old-price"><?= $product->price ?>₴</span>
@@ -89,8 +107,9 @@ $total_review = count($product->reviews);
                         <p class="goods-price"><?= $product->price ?>₴</p>
                     <?endif;?>
                 </div>
+
                 <div class="goods-filters df">
-                    <div class="goods-counter">
+                    <div class="goods-counter <?= (key($options) == "Штук") ? 'hidden' : ''?>">
                         <label for="count">Кількість:</label>
                         <input type="number" class="count" id="count" placeholder="1" value="1">
                         <span class="btn-counter _plus" onclick="increaseNumber(count); ajaxPriceProduct(this);"></span>
@@ -171,7 +190,7 @@ $total_review = count($product->reviews);
                                         <div class="product-cart__rating">
                                             <span class="star-fill" style="width: calc((<?= $product->reviews[$i]->rating ?> * 100 / 5) * 1%)"></span>
                                         </div>
-                                        <div class="additional-user__time bold">*/<?//= $product->reviews[$i]->created_at ?><!--</div>-->
+                                        <div class="additional-user__time bold"><?= $product->reviews[$i]->created_at ?></div>
                                     </div>
                                     <p class="text-goods">
                                         <?= $product->reviews[$i]->text ?>

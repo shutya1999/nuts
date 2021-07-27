@@ -24,4 +24,6 @@ class Product extends ActiveRecord
         return $this->hasMany(Reviews::class, ['product_id' => 'id']);
     }
 
+
+
 }

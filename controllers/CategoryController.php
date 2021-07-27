@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\models\BannerCatalog;
 use app\models\Category;
 use app\models\Product;
 use app\models\SortForm;
@@ -22,13 +23,7 @@ class CategoryController extends AppController
         $category = Category::findOne($id);
         $categories = Category::find()->all();
 
-
-
-        //debug($categories);
-
-//        \Yii::$app->getView()->params['cat'] = "test";//глобальная переменная
-
-//        \Yii::$app->params['pageTitle'] = "Test";
+        $banner = BannerCatalog::find()->all();
 
         $this->setMeta("{$category->name} - " . \Yii::$app->name, $category->keywords, $category->description);
 
@@ -72,7 +67,7 @@ class CategoryController extends AppController
             $products = Product::find()->where(['category_id' => $id])->all();
         }
 
-        return $this->render("view", compact(['products', 'categories', 'pages', 'model']));
+        return $this->render("view", compact(['products', 'categories', 'pages', 'model', 'banner']));
     }
 
     public function sortType($sort_type){
