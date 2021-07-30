@@ -9,9 +9,11 @@
 namespace app\controllers;
 
 
+use app\models\CallbackForm;
 use app\models\Information;
 use yii\web\Controller;
 use app\models\Category;
+use yii\helpers\Url;
 
 
 class AppController extends Controller
@@ -20,8 +22,22 @@ class AppController extends Controller
     public $information;
     public function beforeAction($action)
     {
+        $this->view->registerMetaTag(["property" => 'og:locale', 'content' => 'uk']);
+        $this->view->registerMetaTag(["property" => 'og:type', 'content' => 'website']);
+        //$this->view->registerMetaTag(["property" => 'og:title', 'content' => \Yii::$app->name]);
+        $this->view->registerMetaTag(["property" => 'og:url', 'content' => Url::home(true)]);
+        $this->view->registerMetaTag(["property" => 'og:site_name', 'content' => \Yii::$app->name]);
+        $this->view->registerMetaTag(["property" => 'og:image', 'content' => "/img/og-image.png"]);
+        $this->view->registerMetaTag(["property" => 'og:image:width', 'content' => '1200']);
+        $this->view->registerMetaTag(["property" => 'og:image:width', 'content' => '630']);
+        $this->view->registerMetaTag(["name" => 'twitter:card', 'content' => 'summary_large_image']);
+
+
         $categories = Category::find()->all();
         $information = Information::findOne(1);
+        $callbackModel = new CallbackForm();
+
+        //$this->view->registerMetaTag(['name' => 'description', 'content' => "$information->description"]);
 
         $this->information = $information;
         $this->categories = $categories;
@@ -33,8 +49,52 @@ class AppController extends Controller
 
     protected function setMeta($title = null, $keywords = null, $description = null){
         $this->view->title = $title;
-        $this->view->title = $title;
-        $this->view->registerMetaTag(['name' => 'keywords', 'content' => "$keywords"]);
-        $this->view->registerMetaTag(['name' => 'description', 'content' => "$description"]);
+        if ($keywords != ''){
+            $this->view->registerMetaTag(['name' => 'keywords', 'content' => "$keywords"]);
+        }
+        if ($description != '') {
+            $this->view->registerMetaTag(['name' => 'description', 'content' => $description]);
+            $this->view->registerMetaTag(["property" => 'og:description', 'content' => $description]);
+        }else{
+            $information = Information::findOne(1);
+            $this->view->registerMetaTag(['name' => 'description', 'content' => $information->description]);
+            $this->view->registerMetaTag(["property" => 'og:description', 'content' => $information->description]);
+
+        }
+    }
+
+    public function actionCallback(){
+        //https://api.telegram.org/bot1924109065:AAGzNG6fBQK3jMx7zifI74TTKKtZ0ODYxbw/getUpdates
+        if (\Yii::$app->request->post()){
+            //debug($_POST['CallbackForm']['name']);
+            $name = $_POST['CallbackForm']['name'];
+            $phone = $_POST['CallbackForm']['phone'];
+            $test = (!empty($_POST['CallbackForm']['text'])) ? $_POST['CallbackForm']['text'] : null;
+
+
+            $token = "1924109065:AAGzNG6fBQK3jMx7zifI74TTKKtZ0ODYxbw";
+            $chat_id = "-1001534776533";
+
+            $arr = array(
+                'Імя: ' => $name,
+                'Телефон: ' => $phone
+            );
+            if (!empty($test)){
+                $arr['Повідомлення: '] = $test;
+            }
+            $txt = '';
+            foreach($arr as $key => $value) {
+                $txt .= "<b>".$key."</b> ".$value."%0A";
+            };
+
+            $sendToTelegram = fopen("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$chat_id}&parse_mode=html&text={$txt}","r");
+
+            if ($sendToTelegram) {
+                return $this->redirect('/home/thanks');
+            } else {
+                echo "Error";
+            }
+        }
+        return $this->goHome();
     }
 }

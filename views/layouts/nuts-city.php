@@ -112,7 +112,7 @@ AppAsset::register($this);
             <a href="">Головна</a>
             <a href="">Каталог</a>
             <a href="#review">Відгуки</a>
-            <a href="#delivery">Доставка і оплата</a>
+            <a href="/home/delivery">Доставка і оплата</a>
             <a href="#contacts">контакти</a>
         </div>
         <div class="hidden-menu__bottom df">
@@ -132,36 +132,26 @@ AppAsset::register($this);
     <div class="container">
         <div class="footer-content df">
             <div class="footer-column df">
-                <a href="" class="text footer-text _hover-orange">Подарункові набори</a>
-                <a href="" class="text footer-text _hover-orange">Сертифікати</a>
-                <a href="" class="text footer-text _hover-orange">Горішки</a>
-                <a href="" class="text footer-text _hover-orange">Сухофрукти</a>
-                <a href="" class="text footer-text _hover-orange">Шоколад, пастила, <br> халва, гранола</a>
-                <a href="" class="text footer-text _hover-orange">Кава, напої <br> та інше</a>
-                <a href="" class="text footer-text _hover-orange">Мед, крем-мед <br> та бджолопродукти</a>
-                <a href="" class="text footer-text _hover-orange">Насіння, крупи <br> та бобові</a>
+                <?php foreach ($this->context->categories as $cat) : ?>
+                    <a class="text footer-text _hover-orange" href="<?= \yii\helpers\Url::to(['category/view', 'id' => $cat->id]) ?>"><?= $cat->name ?></a>
+                <?php endforeach; ?>
             </div>
             <div class="footer-column df">
                 <a href="/#review" class="text footer-text _hover-orange">Відгуки</a>
-                <a href="/#delivery" class="text footer-text _hover-orange">Доставка і оплата</a>
+                <a href="/home/delivery" class="text footer-text _hover-orange">Доставка і оплата</a>
                 <a href="/#contacts" class="text footer-text _hover-orange">Контакти</a>
-                <a href="" class="text footer-text _hover-orange">Особистий кабінет</a>
+                <a href="/account/" class="text footer-text _hover-orange">Особистий кабінет</a>
             </div>
             <div class="footer-column df">
-                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy'])?>" class="text footer-text _hover-orange">Політика конфінденційності</a>
-                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy', '#' => 'return'])?>" class="text footer-text _hover-orange">Умови повернення</a>
-                <a href="<?= \yii\helpers\Url::to(['home/privacy-policy', '#' => 'contract'])?>" class="text footer-text _hover-orange">Договір оферти</a>
+                <a href="<?= \yii\helpers\Url::to(['/home/privacy-policy'])?>" class="text footer-text _hover-orange">Політика конфінденційності</a>
+                <a href="<?= \yii\helpers\Url::to(['/home/return'])?>" class="text footer-text _hover-orange">Умови повернення</a>
+                <a href="<?= \yii\helpers\Url::to(['/home/contract'])?>" class="text footer-text _hover-orange">Договір оферти</a>
                 <div class="footer-payment"><img src="/img/payment.png" alt="LiqPay"></div>
             </div>
+
             <div class="footer-column">
                 <p class="footer-form-text">Є питання? Давай вирішувати!</p>
-                <form action="" class="form df" method="POST">
-                    <input class="form-fields" type="text" name="user_name" placeholder="Введіть ваше ім’я">
-                    <input class="form-fields" type="text" name="user_phone" placeholder="+38 (___) ___ __ __">
-                    <textarea class="form-fields _textarea" name="user_message" rows="4"
-                              placeholder="Напишіть короткий зміст питання"></textarea>
-                    <button class="btn-form btn-green">Відправити</button>
-                </form>
+                <?= \app\widgets\CallbackWidget::widget() ?>
             </div>
         </div>
     </div>

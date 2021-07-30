@@ -37,6 +37,12 @@ class HomeController extends AppController
     }
 
     public function actionIndex(){
+        //$this->setMeta(\Yii::$app->name . " - Головна", '', 'Опис');
+
+
+        $this->setMeta($this->view->title .= " - Головна", '', '');
+        $this->view->registerMetaTag(["property" => 'og:title', 'content' => \Yii::$app->name . " - Головна"]);
+
         $offers = Product::find()->where(['is_offer' => 1])->limit(10)->all();
         $categories = Category::find()->where(['is_main' => 1])->all();
         $banner = BannerMain::find()->all();
@@ -83,6 +89,30 @@ class HomeController extends AppController
     }
 
     public function actionPrivacyPolicy(){
+        $this->setMeta($this->view->title .= " - Політика конфіденційності", '', '');
+
         return $this->render("privacy-policy");
+    }
+
+    public function actionReturn(){
+        $this->setMeta($this->view->title .= " - Умови повернення", '', '');
+
+        return $this->render("return");
+    }
+
+    public function actionContract(){
+        $this->setMeta($this->view->title .= " - Договір оферти", '', '');
+
+        return $this->render("contract");
+    }
+
+    public function actionDelivery(){
+        $this->setMeta($this->view->title .= " - Доставка і оплата", '', '');
+
+        return $this->render("delivery");
+    }
+
+    public function actionThanks(){
+        return $this->render("thanks");
     }
 }

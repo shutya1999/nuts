@@ -38,10 +38,11 @@ class Order extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'last_name', 'phone', 'email', 'delivery_type'], 'required'],
+            [['name', 'last_name', 'phone', 'delivery_type'], 'required'],
             ['note', 'trim'],
             [['city', 'department_np', 'street', 'index_ukr', 'house_number', 'apartment_number', 'payment_type', 'patronymic'], 'trim'],
             ['email', 'email'],
+            ['email', 'default', 'value' => null],
             [['created_at', 'update_at'], 'safe'],
             [['qty', 'total'], 'integer'],
             [['status', 'consultation'], 'boolean']
@@ -56,6 +57,13 @@ class Order extends ActiveRecord
             'phone' => 'Телефон',
             'last_name' => 'Прізвище',
         ];
+    }
+
+    public function getId(){
+        return 1;
+    }
+    public function getCost(){
+        return 23;
     }
 
 }

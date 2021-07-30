@@ -1,6 +1,5 @@
 <?php $this->registerCssFile('@web/css/index/index.css'); ?>
 
-<?php //debug($deliverySettings) ?>
 <?php $this->registerJsVar('deliverySettings', $deliverySettings) ?>
 <?php if (!empty($session['cart'])) { ?>
     <div class="container indent">
@@ -47,6 +46,7 @@
                 <input type="radio" class="filter-checkbox type-delivery__radio" id="delivery4" name="Order[delivery_type]" data-delivery="" value="Самовивіз" <?= ($order->delivery_type == "Самовивіз") ? 'checked' : '' ?>>
                 <label for="delivery4">Самовивіз (с.Солонка, вул.Орлика 1)</label>
             </div>
+
             <div class="mo-line"></div>
             <div class="mo-item__wrap type-delivery__block_wrap">
                 <div class="type-delivery__block novaposhta-wrap active" data-delivery="Нова Пошта">
@@ -64,12 +64,12 @@
         <div class="mo-item _payment">
             <p class="mo-item__title">Оплата</p>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox" id="payment1" name="Order[payment_type]" value="Оплата при отриманні" checked>
-                <label for="payment1">Оплата при отриманні</label>
+                <input type="radio" class="filter-checkbox payment-type" id="payment1" name="Order[payment_type]" value="Оплата при отриманні" checked>
+                <label for="payment1" onclick="paymentType(this);" data-payment-type = 'delivery'>Оплата при отриманні</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox" id="payment2" name="Order[payment_type]" value="LiqPay" disabled>
-                <label for="payment2">Оплата картою (LiqPay)</label>
+                <input type="radio" class="filter-checkbox payment-type" id="payment2" name="Order[payment_type]" value="LiqPay" disabled>
+                <label for="payment2" onclick="paymentType(this);" data-payment-type = 'cart'>Оплата картою (LiqPay)</label>
             </div>
             <div class="mo-line"></div>
             <?= $form->field($order, 'note', ['template' => "{input}"])->textarea(['class' => 'form-fields', 'placeholder' => 'Коментар', 'rows' => 4, "maxlength" => '150']) ?>
@@ -121,7 +121,7 @@
                     <p>до сплати:</p>
                     <span><?= $_SESSION['cart.sum'] ?? '0'?> грн</span>
                 </div>
-                <button class="btn btn-orange btn-to-order">Оформити замовлення</button>
+                <button class="btn btn-orange btn-to-order" id="btn-buy" >Оформити замовлення</button>
             </div>
         </div>
 
@@ -154,6 +154,10 @@
         window.location.reload();
     }
 </script>
+
+<?php //$this->registerJsFile('https://secure.wayforpay.com/server/pay-widget.js', ['id' => 'widget-wfp-script' ,'depends' => \app\assets\AppAsset::class]); ?>
+<?php //$this->registerJsFile('@web/js/payment.js', ['depends' => \app\assets\AppAsset::class]); ?>
+
 
 
 

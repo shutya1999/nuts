@@ -3,24 +3,6 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
-  'yiisoft/yii2-bootstrap' => 
-  array (
-    'name' => 'yiisoft/yii2-bootstrap',
-    'version' => '2.0.10.0',
-    'alias' => 
-    array (
-      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap/src',
-    ),
-  ),
-  'yiisoft/yii2-swiftmailer' => 
-  array (
-    'name' => 'yiisoft/yii2-swiftmailer',
-    'version' => '2.1.2.0',
-    'alias' => 
-    array (
-      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
-    ),
-  ),
   'yiisoft/yii2-debug' => 
   array (
     'name' => 'yiisoft/yii2-debug',
@@ -39,22 +21,58 @@ return array (
       '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii/src',
     ),
   ),
-  'yiisoft/yii2-faker' => 
+  'yiisoft/yii2-bootstrap' => 
   array (
-    'name' => 'yiisoft/yii2-faker',
-    'version' => '2.0.5.0',
+    'name' => 'yiisoft/yii2-bootstrap',
+    'version' => '9999999-dev',
     'alias' => 
     array (
-      '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker/src',
+      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap/src',
+    ),
+  ),
+  'yiisoft/yii2-swiftmailer' => 
+  array (
+    'name' => 'yiisoft/yii2-swiftmailer',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
     ),
   ),
   'toriphes/yii2-widget-lazyload' => 
   array (
     'name' => 'toriphes/yii2-widget-lazyload',
-    'version' => '1.0.0.0',
+    'version' => '9999999-dev',
     'alias' => 
     array (
       '@toriphes/lazyload' => $vendorDir . '/toriphes/yii2-widget-lazyload',
+    ),
+  ),
+  'yiisoft/yii2-faker' => 
+  array (
+    'name' => 'yiisoft/yii2-faker',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker/src',
+    ),
+  ),
+  'borysenko/yii2-liqpay' => 
+  array (
+    'name' => 'borysenko/yii2-liqpay',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@borysenko/liqpay' => $vendorDir . '/borysenko/yii2-liqpay',
+    ),
+  ),
+  'pistol88/yii2-liqpay' => 
+  array (
+    'name' => 'pistol88/yii2-liqpay',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@pistol88/liqpay' => $vendorDir . '/pistol88/yii2-liqpay',
     ),
   ),
 );

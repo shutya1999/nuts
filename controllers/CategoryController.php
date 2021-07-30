@@ -25,7 +25,9 @@ class CategoryController extends AppController
 
         $banner = BannerCatalog::find()->all();
 
+
         $this->setMeta("{$category->name} - " . \Yii::$app->name, $category->keywords, $category->description);
+        $this->view->registerMetaTag(["property" => 'og:title', 'content' => "{$category->name} - " . \Yii::$app->name]);
 
         $model = new SortForm();
 

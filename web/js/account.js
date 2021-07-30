@@ -197,75 +197,103 @@ if (deliveryBlock !== null){
 }
 
 
+const burger = document.querySelector(".burger"),
+    hiddenMenu = document.querySelector(".hidden-menu");
 
-// VALID PASS
-// let formAcc = document.querySelector("#form-acc");
-//
-// if (formAcc !== null){
-//     let currentPass = document.querySelector("#userinfo-currentpassword");
-//     let newPass = document.querySelector("#userinfo-newpassword");
-//     let repeatPass = document.querySelector("#repeatPass");
-//     let checkBox = document.querySelector("#userinfo-changepass");
-//
-//     checkBox.oninput = function () {
-//         console.log(checkBox.checked);
-//         if (checkBox.checked){
-//             repeatPass.type = 'password';
-//             newPass.type = 'password';
-//         }else {
-//             repeatPass.type = 'hidden';
-//             newPass.type = 'hidden';
-//         }
-//     }
-//
-//     function validPass() {
-//         if (checkBox.checked){
-//             if (newPass.value === repeatPass.value && currentPass.value !== '') {
-//                 if (newPass.closest('.has-error')){
-//                     newPass.closest(".form-group").classList.remove("has-error");
-//                 }
-//                 if (repeatPass.closest('.has-error')){
-//                     repeatPass.closest(".form-group").classList.remove("has-error");
-//                 }
-//                 if (currentPass.closest('.has-error')){
-//                     currentPass.closest(".form-group").classList.remove("has-error");
-//                 }
-//
-//                 newPass.closest(".form-group").classList.add("has-success");
-//                 repeatPass.closest(".form-group").classList.add("has-success");
-//                 repeatPass.closest(".form-group").querySelector(".help-block").innerHTML = '';
-//
-//                 currentPass.closest(".form-group").classList.add("has-success");
-//                 currentPass.closest(".form-group").querySelector(".help-block").innerHTML = '';
-//
-//                 formAcc.submit();
-//             }else {
-//                 currentPass.closest(".form-group").classList.add("has-error");
-//                 currentPass.closest(".form-group").querySelector(".help-block").innerHTML = 'Введіть пароль';
-//
-//                 newPass.closest(".form-group").classList.add("has-error");
-//                 repeatPass.closest(".form-group").classList.add("has-error");
-//                 repeatPass.closest(".form-group").querySelector(".help-block").innerHTML = 'Паролі не співпадають'
-//             }
-//             console.log("Check");
-//             // return false;
-//         }else {
-//             console.log("No check");
-//             formAcc.submit();
-//         }
-//     }
+burger.addEventListener("click", ()=>{
+    burger.classList.toggle("active");
+    hiddenMenu.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
+});
 
-    // formAcc.onsubmit = function () {
-    //     let newPass = document.querySelector("#userinfo-newpassword");
-    //     let repeatPass = document.querySelector("#repeatPass");
-    //     let checkBox = document.querySelector("#userinfo-changepass");
-    //
-    //     console.log(checkBox);
-    //     // if (checkBox.checked()){
-    //     //     console.log("Yess");
-    //     // } else {
-    //     //     console.log("Noo");
-    //     // }
-    //
-    // };
-// }
+// CART
+
+//CART HEADER
+const cartHeader = document.querySelector(".header-cart");
+
+cartHeader.addEventListener("click", showCart);
+function showCart(e) {
+    let cartContent = document.querySelector(".header-cart__content");
+
+    if (!e.target.closest('.header-cart__content') || e.target.closest(".header-cart__close")) {
+        cartContent.classList.toggle("active");
+    }
+}
+
+// ОБНОВЛЕНИЕ КОРЗИНЫ ПРИ ЗАГРУЗКЕ СТРАНИЦИ
+function getCart(){
+    $.ajax({
+        url: "/cart/show",
+        type: 'GET',
+        success: function (res) {
+            // console.log(res);
+            modalCart(res);
+        },
+        error: function () {
+            console.log("Error");
+        }
+    })
+}
+getCart();
+
+
+function modalCart(res) {
+    let cartContent = document.querySelector(".header-cart");
+
+    if (cartContent.querySelector(".active")){
+        cartContent.innerHTML = res;
+        cartContent.querySelector(".header-cart__content").classList.add("active");
+    }else {
+        cartContent.innerHTML = res;
+    }
+
+
+    if (cartContent.querySelectorAll('.header-cart__item').length > 4){
+        cartContent.classList.add('_scroll');
+    }else {
+        cartContent.classList.remove('_scroll');
+    }
+}
+
+// УДАЛЕНИЕ ТОВАРА С КОРЗИНЫ
+function delProdInCart(id, volume) {
+    console.log(volume);
+    $.ajax({
+        url: "/cart/del-item",
+        data: {
+            id: id,
+            volume: volume
+        },
+        type: "GET",
+        success: function (res) {
+            if (document.location.pathname === "/cart/checkout" || document.location.pathname === "/cart/ordering"){
+                window.location.reload();
+                // location = '/cart/checkout';
+            }
+            modalCart(res);
+        },
+        error: function () {
+            console.log("Error");
+        }
+    })
+}
+
+function changeCart(input, id, volume) {
+    $.ajax({
+        url: "/cart/change-cart",
+        data: {
+            id: id,
+            volume: volume,
+            qty: input.value
+        },
+        type: "GET",
+        success: function (res) {
+            location = '/cart/checkout';
+        },
+        error: function () {
+            console.log("Error");
+        }
+    })
+}
+
+// CART

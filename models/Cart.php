@@ -40,12 +40,13 @@ class Cart extends Model
         foreach (current($options) as $key => $option){
             if ($option->quantity == $volume){
                 if ($product->sale){
-                    $price = $option->new_price * $qty;
+                    $price = $option->new_price;
                 }else{
-                    $price = $option->price * $qty;
+                    $price = $option->price;
                 }
             }
         }
+
 
         if (isset($_SESSION['cart'][$product->id])){
             if (isset($_SESSION['cart'][$product->id][$volume])){

@@ -107,11 +107,16 @@ if (filterCat.length !== 0){
         let delayCounter = 0;
         // console.log(data.keys());
         let catalogBlock = document.querySelector('.catalog-goods');
-        catalogBlock.innerHTML = "";
+
+        let lazyload = document.createElement("script");
+        catalogBlock.innerHTML = '';
+
         data.forEach(item => {
-            let lazyLoadInstance = new LazyLoad({
-                elements_selector: ".lazy"
-            });
+            console.log(item.title);
+            // let lazyLoadInstance = new LazyLoad({
+            //     elements_selector: ".lazy"
+            // });
+
             findSelect();
             let options = JSON.parse(item.option);
 
@@ -123,16 +128,16 @@ if (filterCat.length !== 0){
             productPhoto.href = `/product/${item.url}`;
 
             let mainImg = document.createElement("img");
-            mainImg.src = "/img/load.gif";
-            mainImg.dataset.src = `/img/product/${item.url}/${item.img}`;
+            // mainImg.src = "/img/load.gif";
+            mainImg.src = `/img/product/${item.url}/${item.img}`;
             mainImg.alt = item.title;
-            mainImg.className = 'lazy main-photo';
+            mainImg.className = 'loaded main-photo';
 
             let secImg = document.createElement("img");
-            secImg.src = "data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=";
-            secImg.dataset.src = `/img/product/${item.url}/${item.sec_img}`;
+            // secImg.src = "data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs=";
+            secImg.src = `/img/product/${item.url}/${item.sec_img}`;
             secImg.alt = item.title;
-            secImg.className = 'lazy sec-photo';
+            secImg.className = 'loaded sec-photo';
 
             productPhoto.insertAdjacentElement("beforeend", mainImg);
             productPhoto.insertAdjacentElement("beforeend", secImg);
@@ -179,6 +184,8 @@ if (filterCat.length !== 0){
             info.insertAdjacentHTML('beforeend', price);
             info.insertAdjacentElement('beforeend', generateOption(options));
             info.insertAdjacentHTML('beforeend', buy);
+
+            // product.innerHTML = "<script>let lazyLoadInstance = new LazyLoad({elements_selector: '.lazy'})</script>";
 
             product.insertAdjacentElement('beforeend', productPhoto);
             product.insertAdjacentHTML('beforeend', title);
@@ -251,7 +258,6 @@ if (filterCat.length !== 0){
 
                     optionBlock.insertAdjacentElement('beforeend', select);
                 }
-
 
                 return optionBlock;
             }

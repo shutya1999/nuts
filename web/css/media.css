@@ -291,6 +291,7 @@
   }
   .product-cart__name {
     margin: 15px 0 2px 15px;
+    text-align: center;
   }
   .search-res__item {
     display: grid;
@@ -445,6 +446,36 @@
   .header-cart__title {
     font-size: 14px;
     line-height: 110%;
+  }
+  .privacypolicy-content {
+    margin-top: 10px;
+  }
+  .privacypolicy-content li {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .privacypolicy-content li:first-child {
+    margin-top: 5px;
+  }
+  .privacypolicy-content ol {
+    list-style-position: inside;
+  }
+  .privacypolicy-content._contract ol ol {
+    margin-left: 15px;
+  }
+  .policy-text {
+    font-size: 16px;
+  }
+  .privacypolicy-title {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  .lil-title-policy {
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+  .policy-item {
+    margin-bottom: 15px;
   }
 }
 

@@ -43,7 +43,7 @@ class MenuWidget extends Widget
                     </ul>
                 </li>
                 <li class='nav-list'><a href='/#review' class='nav-link'>Відгуки</a></li>
-                <li class='nav-list'><a href='/#delivery' class='nav-link'>Доставка і оплата</a></li>
+                <li class='nav-list'><a href='/home/delivery' class='nav-link'>Доставка і оплата</a></li>
                 <li class='nav-list'><a href='/#contacts' class='nav-link'>Контакти</a></li>
             </ul>
             ";

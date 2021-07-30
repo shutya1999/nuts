@@ -6,13 +6,13 @@
 <style>
     .empty-order{
         text-align: center;
-        margin: 30px auto;
+        margin: 50px auto;
     }
     .empty-order a{
         color: #FFC76C;
     }
 </style>
-<div class="container">
+<div class="container indent">
     <p class="title title-personal-office">Особистий кабінет</p>
     <div class="personal-office__nav">
         <a href="<?= \yii\helpers\Url::to('/account/personal-office') ?>" class="">аккаунт</a>

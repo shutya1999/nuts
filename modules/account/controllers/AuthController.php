@@ -54,7 +54,7 @@ class AuthController extends AppAccountController
             $user->phone = $model->phone;
 
             if($user->save()){
-                return $this->goHome();
+                return $this->redirect("/account/auth/login");
             }
         }
 

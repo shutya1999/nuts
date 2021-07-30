@@ -16,9 +16,9 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
@@ -38,17 +38,29 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
+        'v' => 
+        array (
+            'voskobovich\\liqpay\\widgets\\' => 27,
+            'voskobovich\\liqpay\\forms\\' => 25,
+            'voskobovich\\liqpay\\actions\\' => 27,
+            'voskobovich\\liqpay\\' => 19,
+        ),
         't' => 
         array (
             'toriphes\\lazyload\\' => 18,
         ),
         'p' => 
         array (
+            'pistol88\\liqpay\\' => 16,
             'phpDocumentor\\Reflection\\' => 25,
         ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
+        ),
+        'b' => 
+        array (
+            'borysenko\\liqpay\\' => 17,
         ),
         'W' => 
         array (
@@ -56,6 +68,7 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
@@ -142,9 +155,29 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'voskobovich\\liqpay\\widgets\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voskobovich/yii2-liqpay/widgets',
+        ),
+        'voskobovich\\liqpay\\forms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voskobovich/yii2-liqpay/forms',
+        ),
+        'voskobovich\\liqpay\\actions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voskobovich/yii2-liqpay/actions',
+        ),
+        'voskobovich\\liqpay\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voskobovich/yii2-liqpay',
+        ),
         'toriphes\\lazyload\\' => 
         array (
             0 => __DIR__ . '/..' . '/toriphes/yii2-widget-lazyload',
+        ),
+        'pistol88\\liqpay\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pistol88/yii2-liqpay',
         ),
         'phpDocumentor\\Reflection\\' => 
         array (
@@ -156,9 +189,17 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),
+        'borysenko\\liqpay\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/borysenko/yii2-liqpay',
+        ),
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Symfony\\Polyfill\\Php81\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -238,7 +279,8 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\EventDispatcher\\' => 
         array (
@@ -810,6 +852,7 @@ class ComposerStaticInitc5b84622163f4d73f4897c96bd24930b
         'PharIo\\Version\\VersionConstraintParser' => __DIR__ . '/..' . '/phar-io/version/src/VersionConstraintParser.php',
         'PharIo\\Version\\VersionConstraintValue' => __DIR__ . '/..' . '/phar-io/version/src/VersionConstraintValue.php',
         'PharIo\\Version\\VersionNumber' => __DIR__ . '/..' . '/phar-io/version/src/VersionNumber.php',
+        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

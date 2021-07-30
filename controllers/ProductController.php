@@ -20,6 +20,7 @@ class ProductController extends AppController
         $product = Product::find()->where(['url' => $url])->one();
 
         $this->setMeta("{$product->title} - " . \Yii::$app->name, $product->keywords, $product->description);
+        $this->view->registerMetaTag(["property" => 'og:title', 'content' => "{$product->title} - " . \Yii::$app->name]);
 
         $options = json_decode($product->option);
         $price = [

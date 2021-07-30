@@ -21,20 +21,22 @@ $config = [
             'layout' => 'account',
             'defaultRoute' => 'personal-office/index'
         ],
+        'liqpay' => [
+            'class' => 'pistol88\liqpay\Module',
+            'public_key' => 'sandbox_i98817360234',
+            'private_key' => 'sandbox_I4P5WasDoE8llz75Ctv7Cwyq7j36yEollT8QBCxd',
+            'currency' => 'UAH',
+            'pay_way' => null,
+            'version' => 3,
+            'sandbox' => false,
+            'language' => 'ru',
+            'result_url' => '/page/thanks',
+            'paymentName' => 'Оплата заказа',
+//            'orderModel' => 'pistol88\order\models\Order', //Модель заказа. Эта модель должна имплементировать интерфейс pistol88\liqpay\interfaces\Order. В момент списания денег будет вызываться $model->setPaymentStatus('yes').
+            'orderModel' => 'models\Order', //Модель заказа. Эта модель должна имплементировать интерфейс pistol88\liqpay\interfaces\Order. В момент списания денег будет вызываться $model->setPaymentStatus('yes').
+
+        ],
     ],
-//    'modules' => [
-//        'account' => [
-//            'class' => 'app\modules\account\Module',
-//            'defaultRoute' => 'main/index'
-//        ],
-//    ],
-//    'modules' => [
-//        'admin' => [
-//            'class' => 'app\modules\admin\Module',
-//            'layout' => 'admin',
-//            'defaultRoute' => 'main/index'
-//        ],
-//    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

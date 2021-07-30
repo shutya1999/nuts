@@ -1,6 +1,12 @@
 Yii Framework 2 bootstrap extension Change Log
 ==============================================
 
+2.0.11 under development
+------------------------
+
+- Enh #261: Support of custom templates for Tab headers and panes (mmonem)
+
+
 2.0.10 April 23, 2019
 ---------------------
 

@@ -58,7 +58,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                     <div class="swiper-wrapper">
                         <?php for($i = 0; $i < count($offers); $i++) : ?>
                             <div class="swiper-slide product-cart">
-                                <div class="product-cart__photo" data-aos="zoom-in" data-aos-once="true" data-aos-offset="50">
+                                <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>" class="product-cart__photo" data-aos="zoom-in" data-aos-once="true" data-aos-offset="50">
                                     <img class="lazy main-photo" src="/img/load.gif"
                                          data-src = "<?= "/img/product/{$offers[$i]->url}/{$offers[$i]->img}" ?>"
                                          alt="<?= $offers[$i]->title ?>">
@@ -66,7 +66,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                                     <img class="lazy sec-photo" src="data:image/gif;base64,R0lGODlhOgAnAIAAAP///wAAACH5BAEAAAEALAAAAAA6ACcAAAIwjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8VYAADs="
                                          data-src = "<?= "/img/product/{$offers[$i]->url}/{$offers[$i]->sec_img}" ?>"
                                          alt="<?= $offers[$i]->title ?>">
-                                </div>
+                                </a>
                                 <h3 class="product-cart__name">
                                     <a href="<?= \yii\helpers\Url::to(['product/view', 'url' => $offers[$i]->url]) ?>"><?= $offers[$i]->title ?></a>
                                 </h3>
@@ -455,7 +455,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
             </div>
         </div>
         <div class="more-delivery df">
-            <a href="<?= \yii\helpers\Url::to(['home/privacy-policy']) ?>">Більш детальна інформація</a>
+            <a href="<?= \yii\helpers\Url::to(['/home/delivery']) ?>">Більш детальна інформація</a>
         </div>
     </div>
 </section>

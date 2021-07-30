@@ -13,8 +13,8 @@ use yii\widgets\ActiveField;
     <div class="form form-authorization df">
         <p class="authorization-title">Особистий кабінет</p>
         <p class="authorization-sub-title">
-            В особистому кабінеті ви можете відслідкувати доставку вашого замовлення,
-            також ми будемо інформувати вас про цікаві новини та знижки.
+            В особистому кабінеті ви можете переглядати ваші замовлення
+            та створити обліковий запис
         </p>
         <div class="form-authorization-wrap">
             <?php $form = ActiveForm::begin() ?>

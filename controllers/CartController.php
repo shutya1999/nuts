@@ -15,7 +15,8 @@ use app\models\OrderProduct;
 use app\models\Product;
 use app\models\User;
 use Yii;
-
+use app\components\LiqPay;
+use yii\web\Response;
 class CartController extends AppController
 {
     public function actionAdd($id, $qty, $volume){
@@ -76,6 +77,7 @@ class CartController extends AppController
     }
 
     public function actionCheckout(){
+        $this->setMeta($this->view->title .= " - Кошик", '', '');
         $session = \Yii::$app->session;
         $session->open();
 
@@ -162,16 +164,20 @@ class CartController extends AppController
                             ->setSubject("Замовлення #{$order->id}")
                             ->send();
 
-                        \Yii::$app->mailer->compose('order-user', ['session' => $session])
-                            ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName']])
-                            ->setTo($order->email)
-                            ->setSubject('Замовлення на сайті Nuts City')
-                            ->send();
+
+                        if (empty($order->email)){
+                            \Yii::$app->mailer->compose('order-user', ['session' => $session])
+                                ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName']])
+                                ->setTo($order->email)
+                                ->setSubject('Замовлення на сайті Nuts City')
+                                ->send();
+                        }
                     }catch (\Swift_TransportException $e){
 //                        debug($e); die;
                     }
                 }else{
 //                    echo "LiqPay";
+//                    return $this->redirect(['/cart/liqpay', 'sum' => $session['cart.sum'], 'id' => $order->id]);
                 }
 
 
@@ -184,6 +190,116 @@ class CartController extends AppController
         }
 
         return $this->render("ordering", compact(['session', 'order', 'deliverySettings']));
+    }
+
+    public function actionCartData(){
+        $session = \Yii::$app->session;
+        $session->open();
+
+        if (Yii::$app->request->post()){
+            $userInfo = Yii::$app->request->post()['Order'];
+            $order_id = Order::find()->count();
+
+            $key = '3fa5ce92c4924937a257011c40ef5581a6d3a4c5';
+
+            $merchantAccount = 'nuts_city_yh_web_space';
+            $merchantDomainName = 'https://nuts-city.yh-web.space';
+            $authorizationType = 'SimpleSignature';
+            $orderReference = $order_id + 5;
+            $orderDate = date('now');
+            $amount = $session['cart.sum'];
+            $currency = 'UAH';
+            $productName = 'Test';
+            $productPrice = '1';
+            $productCount = '10';
+            $clientFirstName = $userInfo['name'];
+            $clientLastName = $userInfo['last_name'];
+            $clientEmail = $userInfo['email'];
+            $clientPhone = $userInfo['phone'];
+            $language = 'UA';
+
+            $string = "{$merchantAccount};{$merchantDomainName};{$orderReference};{$orderDate};{$amount};{$currency};{$productName};{$productCount};{$productPrice}";
+            $merchantSignature = hash_hmac("md5", $string, $key);
+
+            $wayforpay = [
+                'merchantAccount' =>  $merchantAccount,
+                'merchantDomainName' =>  $merchantDomainName,
+                'authorizationType' =>  $authorizationType,
+                'merchantSignature' =>  $merchantSignature,
+                'orderReference' =>  $orderReference,
+                'orderDate' =>  $orderDate,
+                'amount' => $amount,
+                'currency' => $currency,
+                'productName' =>  $productName,
+                'productPrice' =>  $productPrice,
+                'productCount' =>  $productCount,
+                'clientFirstName' =>  $clientFirstName,
+                'clientLastName' =>  $clientLastName,
+                'clientEmail' =>  $clientEmail,
+                'clientPhone' => $clientPhone,
+                'language' => $language
+            ];
+//            $session['cart.wayforpay'] = json_encode($wayforpay);
+
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return json_encode($wayforpay);
+
+        }
+    }
+
+    public function actionLiqpay($sum, $id){
+        $public_key = "sandbox_i98817360234";
+        $private_key = "sandbox_I4P5WasDoE8llz75Ctv7Cwyq7j36yEollT8QBCxd";
+
+        $liqpay = new LiqPay($public_key, $private_key);
+        $res = $liqpay->api("request", array(
+            'action'        => 'status',
+            'version'       => '3',
+            'order_id'      => '52'
+        ));
+
+        debug($res);
+
+//        $params = array(
+//            'public_key' => $public_key,
+//            'version' => '3',
+//            'action' => 'pay',
+//            'amount' => $sum,
+//            'currency' => 'UAH',
+//            'description' => 'test',
+//            'order_id'       => $id,
+//            'info' => 'External information for payments',
+////            'result_url' => 'http://nuts-city-yii2/cart/thanks',
+////            'server_url' => 'http://nuts-city-yii2/cart/thanks'
+//        );
+//
+//        $liqpay = new LiqPay($public_key, $private_key);
+//        $html = $liqpay->cnb_form($params);
+//
+//        $dataPayment = base64_encode(json_encode($params));
+//        $signature = base64_encode( sha1($private_key . $dataPayment . $private_key, 1 ));
+//
+//        //return $this->redirect(['https://www.liqpay.ua/api/3/checkout', 'data' => $dataPayment, 'signature' => $signature]);
+//        return $this->render("liqpay", compact(['dataPayment', 'signature']));
+        return $this->render("liqpay");
+
+    }
+
+    public function actionThanks(){
+//        $public_key = "sandbox_i51728131990";
+//        $private_key = "sandbox_GmxIa9EKx0AA8tepvpWvhOloHpbfbkmP1W5uIBot";
+//
+//        $liqpay = new LiqPay($public_key, $private_key);
+//        $res = $liqpay->api("request", array(
+//            'action'        => 'status',
+//            'version'       => '3',
+//            'order_id'      => '56'
+//        ));
+//
+//        debug($res);
+
+        return $this->render("thanks");
     }
 
 }
