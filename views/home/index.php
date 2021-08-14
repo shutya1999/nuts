@@ -12,12 +12,14 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
             <div class="swiper-wrapper">
                 <?php foreach ($banner as $slide) : ?>
                     <div class="swiper-slide">
-                        <img class="lazy _desktop" src="data:image/gif;base64,R0lGODlhAwABAIAAAP///wAAACH5BAEAAAEALAAAAAADAAEAAAICjAsAOw=="
-                             data-src="/img/banner-main/<?= $slide->desktop ?>" >
-                        <img class="lazy _tablet" src="data:image/gif;base64,R0lGODlhCQAFAIAAAP///wAAACH5BAEAAAEALAAAAAAJAAUAAAIFjI+py10AOw=="
-                             data-src="/img/banner-main/<?= $slide->tablet ?>" >
-                        <img class="lazy _mob" src="data:image/gif;base64,R0lGODlhSQBQAIAAAP///wAAACH5BAEAAAEALAAAAABJAFAAAAJUjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7LSwAADs="
-                             data-src="/img/banner-main/<?= $slide->mobile ?>" >
+                        <a href="<?= $slide->link ?>">
+                            <img class="lazy _desktop" src="data:image/gif;base64,R0lGODlhAwABAIAAAP///wAAACH5BAEAAAEALAAAAAADAAEAAAICjAsAOw=="
+                                 data-src="/img/banner-main/<?= $slide->desktop ?>" >
+                            <img class="lazy _tablet" src="data:image/gif;base64,R0lGODlhCQAFAIAAAP///wAAACH5BAEAAAEALAAAAAAJAAUAAAIFjI+py10AOw=="
+                                 data-src="/img/banner-main/<?= $slide->tablet ?>" >
+                            <img class="lazy _mob" src="data:image/gif;base64,R0lGODlhSQBQAIAAAP///wAAACH5BAEAAAEALAAAAABJAFAAAAJUjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7LSwAADs="
+                                 data-src="/img/banner-main/<?= $slide->mobile ?>" >
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -148,13 +150,22 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
             <h2 class="title">трІШКИ про <span class="_brown">NUTS CITY</span></h2>
             <div class="about-info dg">
                 <p class="text about-info__text">
-                    Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
-                    Lorem Ipsum используют потому, что тот обеспечивает более или менее <br><br>
+                    Ми молода сім‘я Андрій та Ірина. Двоє непосид, які горять своєю справою. Любимо горіхи, обожнюємо свою роботу та вас.
 
-                    Cтандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах,
-                    которое не получается при простой дубликации. <br><br>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="15px" height="15px" viewBox="0 0 1280.000000 1189.000000" preserveAspectRatio="xMidYMid meet">
+                        <metadata>
+                            Created by potrace 1.15, written by Peter Selinger 2001-2017
+                        </metadata>
+                        <g transform="translate(0.000000,1189.000000) scale(0.100000,-0.100000)" fill="#FF0000" stroke="none">
+                            <path d="M3250 11884 c-25 -2 -106 -11 -180 -20 -1485 -172 -2704 -1295 -3001 -2764 -133 -660 -67 -1507 171 -2223 252 -753 675 -1411 1397 -2172 342 -360 634 -630 1588 -1470 231 -203 488 -430 570 -505 1024 -920 1735 -1692 2346 -2547 l130 -183 132 0 132 1 130 192 c557 822 1212 1560 2185 2461 191 178 408 373 1027 923 956 852 1445 1343 1841 1850 643 825 968 1603 1064 2553 19 196 17 665 -5 835 -105 805 -441 1497 -998 2054 -557 557 -1250 894 -2054 998 -193 24 -613 24 -810 0 -733 -93 -1379 -387 -1920 -874 -191 -172 -406 -417 -535 -610 -30 -45 -57 -82 -60 -82 -3 0 -30 37 -60 82 -129 193 -344 438 -535 610 -531 478 -1170 773 -1878 867 -146 20 -562 34 -677 24z"/>
+                        </g>
+                    </svg>
 
-                    Получается при простой дубликации.
+                    <br><br>
+
+                    Цей інтернет-магазин був створений для тих, хто думає про своє фізичне та психологічне здоров’я, оскільки горіхи мають дуже позитивний ефект на життєдіяльність людини.<br><br>
+
+                    Ми більше ніж 2 роки працюємо з горіхами й наша продукція є еталоном якості. Ви можете в цьому переконатись, коли побачите кількість позитивних відгуків у нас в Google або в Instagram
                 </p>
                 <div class="about-info__img">
                     <img src="/img/index/about.png" alt="Nuts City About">
@@ -192,7 +203,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                         <p class="text benefits-item__text">
                             Розуміємо потребу клієнтів та надаємо
                             сервіс вищого рівня. Багато задоволених клієнтів залишають нам відгуки в
-                            Instagram. <a href="">Ознайомитись→</a>
+                            Instagram. <a style="color: #FFC76C" href="https://www.instagram.com/nuts.city/">Ознайомитись→</a>
                         </p>
                     </div>
                     <div class="benefits-item dg">
@@ -246,16 +257,23 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 </div>
                 <div class="instagram-info">
                     <p class="text instagram-text">
-                        Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
-                        Lorem Ipsum используют потому, что тот обеспечивает более или менее. <br><br>
+                        Запрошуємо всіх підписатись до нашої Instagram сторінки,
+                        ми періодично влаштовуємо конкурси та анонсуємо нові смаколики <br>🤤<br><br>
 
-                        Cтандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах,
-                        которое не получается при простой дубликации.<br><br>
-
-                        Получается при простой дубликации.
+                        Також ми ділимося з  вами коханням та цікавими новинами у світі горішків<br>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="15px" height="15px" viewBox="0 0 1280.000000 1189.000000" preserveAspectRatio="xMidYMid meet">
+                            <metadata>
+                                Created by potrace 1.15, written by Peter Selinger 2001-2017
+                            </metadata>
+                            <g transform="translate(0.000000,1189.000000) scale(0.100000,-0.100000)" fill="#FF0000" stroke="none">
+                                <path d="M3250 11884 c-25 -2 -106 -11 -180 -20 -1485 -172 -2704 -1295 -3001 -2764 -133 -660 -67 -1507 171 -2223 252 -753 675 -1411 1397 -2172 342 -360 634 -630 1588 -1470 231 -203 488 -430 570 -505 1024 -920 1735 -1692 2346 -2547 l130 -183 132 0 132 1 130 192 c557 822 1212 1560 2185 2461 191 178 408 373 1027 923 956 852 1445 1343 1841 1850 643 825 968 1603 1064 2553 19 196 17 665 -5 835 -105 805 -441 1497 -998 2054 -557 557 -1250 894 -2054 998 -193 24 -613 24 -810 0 -733 -93 -1379 -387 -1920 -874 -191 -172 -406 -417 -535 -610 -30 -45 -57 -82 -60 -82 -3 0 -30 37 -60 82 -129 193 -344 438 -535 610 -531 478 -1170 773 -1878 867 -146 20 -562 34 -677 24z"/>
+                            </g>
+                        </svg>
+                        <br><br>
+                        Тут ви можете подивитися відгуки та отримати інформацію про спеціальні пропозиції.
                     </p>
                     <p class="instagram-info__title">
-                        Набір горіхів "Горішковий MIX"
+                        Станьте ближче до NutsCity 👇
                     </p>
                     <a href="https://www.instagram.com/nuts.city/" class="btn btn-orange btn-instagram" target="_blank">
                         <p>Підписатись в Instagram</p>
@@ -273,7 +291,7 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
         <div class="review-top df">
             <div class="review__company-info">
                 <p class="review__company-name">NUTS CITY</p>
-                <p class="review__company-address">Орлика, 1, Солонка, Львівська область</p>
+                <p class="review__company-address"><?= $this->context->information['address'] ?></p>
                 <div class="review__company-rating df">
                     <p>5,0</p>
                     <div class="review-star"><span style="width: calc((100% * 5) / 5)"></span></div>
@@ -485,8 +503,8 @@ $this->registerJsFile('@web/js/lord-icon.min.js');
                 </div>
             </div>
             <div class="contacts-column">
-                <p class="contacts-column__title">Адреса:</p>
-                <p class="contacts-text"><?= $this->context->information['address'] ?></p>
+                <p class="contacts-column__title ">Адреса:</p>
+                <a href="<?= $this->context->information['maps'] ?>" class="contacts-text _hover-orange" target="_blank"><?= $this->context->information['address'] ?></a>
             </div>
         </div>
     </div>

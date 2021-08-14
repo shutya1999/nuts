@@ -1,3 +1,7 @@
+jQuery(function($){
+    $(".mask-phone").mask("+38 (099) 999-99-99");
+});
+
 //DELIVERY RADIO
 let radioDelivery = document.querySelectorAll(".type-delivery__radio"),
     deliveryBlock = document.querySelector(".type-delivery__block_wrap");

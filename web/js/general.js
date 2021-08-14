@@ -1,4 +1,9 @@
 AOS.init();
+
+jQuery(function($){
+    $(".mask-phone").mask("+38 (099) 999-99-99");
+});
+
 let lazyLoadInstance = new LazyLoad({
     elements_selector: ".lazy"
 });
@@ -389,7 +394,7 @@ if (slider !== null){
             clickable: true
         },
         autoplay: {
-            delay: 5000,
+            delay: 3000,
         },
     });
 

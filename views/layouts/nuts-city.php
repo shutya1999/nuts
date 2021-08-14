@@ -22,14 +22,15 @@ AppAsset::register($this);
     <style>
         @font-face {
             font-family: 'BebasNeue';
+            src: url('/fonts/bebas-neue/BebasNeueRegular.eot'); /* IE9 Compat Modes */
+            src: url('/fonts/bebas-neue/BebasNeueRegular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+                url('/fonts/bebas-neue/BebasNeueRegular.woff2') format('woff2'), /* Super Modern Browsers */
+                url('/fonts/bebas-neue/BebasNeueRegular.woff') format('woff'), /* Pretty Modern Browsers */
+                url('/fonts/bebas-neue/BebasNeueRegular.ttf')  format('truetype'); /* Safari, Android, iOS */
+                /*url('/fonts/bebas-neue/BebasNeueRegular.svg#svgFontName') format('svg'); !* Legacy iOS *!*/
+            font-weight: normal;
             font-style: normal;
             font-display: swap;
-            src: url("/fonts/bebas-neue/BebasNeueRegular.eot");
-            src: local('BebasNeue'), local('BebasNeue'),
-            url("/fonts/bebas-neue/BebasNeueRegular.eot?#iefix") format('embedded-opentype'),
-            url("/fonts/bebas-neue/BebasNeueRegular.woff2") format('woff2'),
-            url("/fonts/bebas-neue/BebasNeueRegular.woff") format('woff'),
-            url("/fonts/bebas-neue/BebasNeueRegular.ttf") format('truetype');
         }
 
         @font-face {

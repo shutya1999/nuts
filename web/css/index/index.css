@@ -500,6 +500,9 @@ input, textarea {
   line-height: 25px;
   letter-spacing: 0.005em;
   color: #3A3A3A;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: geometricPrecision;
+  font-weight: normal;
 }
 
 .text {
@@ -2299,6 +2302,12 @@ input, textarea {
   height: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.search-res .sale-block {
+  right: auto;
+  left: 0;
+  top: 0;
 }
 
 .search-res__item {

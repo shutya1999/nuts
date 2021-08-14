@@ -218,7 +218,7 @@ $total_review = count($product->reviews);
                             ],
                         ]) ?>
                         <?= $formReview->field($model, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваше ім’я*'])?>
-                        <?= $formReview->field($model, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '+38 (___) ___ __ __*'])?>
+                        <?= $formReview->field($model, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields mask-phone', 'placeholder' => '+38 (___) ___ __ __*'])?>
                         <?= $formReview->field($model, 'text', ['template' => "{input}\n {error}\n {hint}"])->textarea(['class' => 'form-fields _textarea', 'placeholder' => 'Напишіть ваш відгук*', 'rows' => 4, "maxlength" => '300']) ?>
 
                         <div class="user-rating dg">

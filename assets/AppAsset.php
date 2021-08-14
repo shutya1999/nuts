@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'https://unpkg.com/aos@2.3.1/dist/aos.css'
     ];
     public $js = [
+        'js/maskinput.min.js',
         'js/swiper-bundle.min.js',
         'https://unpkg.com/aos@2.3.1/dist/aos.js',
         'js/lazyload.min.js',

@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
     ]
 ]) ?>
     <?= $formCallback->field($modelCallback, 'name')->textInput(['placeholder' => 'Введіть ваше ім’я','class' => 'form-fields']) ?>
-    <?= $formCallback->field($modelCallback, 'phone')->textInput(['placeholder' => '+38 (___) ___ __ __','class' => 'form-fields']) ?>
+    <?= $formCallback->field($modelCallback, 'phone')->textInput(['placeholder' => '+38 (___) ___ __ __','class' => 'form-fields mask-phone']) ?>
     <?= $formCallback->field($modelCallback, 'text')->textarea(['placeholder' => 'Напишіть короткий зміст питання','class' => 'form-fields _textarea', 'rows' => 4]) ?>
 
     <?= \yii\helpers\Html::submitButton('Відправити', ['class' => 'btn-form btn-green']) ?>

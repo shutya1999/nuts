@@ -139,6 +139,10 @@ class CartController extends AppController
 
         $order_product = new OrderProduct();
 
+        if (Yii::$app->request->isAjax){
+            echo "jopa";
+        }
+
         if ($order->load(\Yii::$app->request->post())){
 
             $order->qty = $session['cart.qty'];
@@ -154,7 +158,7 @@ class CartController extends AppController
                 $transaction->commit();
                 \Yii::$app->session->setFlash("success", "Ваше замовлення прийнято");
 
-                if ($order->payment_type === "Оплата при отриманні"){
+//                if ($order->payment_type === "Оплата при отриманні"){
                     try{
                         \Yii::$app->mailer->compose('order-admin', [
                             'session' => $session,
@@ -175,10 +179,10 @@ class CartController extends AppController
                     }catch (\Swift_TransportException $e){
 //                        debug($e); die;
                     }
-                }else{
+//                }else{
 //                    echo "LiqPay";
 //                    return $this->redirect(['/cart/liqpay', 'sum' => $session['cart.sum'], 'id' => $order->id]);
-                }
+//                }
 
 
                 $session->remove('cart');
@@ -205,9 +209,10 @@ class CartController extends AppController
             $merchantAccount = 'nuts_city_yh_web_space';
             $merchantDomainName = 'https://nuts-city.yh-web.space';
             $authorizationType = 'SimpleSignature';
-            $orderReference = $order_id + 5;
+            $orderReference = substr($order_id . "_" .  sha1(time()), 0, 16);
             $orderDate = date('now');
-            $amount = $session['cart.sum'];
+//            $amount = $session['cart.sum'];
+            $amount = 5;
             $currency = 'UAH';
             $productName = 'Test';
             $productPrice = '1';

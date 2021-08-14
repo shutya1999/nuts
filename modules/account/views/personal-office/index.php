@@ -32,7 +32,7 @@
             <div class="fields-wrap">
                 <?= $form->field($model, 'name')->textInput(['placeholder' => 'Ваше ім’я*', 'class' => 'form-fields']) ?>
                 <?= $form->field($model, 'surname')->textInput(['placeholder' => 'Ваше прізвище*', 'class' => 'form-fields']) ?>
-                <?= $form->field($model, 'phone')->textInput(['placeholder' => '38(___) ___ __ __*', 'class' => 'form-fields']) ?>
+                <?= $form->field($model, 'phone')->textInput(['placeholder' => '38(___) ___ __ __*', 'class' => 'form-fields mask-phone']) ?>
                 <?= $form->field($model, 'username')->textInput(['placeholder' => 'Введіть ваш email*', 'class' => 'form-fields']) ?>
             </div>
         </div>

@@ -15,7 +15,7 @@
             <div class="mo-item__wrap _form">
                 <?= $form->field($order, 'name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Ваше ім’я*'])?>
                 <?= $form->field($order, 'last_name', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Ваше прізвище*']) ?>
-                <?= $form->field($order, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => '38(___) ___ __ __*']) ?>
+                <?= $form->field($order, 'phone', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields mask-phone', 'placeholder' => '38(___) ___ __ __*']) ?>
                 <?= $form->field($order, 'email', ['template' => "{input}\n {error}\n {hint}"])->textInput(['class' => 'form-fields', 'placeholder' => 'Введіть ваш email*']) ?>
             </div>
             <div class="mo-item__wrap _radio">
@@ -68,8 +68,8 @@
                 <label for="payment1" onclick="paymentType(this);" data-payment-type = 'delivery'>Оплата при отриманні</label>
             </div>
             <div class="mo-item__wrap _radio">
-                <input type="radio" class="filter-checkbox payment-type" id="payment2" name="Order[payment_type]" value="LiqPay" disabled>
-                <label for="payment2" onclick="paymentType(this);" data-payment-type = 'cart'>Оплата картою (LiqPay)</label>
+                <input type="radio" class="filter-checkbox payment-type" id="payment2" name="Order[payment_type]" value="LiqPay">
+                <label for="payment2" onclick="paymentType(this);" data-payment-type = 'cart'>Оплата картою </label>
             </div>
             <div class="mo-line"></div>
             <?= $form->field($order, 'note', ['template' => "{input}"])->textarea(['class' => 'form-fields', 'placeholder' => 'Коментар', 'rows' => 4, "maxlength" => '150']) ?>
@@ -155,8 +155,8 @@
     }
 </script>
 
-<?php //$this->registerJsFile('https://secure.wayforpay.com/server/pay-widget.js', ['id' => 'widget-wfp-script' ,'depends' => \app\assets\AppAsset::class]); ?>
-<?php //$this->registerJsFile('@web/js/payment.js', ['depends' => \app\assets\AppAsset::class]); ?>
+<?php $this->registerJsFile('https://secure.wayforpay.com/server/pay-widget.js', ['id' => 'widget-wfp-script' ,'depends' => \app\assets\AppAsset::class]); ?>
+<?php $this->registerJsFile('@web/js/payment.js', ['depends' => \app\assets\AppAsset::class]); ?>
 
 
 

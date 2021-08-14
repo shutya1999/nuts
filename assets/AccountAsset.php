@@ -19,10 +19,7 @@ class AccountAsset extends AssetBundle
         'css/index/index.css',
     ];
     public $js = [
-//        'js/swiper-bundle.min.js',
-//        'https://unpkg.com/aos@2.3.1/dist/aos.js',
-//        'js/lazyload.min.js',
-//        'js/general.js',
+        'js/maskinput.min.js',
         'js/account.js',
     ];
     public $depends = [

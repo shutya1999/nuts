@@ -35,6 +35,9 @@ class ProductController extends AppController
             $model->product_id = $product->id;
             if ($model->load(\Yii::$app->request->post()) && $model->save()){
                 $product->rating = Reviews::find()->where(['product_id' => $product->id])->average('rating');
+
+                $product->save();
+
                 \Yii::$app->session->setFlash("success", "Ваш коментар додано");
                 return $this->refresh();
             }else{
